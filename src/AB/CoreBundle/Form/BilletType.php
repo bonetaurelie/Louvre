@@ -21,7 +21,7 @@ class BilletType extends AbstractType
                     'choices' => [
                         'Choisissez votre type de billet' => [
                             'demi_journee' => 'Demi-journée',
-                            'Journée' =>'journee',
+                            'journee' =>'Journée',
                         ],
                     ]
                 ]
