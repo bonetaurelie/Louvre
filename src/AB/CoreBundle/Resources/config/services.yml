@@ -1,0 +1,4 @@
+services:
+#    ab_core.example:
+#        class: AB\CoreBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]
