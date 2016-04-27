@@ -19,7 +19,8 @@ class VisiteurType extends AbstractType
             ->add('prenom')
             ->add('dateNaissance', 'date')
             ->add('pays')
-            ->add('tarifReduit')
+            ->add('tarifReduit','checkbox',array('required'=>false))
+            ->add('valider','submit')
         ;
     }
     
