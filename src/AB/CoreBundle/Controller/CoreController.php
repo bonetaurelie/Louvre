@@ -3,9 +3,11 @@
 namespace AB\CoreBundle\Controller;
 
 use AB\CoreBundle\Entity\Billet;
+use AB\CoreBundle\Entity\Visiteur;
 use AB\CoreBundle\Form\BilletType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AB\CoreBundle\Form\VisiteurType;
 
 class CoreController extends Controller
 {
@@ -25,8 +27,15 @@ class CoreController extends Controller
         return $this->render('ABCoreBundle:Default:reservation.html.twig',array('form'=>$form->createView()));
     }
 
-    public function personneAction(){
-        return $this->render('ABCoreBundle:Default:personne.html.twig');
+    public function visiteurAction(Request $request){
+        $visiteur= new Visiteur();
+        $form= $this->get('form.factory')->create(new VisiteurType(),$visiteur);
+        if($form->handleRequest($request)->isValid()){
+            $em=$this->getDoctrine()->getManager();
+            $em->persist($visiteur);
+            $em->flush();
+        }
+        return $this->render('ABCoreBundle:Default:visiteur.html.twig',array('form'=>$form->createView()));
     }
 
     public function paiementAction(){
