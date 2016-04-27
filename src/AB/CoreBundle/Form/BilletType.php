@@ -5,7 +5,6 @@ namespace AB\CoreBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class BilletType extends AbstractType
@@ -18,16 +17,15 @@ class BilletType extends AbstractType
     {
         $builder
             ->add('quantite')
-            ->add('type',collectionType::class, array(
-                'entry_type' => ChoiceType::class,
-                'entry_options' => array(
-                    'choices' => array(
-                        'Demi journée' => 'demi_journee',
-                        'Journée' => 'journee',
-                    ),
-                    choices_as_values => true,
-                ),
-            ))
+            ->add('type',ChoiceType::class,[
+                    'choices' => [
+                        'Choisissez votre type de billet' => [
+                            'Demi-journée' => 'demi_journee',
+                            'journee' =>'journee',
+                        ],
+                    ]
+                ]
+            )
             ->add('date', 'date')
             ->add('email')
             ->add('valider','submit')
