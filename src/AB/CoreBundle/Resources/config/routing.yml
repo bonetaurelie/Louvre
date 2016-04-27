@@ -1,0 +1,19 @@
+ab_core_accueil:
+    path:     /
+    defaults: { _controller: ABCoreBundle:Core:index }
+
+ab_core_reservation:
+    path:    /reservation
+    defaults: { _controller: ABCoreBundle:Core:reservation }
+
+ab_core_personne:
+    path:    /personne
+    defaults: { _controller: ABCoreBunble:Core:personne }
+
+ab_core_paiement:
+    path:    /paiement
+    defaults: { _controller: ABCoreBundle:Core:paiement }
+
+ab_core_partage:
+    path:    /partage
+    defaults: { _controller: ABCoreBundle:Core:partage }
