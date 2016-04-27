@@ -7,8 +7,8 @@ ab_core_reservation:
     defaults: { _controller: ABCoreBundle:Core:reservation }
 
 ab_core_personne:
-    path:    /personne
-    defaults: { _controller: ABCoreBunble:Core:personne }
+    path:    /visiteur
+    defaults: { _controller: ABCoreBundle:Core:visiteur }
 
 ab_core_paiement:
     path:    /paiement
