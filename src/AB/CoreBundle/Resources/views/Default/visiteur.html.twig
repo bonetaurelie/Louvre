@@ -1,0 +1,75 @@
+{% extends 'ABCoreBundle::layout.html.twig' %}
+
+{% block title %}
+    {{ parent() }} - Saisie des visiteurs
+{% endblock %}
+
+{% block body %}
+
+<div class="form">
+    <h1 class="text-center">Merci de remplir le formulaire</h1>
+
+    <div class="form2 col-md-offset-3">
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+        {{ form_errors(form) }}
+
+        <div class="form-group">
+            {{ form_label(form.nom, "Votre nom", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+
+            {{ form_errors(form.nom) }}
+
+            <div class="col-md-3">
+                {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.prenom, "Votre prénom", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+            {{ form_errors(form.prenom) }}
+            <div class="col-md-2">
+                {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.dateNaissance, "Votre date de naissance", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+
+            {{ form_errors(form.dateNaissance) }}
+
+            <div class="col-md-3">
+                {{ form_widget(form.dateNaissance, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.pays, "Votre pays de résidence", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+
+            {{ form_errors(form.pays) }}
+
+            <div class="col-md-4">
+                {{ form_widget(form.pays, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.tarifReduit, "Tarif réduit", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+
+            {{ form_errors(form.tarifReduit) }}
+
+            <div class="col-md-1">
+                {{ form_widget(form.tarifReduit, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+
+        <div class="col-md-offset-4">
+            {{ form_widget(form.valider, {'attr': {'class': 'btn btn-primary'}}) }}
+        </div>
+
+        {{ form_rest(form) }}
+
+        {{ form_end(form) }}
+    </div>
+</div>
+
+{% endblock %}
