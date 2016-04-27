@@ -3,6 +3,7 @@
 namespace AB\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Billet
@@ -25,6 +26,7 @@ class Billet
      * @var int
      *
      * @ORM\Column(name="quantite", type="integer")
+     * @Assert\Range(min=1)
      */
     private $quantite;
 
