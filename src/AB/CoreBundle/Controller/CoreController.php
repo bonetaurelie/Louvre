@@ -23,6 +23,8 @@ class CoreController extends Controller
             $em=$this->getDoctrine()->getManager();
             $em->persist($billet);
             $em->flush();
+
+            return $this->redirect($this->generateUrl('ab_core_visiteur'));
         }
         return $this->render('ABCoreBundle:Default:reservation.html.twig',array('form'=>$form->createView()));
     }
