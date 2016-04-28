@@ -27,7 +27,9 @@ class BilletType extends AbstractType
                     ]
                 ]
             )
-            ->add('date', 'date')
+            ->add('date', 'date', array(
+                'widget'=>'single_text',
+                ))
             ->add('email')
             ->add('valider','submit')
         ;
