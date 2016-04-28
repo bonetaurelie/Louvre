@@ -57,6 +57,11 @@ class Billet
      *
      * @return integer 
      */
+
+    public function _construct(){
+        $this->date = new \Datetime();
+    }
+
     public function getId()
     {
         return $this->id;
