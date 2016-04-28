@@ -3,6 +3,7 @@
 namespace AB\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Visiteur
@@ -25,6 +26,7 @@ class Visiteur
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=255)
+     * @Assert\Length(min=2)
      */
     private $nom;
 
@@ -32,6 +34,7 @@ class Visiteur
      * @var string
      *
      * @ORM\Column(name="prenom", type="string", length=255)
+     * * @Assert\Length(min=2)
      */
     private $prenom;
 
@@ -39,6 +42,7 @@ class Visiteur
      * @var \DateTime
      *
      * @ORM\Column(name="date_naissance", type="date")
+     * * @Assert\Date()
      */
     private $dateNaissance;
 
@@ -46,6 +50,7 @@ class Visiteur
      * @var string
      *
      * @ORM\Column(name="pays", type="string", length=255)
+     * * @Assert\Country()
      */
     private $pays;
 

@@ -48,6 +48,7 @@ class Billet
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255)
+     * @Assert\Email(checkMX=true)
      */
     private $email;
 
