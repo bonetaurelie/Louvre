@@ -27,7 +27,7 @@
         <div class="form-group">
             {{ form_label(form.type, "Type de billet", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
             {{ form_errors(form.type) }}
-            <div class="col-md-2">
+            <div class="col-md-3">
                 {{ form_widget(form.type, {'attr': {'class': 'form-control'}}) }}
             </div>
         </div>
@@ -61,5 +61,11 @@
         {{ form_end(form) }}
     </div>
 </div>
+
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        <div class="flash-notice">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
 
 {% endblock %}
