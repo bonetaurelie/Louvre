@@ -28,7 +28,7 @@ class CoreController extends Controller
             
             return $this->redirect($this->generateUrl('ab_core_visiteur'));
         }
-        return $this->render('ABCoreBundle:Default:reservation.html.twig',array('form'=>$form->createView()));
+        return $this->render('ABCoreBundle:Default:reservation.html.twig',array('billet'=>$billet,'form'=>$form->createView()));
     }
 
     public function visiteurAction(Request $request){
