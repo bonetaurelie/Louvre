@@ -52,7 +52,8 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" data-toggle="buttons">
+            <button type="button" class="btn btn-default" id="myStateButton" data-complete-text="Merci de vous munir le justificatif correspondant à votre situation" autocomplete="off"></button>
             {{ form_label(form.tarifReduit, "Tarif réduit", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
             {{ form_errors(form.tarifReduit) }}
@@ -71,5 +72,6 @@
         {{ form_end(form) }}
     </div>
 </div>
-   
+
+
 {% endblock %}
