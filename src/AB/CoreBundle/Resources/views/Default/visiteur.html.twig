@@ -5,7 +5,9 @@
 {% endblock %}
 
 {% block body %}
-
+    <ul>
+    {% for book in book%}
+<li>
 <div class="form">
     <h1 class="text-center">Merci de remplir le formulaire</h1>
 
@@ -71,5 +73,8 @@
         {{ form_end(form) }}
     </div>
 </div>
+    </li>
+    {%endfor%}
+    </ul>
 
 {% endblock %}
