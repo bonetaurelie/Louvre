@@ -19,12 +19,13 @@ class CoreController extends Controller
     public function reservationAction(Request $request){
         $billet= new Billet();
         $billet->setDate( new \Datetime());
+       
         $form= $this->get('form.factory')->create(new BilletType(),$billet);
         if($form->handleRequest($request)->isValid()){
             $em=$this->getDoctrine()->getManager();
             $em->persist($billet);
             $em->flush();
-
+            
             return $this->redirect($this->generateUrl('ab_core_visiteur'));
         }
         return $this->render('ABCoreBundle:Default:reservation.html.twig',array('form'=>$form->createView()));

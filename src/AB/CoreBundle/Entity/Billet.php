@@ -26,7 +26,8 @@ class Billet
      * @var int
      *
      * @ORM\Column(name="quantite", type="integer")
-     * @Assert\Range(min=1)
+     * @Assert\Range(min=1,
+     *      minMessage ="La quantité saisie ne doit pas être inférieure à 1")
      */
     private $quantite;
 
@@ -41,14 +42,47 @@ class Billet
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="date")
+     * @Assert\GreaterThan("Yesterday",
+     *     message ="La date saisie ne doit pas être antèrieure à aujourd'hui")
+     *  @Assert\NotEqualTo(
+     *     value = "may 1st",
+     *      message ="La date saisie ne doit pas être un jour férié")
+     * @Assert\NotEqualTo(
+     *     value = "november 1st",
+     *      message ="La date saisie ne doit pas être un jour férié")
+     * @Assert\NotEqualTo(
+     *     value = "december 25th",
+     *      message ="La date saisie ne doit pas être un jour férié")
+     *  @Assert\NotEqualTo(
+     *     value = "may 8th",
+     *      message ="La date saisie ne doit pas être un jour férié")
+     *  @Assert\NotEqualTo(
+     *     value = "july 14th",
+     *      message ="La date saisie ne doit pas être un jour férié")
+     *  @Assert\NotEqualTo(
+     *     value = "august 15th",
+     *      message ="La date saisie ne doit pas être un jour férié")
+     *  @Assert\NotEqualTo(
+     *     value = "november 11th",
+     *      message ="La date saisie ne doit pas être un jour férié")
+     *  @Assert\NotEqualTo(
+     *     value = "January 1st",
+     *      message ="La date saisie ne doit pas être un jour férié")
+     * @Assert\Type(
+     *     type="date",
+     *     value="Sunday Tuesday",
+     *     message="Il n'est pas possible de réserver le dimanche et le mardi "
+     * )
      */
+
     private $date;
 
     /**
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255)
-     * @Assert\Email(checkMX=true)
+     * @Assert\Email(checkMX=true,
+     *      message ="L'e-mail saisi n'est pas valide")
      */
     private $email;
 
