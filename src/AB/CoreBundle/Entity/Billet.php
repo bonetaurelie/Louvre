@@ -36,10 +36,7 @@ class Billet
      * @var string
      *
      * @ORM\Column(name="type", type="string", length=50)
-     * @Assert\Type(
-     *     type= "string",
-     *     value= "Today 14:00",
-     *     message="Vous ne pouvez pas réserver pour la journée même un billet journée si 14h sont passées")
+     * 
      */
     private $type;
 
