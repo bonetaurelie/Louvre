@@ -35,4 +35,5 @@ class VisiteurType extends AbstractType
             'data_class' => 'AB\CoreBundle\Entity\Visiteur'
         ));
     }
+    
 }

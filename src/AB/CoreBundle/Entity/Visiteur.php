@@ -50,6 +50,7 @@ class Visiteur
      * @var string
      *
      * @ORM\Column(name="pays", type="string", length=255)
+     * @Assert\Length(min=2)
      */
     private $pays;
 
@@ -57,6 +58,7 @@ class Visiteur
      * @var bool
      *
      * @ORM\Column(name="tarif_reduit", type="boolean")
+     *
      */
     private $tarifReduit;
 
