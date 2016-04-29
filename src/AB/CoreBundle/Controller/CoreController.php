@@ -16,7 +16,7 @@ class CoreController extends Controller
         return $this->render('ABCoreBundle:Default:index.html.twig');
     }
 
-    public function reservationAction(Request $request){
+    public function reservationAction( Request $request){
         $billet= new Billet();
         $billet->setDate( new \Datetime());
        
@@ -39,7 +39,7 @@ class CoreController extends Controller
             $em->persist($visiteur);
             $em->flush();
         }
-        return $this->render('ABCoreBundle:Default:visiteur.html.twig',array('form'=>$form->createView()));
+        return $this->render('ABCoreBundle:Default:visiteur.html.twig',array('visiteur'=>$visiteur,'form'=>$form->createView()));
     }
 
     public function paiementAction(){
