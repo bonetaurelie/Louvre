@@ -4,6 +4,7 @@ namespace AB\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Billet
@@ -35,6 +36,10 @@ class Billet
      * @var string
      *
      * @ORM\Column(name="type", type="string", length=50)
+     * @Assert\Type(
+     *     type= "string",
+     *     value= "Today 14:00",
+     *     message="Vous ne pouvez pas réserver pour la journée même un billet journée si 14h sont passées")
      */
     private $type;
 
@@ -68,14 +73,20 @@ class Billet
      *  @Assert\NotEqualTo(
      *     value = "January 1st",
      *      message ="La date saisie ne doit pas être un jour férié")
-     * @Assert\Type(
-     *     type="date",
-     *     value="Sunday Tuesday",
-     *     message="Il n'est pas possible de réserver le dimanche et le mardi "
-     * )
+     * 
      */
 
     private $date;
+    public function validate(ExecutionContextInterface $context)
+    {
+        $fakeNames = array("Sunday","Tuesday");
+
+        if (in_array($this->getDate(), $fakeNames)) {
+            $context->buildViolation('Il n\'est pas possible de réserver pour le dimanche ou le mardi')
+                ->atPath('date')
+                ->addViolation();
+        }
+    }
 
     /**
      * @var string
