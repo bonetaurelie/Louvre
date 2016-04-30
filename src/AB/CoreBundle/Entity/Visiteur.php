@@ -57,8 +57,7 @@ class Visiteur
     /**
      * @var bool
      *
-     * @ORM\Column(name="tarif_reduit", type="boolean")
-     *
+     * @ORM\Column(name="tarif_reduit", type="boolean")     *
      */
     private $tarifReduit;
 
@@ -181,7 +180,7 @@ class Visiteur
     /**
      * Get tarifReduit
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getTarifReduit()
     {
