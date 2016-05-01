@@ -77,10 +77,10 @@ class Billet
      *  @Assert\NotEqualTo(
      *     value = "sunday",
      *      message ="Vous ne pouvez pas réserver pour le dimanche")
-     * 
+     *
      */
-
     private $date;
+
 
     /**
      * @var string

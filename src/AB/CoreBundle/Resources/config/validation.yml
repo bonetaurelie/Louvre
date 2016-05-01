@@ -1,3 +1,0 @@
-CoreBundle\Entity\Billet:
-    constraints:
-        - Callback: [validate]
