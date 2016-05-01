@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
+
 /**
  * Billet
  *
@@ -44,7 +45,7 @@ class Billet
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="date")
-     * @Assert\GreaterThan("Yesterday",
+     * @Assert\GreaterThan("Yesterday this year",
      *     message ="La date saisie ne doit pas être antèrieure à aujourd'hui")
      *  @Assert\NotEqualTo(
      *     value = "may 1st",
@@ -68,22 +69,18 @@ class Billet
      *     value = "november 11th",
      *      message ="La date saisie ne doit pas être un jour férié")
      *  @Assert\NotEqualTo(
-     *     value = "January 1st",
+     *     value = "january 1st 2017",
      *      message ="La date saisie ne doit pas être un jour férié")
+     *  @Assert\NotEqualTo(
+     *     value = "tuesday",
+     *      message ="Vous ne pouvez pas réserver pour le mardi")
+     *  @Assert\NotEqualTo(
+     *     value = "sunday",
+     *      message ="Vous ne pouvez pas réserver pour le dimanche")
      * 
      */
 
     private $date;
-    public function validate(ExecutionContextInterface $context)
-    {
-        $fakeNames = array("Sunday","Tuesday");
-
-        if (in_array($this->getDate(), $fakeNames)) {
-            $context->buildViolation('Il n\'est pas possible de réserver pour le dimanche ou le mardi')
-                ->atPath('date')
-                ->addViolation();
-        }
-    }
 
     /**
      * @var string
@@ -172,7 +169,7 @@ class Billet
     /**
      * Get date
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDate()
     {
