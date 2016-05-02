@@ -61,6 +61,12 @@ class Visiteur
      */
     private $tarifReduit;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Billet", inversedBy="visiteurs")
+     * @ORM\JoinColumn(name="id_billet", referencedColumnName="id")
+     */
+    private $billet;
+
 
     /**
      * Get id
@@ -185,5 +191,28 @@ class Visiteur
     public function getTarifReduit()
     {
         return $this->tarifReduit;
+    }
+
+    /**
+     * Set billet
+     *
+     * @param \AB\CoreBundle\Entity\Billet $billet
+     * @return Visiteur
+     */
+    public function setBillet(\AB\CoreBundle\Entity\Billet $billet = null)
+    {
+        $this->billet = $billet;
+
+        return $this;
+    }
+
+    /**
+     * Get billet
+     *
+     * @return \AB\CoreBundle\Entity\Billet 
+     */
+    public function getBillet()
+    {
+        return $this->billet;
     }
 }
