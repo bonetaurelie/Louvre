@@ -1,6 +1,13 @@
 $(document).ready(function(){
-    $('#myStateButton').on('click', function () {
-        $(this).button('complete')
+    $('.checkbox-help').on('click', function () {
+        if($(this).prop("checked")){
+            var nb = $(this).data('help-number');
+            $("#help-"+nb).removeClass("hide");
+        }
+        else {
+            var nb = $(this).data('help-number');
+            $("#help-"+nb).addClass("hide");
+        }
     })
 });
 
