@@ -42,3 +42,8 @@ p{
 .form2{
     padding-top: 50px;
 }
+
+/*message checkbox*/
+.help p {
+    margin-top: 0px;
+}
