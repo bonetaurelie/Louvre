@@ -5,6 +5,7 @@ namespace AB\CoreBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 
 
 /**
@@ -56,34 +57,34 @@ class Billet
      *     message ="La date saisie ne doit pas être antèrieure à aujourd'hui")
      *  @Assert\NotEqualTo(
      *     value = "may 1st",
-     *      message ="La date saisie ne doit pas être un jour férié")
+     *     message ="La date saisie ne doit pas être un jour férié")
      * @Assert\NotEqualTo(
      *     value = "november 1st",
-     *      message ="La date saisie ne doit pas être un jour férié")
+     *     message ="La date saisie ne doit pas être un jour férié")
      * @Assert\NotEqualTo(
      *     value = "december 25th",
-     *      message ="La date saisie ne doit pas être un jour férié")
+     *     message ="La date saisie ne doit pas être un jour férié")
      *  @Assert\NotEqualTo(
      *     value = "may 8th",
-     *      message ="La date saisie ne doit pas être un jour férié")
+     *     message ="La date saisie ne doit pas être un jour férié")
      *  @Assert\NotEqualTo(
      *     value = "july 14th",
-     *      message ="La date saisie ne doit pas être un jour férié")
+     *     message ="La date saisie ne doit pas être un jour férié")
      *  @Assert\NotEqualTo(
      *     value = "august 15th",
-     *      message ="La date saisie ne doit pas être un jour férié")
+     *     message ="La date saisie ne doit pas être un jour férié")
      *  @Assert\NotEqualTo(
      *     value = "november 11th",
-     *      message ="La date saisie ne doit pas être un jour férié")
+     *     message ="La date saisie ne doit pas être un jour férié")
      *  @Assert\NotEqualTo(
      *     value = "january 1st 2017",
-     *      message ="La date saisie ne doit pas être un jour férié")
+     *     message ="La date saisie ne doit pas être un jour férié")
      *  @Assert\NotEqualTo(
-     *     value = "tuesday",
-     *      message ="Vous ne pouvez pas réserver pour le mardi")
+     *     value = "Tuesday",
+     *     message ="Vous ne pouvez pas réserver pour le mardi")
      *  @Assert\NotEqualTo(
-     *     value = "sunday",
-     *      message ="Vous ne pouvez pas réserver pour le dimanche")
+     *     value = "Sunday",
+     *     message ="Vous ne pouvez pas réserver pour le dimanche")
      *
      */
     private $date;
@@ -98,6 +99,11 @@ class Billet
      */
     private $email;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Visiteur", mappedBy="billet")
+     */
+    private $visiteurs;
+
 
     /**
      * Get id
@@ -108,6 +114,8 @@ class Billet
     public function _construct(){
         $this->date = new \Datetime();
         $this->dateResa = new \Datetime();
+        $this->visiteurs = new ArrayCollection();
+
     }
 
     public function getId()
@@ -228,5 +236,45 @@ class Billet
     public function getEmail()
     {
         return $this->email;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->visiteurs = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add visiteurs
+     *
+     * @param \AB\CoreBundle\Entity\Visiteur $visiteurs
+     * @return Billet
+     */
+    public function addVisiteur(\AB\CoreBundle\Entity\Visiteur $visiteurs)
+    {
+        $this->visiteurs[] = $visiteurs;
+
+        return $this;
+    }
+
+    /**
+     * Remove visiteurs
+     *
+     * @param \AB\CoreBundle\Entity\Visiteur $visiteurs
+     */
+    public function removeVisiteur(\AB\CoreBundle\Entity\Visiteur $visiteurs)
+    {
+        $this->visiteurs->removeElement($visiteurs);
+    }
+
+    /**
+     * Get visiteurs
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getVisiteurs()
+    {
+        return $this->visiteurs;
     }
 }
