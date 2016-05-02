@@ -1,5 +1,8 @@
 {% extends 'ABCoreBundle::layout.html.twig' %}
-
+{% block stylesheet %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/abcore/css/bootstrap-datepicker3.min.css') }}">
+{% endblock %}
 {% block title %}
 {{ parent() }} - réservation
 {% endblock %}
@@ -8,7 +11,9 @@
 
 <div class="form">
     <h1 class="text-center">Merci de remplir le formulaire</h1>
-
+    {% if error != "" %}
+        <p>{{ error }}</p>
+    {% endif %}
     <div class="form2 col-md-offset-3">
         {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
@@ -62,4 +67,20 @@
     </div>
 </div>
 
+{% endblock %}
+
+{% block jquery %}
+    {{ parent() }}
+    <script src="{{ asset ('bundles/abcore/js/bootstrap-datepicker.min.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#billet_date').datepicker({
+                format: "dd/mm/yyyy",
+                todayBtn: "linked",
+                language: "fr",
+                daysOfWeekDisabled: "0,2",
+                autoclose: true
+            });
+        });
+    </script>
 {% endblock %}
