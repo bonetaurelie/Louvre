@@ -5,6 +5,7 @@ namespace AB\CoreBundle\Controller;
 use AB\CoreBundle\Entity\Billet;
 use AB\CoreBundle\Entity\Visiteur;
 use AB\CoreBundle\Form\BilletType;
+use AB\CoreBundle\Form\BilletVisiteurType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AB\CoreBundle\Form\VisiteurType;
@@ -22,24 +23,41 @@ class CoreController extends Controller
         $billet->setDateResa(new \DateTime());
        
         $form= $this->get('form.factory')->create(new BilletType(),$billet);
+        $error = "";
         if($form->handleRequest($request)->isValid()){
             $em=$this->getDoctrine()->getManager();
-            $em->persist($billet);
-            $em->flush();
-            
-            return $this->redirect($this->generateUrl('ab_core_visiteur',array('quantite'=>$billet->getquantite())));
+            $billets = $this->getDoctrine()->getRepository("ABCoreBundle:Billet")->findByDate($billet->getDate());
+            if(count($billets) > 1000){
+                $error = "Impossible de réserver a ce jour, nous sommes complet, désolé !";
+            }else {
+                $em->persist($billet);
+                $em->flush();
+                return $this->redirect($this->generateUrl('ab_core_visiteur',array('id'=>$billet->getId())));
+            }
+
         }
-        return $this->render('ABCoreBundle:Default:reservation.html.twig',array('billet'=>$billet,'form'=>$form->createView()));
+        return $this->render('ABCoreBundle:Default:reservation.html.twig',array('billet'=>$billet,'form'=>$form->createView(),'error'=>$error));
     }
 
-    public function visiteurAction($quantite, Request $request){
-        $visiteur = $this->getDoctrine()->getManager()->getRepository('ABCoreBundle:Billet')->find($quantite);
+    public function visiteurAction($id, Request $request){
+        $billet = $this->getDoctrine()->getRepository("ABCoreBundle:Billet")->find($id);
 
-        $visiteur= new Visiteur();
-        $form= $this->get('form.factory')->create(new VisiteurType(),$visiteur);
+//
+        $form= $this->get('form.factory')->create(new BilletVisiteurType(),$billet);
+
+        for($a = 0;$a < $billet->getQuantite();$a++){
+            $visiteur= new Visiteur();
+            $form->get('visiteurs')->add($a, new VisiteurType());
+            $visiteurform = $form->get('visiteurs')->get($a);
+            $visiteurform->setData($visiteur);
+        }
         if($form->handleRequest($request)->isValid()){
             $em=$this->getDoctrine()->getManager();
-            $em->persist($visiteur);
+            foreach($billet->getVisiteurs() as $visiteur){
+                $visiteur->setBillet($billet);
+                $em->persist($visiteur);
+            }
+            $em->persist($billet);
             $em->flush();
 
             return $this->redirect($this->generateUrl('ab_core_paiement'));
