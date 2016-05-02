@@ -25,6 +25,13 @@ class Billet
     private $id;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_resa", type="datetime")     *
+     */
+    private $dateResa;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="quantite", type="integer")
@@ -100,11 +107,35 @@ class Billet
 
     public function _construct(){
         $this->date = new \Datetime();
+        $this->dateResa = new \Datetime();
     }
 
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set dateResa
+     *
+     * @param \DateTime $dateResa
+     * @return Commande
+     */
+    public function setDateResa($dateResa)
+    {
+        $this->dateResa = $dateResa;
+
+        return $this;
+    }
+
+    /**
+     * Get dateResa
+     *
+     * @return \DateTime
+     */
+    public function getDateResa()
+    {
+        return $this->dateResa;
     }
 
     /**
