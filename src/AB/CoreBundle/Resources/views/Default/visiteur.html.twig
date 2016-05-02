@@ -5,6 +5,8 @@
 {% endblock %}
 
 {% block body %}
+    <ul>
+
 
 <div class="form">
     <h1 class="text-center">Merci de remplir le formulaire</h1>
@@ -13,55 +15,63 @@
         {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
         {{ form_errors(form) }}
-
+        {% for visiteur in form.visiteurs %}
+        <li>
         <div class="form-group">
-            {{ form_label(form.nom, "Votre nom", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+            {{ form_label(visiteur.nom, "Votre nom", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
-            {{ form_errors(form.nom) }}
+            {{ form_errors(visiteur.nom) }}
 
             <div class="col-md-3">
-                {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+                {{ form_widget(visiteur.nom, {'attr': {'class': 'form-control'}}) }}
             </div>
         </div>
 
         <div class="form-group">
-            {{ form_label(form.prenom, "Votre prénom", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-            {{ form_errors(form.prenom) }}
+            {{ form_label(visiteur.prenom, "Votre prénom", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+            {{ form_errors(visiteur.prenom) }}
             <div class="col-md-2">
-                {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
+                {{ form_widget(visiteur.prenom, {'attr': {'class': 'form-control'}}) }}
             </div>
         </div>
 
         <div class="form-group">
-            {{ form_label(form.dateNaissance, "Votre date de naissance", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+            {{ form_label(visiteur.dateNaissance, "Votre date de naissance", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
-            {{ form_errors(form.dateNaissance) }}
+            {{ form_errors(visiteur.dateNaissance) }}
 
             <div class="col-md-3">
-                {{ form_widget(form.dateNaissance, {'attr': {'class': 'form-control'}}) }}
+                {{ form_widget(visiteur.dateNaissance, {'attr': {'class': 'form-control'}}) }}
             </div>
         </div>
 
         <div class="form-group">
-            {{ form_label(form.pays, "Votre pays de résidence", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+            {{ form_label(visiteur.pays, "Votre pays de résidence", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
-            {{ form_errors(form.pays) }}
+            {{ form_errors(visiteur.pays) }}
 
             <div class="col-md-4">
-                {{ form_widget(form.pays, {'attr': {'class': 'form-control'}}) }}
+                {{ form_widget(visiteur.pays, {'attr': {'class': 'form-control'}}) }}
             </div>
         </div>
 
-        <div class="form-group" data-toggle="buttons">
-            <button type="button" class="btn btn-default" id="myStateButton" data-complete-text="Merci de vous munir de votre carte étudiant, militaire ou  autre justificatif correspondant à votre situation" autocomplete="off"></button>
-            {{ form_label(form.tarifReduit, "Tarif réduit", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+        <div class="form-group">
+            <div class="help hide" id="help-{{ loop.index }}">
+                <p>
+                    Merci de vous munir de votre carte étudiant, militaire ou  autre justificatif correspondant à votre situation
+                </p>
+            </div>
 
-            {{ form_errors(form.tarifReduit) }}
+            {{ form_label(visiteur.tarifReduit, "Tarif réduit", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+
+            {{ form_errors(visiteur.tarifReduit) }}
 
             <div class="col-md-1">
-                {{ form_widget(form.tarifReduit, {'attr': {'class': 'form-control'}}) }}
+                {{ form_widget(visiteur.tarifReduit, {'attr': {'class': 'form-control checkbox-help','data-help-number': loop.index}}) }}
             </div>
         </div>
+         </li>
+        {% endfor %}
 
         <div class="col-md-offset-4">
             {{ form_widget(form.valider, {'attr': {'class': 'btn btn-primary'}}) }}
@@ -73,5 +83,5 @@
     </div>
 </div>
 
-
+    </ul>
 {% endblock %}
