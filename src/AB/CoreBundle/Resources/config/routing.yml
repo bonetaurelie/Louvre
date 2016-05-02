@@ -7,7 +7,7 @@ ab_core_reservation:
     defaults: { _controller: ABCoreBundle:Core:reservation }
 
 ab_core_visiteur:
-    path:    /visiteur/{quantite}
+    path:    /visiteur/{id}
     defaults: { _controller: ABCoreBundle:Core:visiteur }
     requirements:
         quantite: \d+
