@@ -22,7 +22,6 @@ class VisiteurType extends AbstractType
             ))
             ->add('pays')
             ->add('tarifReduit','checkbox',array('required'=>false))
-            ->add('valider','submit')
         ;
     }
     
