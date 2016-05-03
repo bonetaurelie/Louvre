@@ -54,7 +54,6 @@ class Commande
      *
      * @ORM\Column(name="statut", type="string", length=255)
      */
-    private $statut;
 
 
     /**
@@ -165,20 +164,5 @@ class Commande
      * @param string $statut
      * @return Commande
      */
-    public function setStatut($statut)
-    {
-        $this->statut = $statut;
-
-        return $this;
-    }
-
-    /**
-     * Get statut
-     *
-     * @return string 
-     */
-    public function getStatut()
-    {
-        return $this->statut;
-    }
+    
 }
