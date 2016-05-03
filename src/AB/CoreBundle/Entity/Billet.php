@@ -67,6 +67,12 @@ class Billet
      *  @Assert\NotEqualTo(
      *     value = "may 8th",
      *     message ="La date saisie ne doit pas être un jour férié")
+     * @Assert\NotEqualTo(
+     *     value = "may 5th",
+     *     message ="La date saisie ne doit pas être un jour férié")
+     * @Assert\NotEqualTo(
+     *     value = "may 16th",
+     *     message ="La date saisie ne doit pas être un jour férié")
      *  @Assert\NotEqualTo(
      *     value = "july 14th",
      *     message ="La date saisie ne doit pas être un jour férié")
@@ -104,19 +110,18 @@ class Billet
      */
     private $visiteurs;
 
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-
     public function _construct(){
         $this->date = new \Datetime();
         $this->dateResa = new \Datetime();
         $this->visiteurs = new ArrayCollection();
 
     }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
 
     public function getId()
     {
