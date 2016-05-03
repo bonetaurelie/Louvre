@@ -60,3 +60,8 @@ p{
 .list li{
     list-style-type: none;
 }
+
+/*paiement*/
+.payment{
+    margin-top: 150px;
+}
