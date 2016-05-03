@@ -20,7 +20,8 @@ class CoreController extends Controller
     public function reservationAction( Request $request){
         $billet= new Billet();
         $billet->setDate( new \Datetime());
-        $billet->setDateResa(new \DateTime());
+        $resa=$billet->setDateResa(new \DateTime());
+        $now = new \DateTime(date("d/m/Y 14:00:00"));
        
         $form= $this->get('form.factory')->create(new BilletType(),$billet);
         if($form->handleRequest($request)->isValid()){
@@ -28,13 +29,15 @@ class CoreController extends Controller
             $billets = $this->getDoctrine()->getRepository("ABCoreBundle:Billet")->findByDate($billet->getDate());
             if(count($billets) > 1000){
                 $request->getSession()->getFlashBag()->add('notice','Impossible de réserver pour ce jour, nous sommes complet, désolé !');
+            }elseif (($resa==$now && $billet->getDateResa()>=$now) && ($billet->getType()=='journee')){
+              $request->getSession()->getFlashBag()->add('notice','Impossible de réserver pour ce jour, nous sommes complet, désolé !');
             }else {
                 $em->persist($billet);
                 $em->flush();
                 return $this->redirect($this->generateUrl('ab_core_visiteur',array('id'=>$billet->getId())));
             }
         }
-        return $this->render('ABCoreBundle:Default:reservation.html.twig',array('billet'=>$billet,'form'=>$form->createView(),'error'=>$error));
+        return $this->render('ABCoreBundle:Default:reservation.html.twig',array('billet'=>$billet,'form'=>$form->createView()));
     }
 
     public function visiteurAction($id, Request $request){
