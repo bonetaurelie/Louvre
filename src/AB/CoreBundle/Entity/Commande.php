@@ -62,6 +62,19 @@ class Commande
      * @ORM\Column(name="statut", type="string", length=255)
      */
 
+    /**
+     *  @ORM\OneToOne(targetEntity="Billet")
+     *  @ORM\JoinColumn(name="billet_id", referencedColumnName="id")
+     */
+    private $billet;
+
+    /**
+     *  @ORM\OneToOne(targetEntity="Visiteur")
+     *  @ORM\JoinColumn(name="visiteur_id", referencedColumnName="id")
+     */
+    private $visiteur;
+
+
 
     /**
      * Get id
@@ -194,5 +207,51 @@ class Commande
     public function getNom()
     {
         return $this->nom;
+    }
+
+    /**
+     * Set billet
+     *
+     * @param \AB\CoreBundle\Entity\Billet $billet
+     * @return Commande
+     */
+    public function setBillet(\AB\CoreBundle\Entity\Billet $billet = null)
+    {
+        $this->billet = $billet;
+
+        return $this;
+    }
+
+    /**
+     * Get billet
+     *
+     * @return \AB\CoreBundle\Entity\Billet 
+     */
+    public function getBillet()
+    {
+        return $this->billet;
+    }
+
+    /**
+     * Set visiteur
+     *
+     * @param \AB\CoreBundle\Entity\Visiteur $visiteur
+     * @return Commande
+     */
+    public function setVisiteur(\AB\CoreBundle\Entity\Visiteur $visiteur = null)
+    {
+        $this->visiteur = $visiteur;
+
+        return $this;
+    }
+
+    /**
+     * Get visiteur
+     *
+     * @return \AB\CoreBundle\Entity\Visiteur 
+     */
+    public function getVisiteur()
+    {
+        return $this->visiteur;
     }
 }
