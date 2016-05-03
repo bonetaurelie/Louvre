@@ -5,9 +5,7 @@
 {% endblock %}
 
 {% block body %}
-    <ul>
-
-
+    <ul class="list">
 <div class="form">
     <h1 class="text-center">Merci de remplir le formulaire</h1>
 
@@ -16,7 +14,7 @@
 
         {{ form_errors(form) }}
         {% for visiteur in form.visiteurs %}
-        <li>
+        <li class="list">
         <div class="form-group">
             {{ form_label(visiteur.nom, "Votre nom", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
