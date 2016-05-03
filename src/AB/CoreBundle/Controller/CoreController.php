@@ -23,18 +23,16 @@ class CoreController extends Controller
         $billet->setDateResa(new \DateTime());
        
         $form= $this->get('form.factory')->create(new BilletType(),$billet);
-        $error = "";
         if($form->handleRequest($request)->isValid()){
             $em=$this->getDoctrine()->getManager();
             $billets = $this->getDoctrine()->getRepository("ABCoreBundle:Billet")->findByDate($billet->getDate());
             if(count($billets) > 1000){
-                $error = "Impossible de réserver a ce jour, nous sommes complet, désolé !";
+                $request->getSession()->getFlashBag()->add('notice','Impossible de réserver pour ce jour, nous sommes complet, désolé !');
             }else {
                 $em->persist($billet);
                 $em->flush();
                 return $this->redirect($this->generateUrl('ab_core_visiteur',array('id'=>$billet->getId())));
             }
-
         }
         return $this->render('ABCoreBundle:Default:reservation.html.twig',array('billet'=>$billet,'form'=>$form->createView(),'error'=>$error));
     }
