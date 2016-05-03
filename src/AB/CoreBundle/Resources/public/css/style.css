@@ -47,3 +47,16 @@ p{
 .help p {
     margin-top: 0px;
 }
+
+/*formulaire visiteur*/
+.list ul li{
+    list-style-type: none;
+}
+
+.list ul{
+    list-style-type: none;
+}
+
+.list li{
+    list-style-type: none;
+}
