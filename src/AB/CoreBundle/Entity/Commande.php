@@ -29,6 +29,13 @@ class Commande
     private $dateResa;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string")
+     */
+    private $nom;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="tarif", type="integer")
@@ -165,4 +172,27 @@ class Commande
      * @return Commande
      */
     
+
+    /**
+     * Set nom
+     *
+     * @param string $nom
+     * @return Commande
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    /**
+     * Get nom
+     *
+     * @return string 
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
 }
