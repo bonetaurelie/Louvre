@@ -11,9 +11,8 @@
 
 <div class="form">
     <h1 class="text-center">Merci de remplir le formulaire</h1>
-    {% if app.session.flashBag.has('notice') %}
-    {% for msg in app.session.flashBag.get('notice') %}
-    {% endfor %}
+    {% if error != "" %}
+        <p>{{ error }}</p>
     {% endif %}
     <div class="form2 col-md-offset-3">
         {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
@@ -30,6 +29,9 @@
             </div>
         </div>
 
+        {% if error1 != "" %}
+            <p>{{ error1 }}</p>
+        {% endif %}
         <div class="form-group">
             {{ form_label(form.type, "Type de billet", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
             {{ form_errors(form.type) }}
