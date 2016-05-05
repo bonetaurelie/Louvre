@@ -77,6 +77,13 @@ p{
 
 .help p {
     margin-top: 0px;
+    color: #AA1111;
+    border-bottom: 10px;
+    border-top: 10px;
+    border-left: 70px;
+    border-right: 70px;
+    background-color: #EBEBEB;
+    border-radius: 5px 5px 5px 5px;
 }
 
 /*formulaire visiteur*/
