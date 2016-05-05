@@ -67,12 +67,6 @@ class Billet
      *  @Assert\NotEqualTo(
      *     value = "may 8th",
      *     message ="La date saisie ne doit pas être un jour férié")
-     * @Assert\NotEqualTo(
-     *     value = "may 5th",
-     *     message ="La date saisie ne doit pas être un jour férié")
-     * @Assert\NotEqualTo(
-     *     value = "may 16th",
-     *     message ="La date saisie ne doit pas être un jour férié")
      *  @Assert\NotEqualTo(
      *     value = "july 14th",
      *     message ="La date saisie ne doit pas être un jour férié")
