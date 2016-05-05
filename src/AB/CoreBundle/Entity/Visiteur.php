@@ -67,6 +67,11 @@ class Visiteur
      */
     private $billet;
 
+    public function _construct()
+    {
+        $this->dateResa = new \Datetime();
+    }
+
 
     /**
      * Get id
