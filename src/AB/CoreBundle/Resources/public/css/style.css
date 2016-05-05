@@ -1,5 +1,8 @@
 body{
     font-family: 'Arvo-Regular';
+    background-image: url("../images/le-musee-du-louvre BIS.png");
+    background-attachment: fixed;
+    background-size: cover;
 }
 
 @font-face {
