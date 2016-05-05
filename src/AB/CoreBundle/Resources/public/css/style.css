@@ -37,6 +37,7 @@ p{
 /*reservation*/
 .form{
     margin-top: 150px;
+
 }
 
 .form2{
@@ -44,6 +45,10 @@ p{
 }
 
 /*message checkbox*/
+.info p{
+    margin-top: -10px;
+}
+
 .help p {
     margin-top: 0px;
 }
@@ -59,9 +64,23 @@ p{
 
 .list li{
     list-style-type: none;
+    padding-top: 30px;
+}
+
+.valider{
+    padding-top: 20px;
 }
 
 /*paiement*/
 .payment{
     margin-top: 150px;
+}
+
+/* bouton stripe revoir positionnement*/
+.stripe{
+    padding-top: 100px;
+}
+
+.paypal{
+    margin-top:-30px;
 }
