@@ -10,11 +10,13 @@ ab_core_visiteur:
     path:    /visiteur/{id}
     defaults: { _controller: ABCoreBundle:Core:visiteur }
     requirements:
-        quantite: \d+
+        id: \d+
 
 ab_core_paiement:
-    path:    /paiement
+    path:    /paiement/{id}
     defaults: { _controller: ABCoreBundle:Core:paiement }
+    requirements:
+        id: \d+
 
 ab_core_partage:
     path:    /partage
