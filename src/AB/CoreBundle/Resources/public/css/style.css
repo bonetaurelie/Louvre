@@ -40,7 +40,17 @@ p{
 /*reservation*/
 .form{
     margin-top: 150px;
+}
 
+.form-control ul li{
+    list-style-type: none;
+}
+
+.form-control ul {
+    list-style-type: none;
+}
+.form-control li{
+    list-style-type: none;
 }
 
 .error{
