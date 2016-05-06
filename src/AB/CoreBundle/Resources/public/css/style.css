@@ -42,6 +42,10 @@ p{
     margin-top: 150px;
 }
 
+.btn{
+    background-color: #EBEBEB;
+}
+
 .error{
     color: #AA1111;
     border-bottom: 100px;
