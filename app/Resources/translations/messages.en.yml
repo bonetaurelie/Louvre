@@ -1,4 +1,4 @@
-bienvenue.index: Welcome to the website of the Musée du Louvre
+bienvenue.index: Welcome to the website of the Louvre Museum
 presentation.index: Through this online application for tickets to visit the Museum, you can plan your trip with confidence but also avoid long queues at the entrance of the Museum.
 reserver.index: To book,
 cliquer.index: click here...
@@ -18,3 +18,7 @@ pays.visiteur: Your country of residence
 tarifreduit: This rate is for students, military, employees of the Museum, a service of the Ministry of culture...
 tarif.info: Please bring proof corresponding to your situation
 tarif.visiteur: Price reduced
+transaction.succes: Your transaction is completed successfully.
+merci.partage: Thank you for reserving online your tickets to visit the Louvre Museum.
+email.partage: You will shortly receive an e-mail with your reservation ticket(s).
+reseaux.partage: To share on social networks you can click on Twitter or Facebook.
