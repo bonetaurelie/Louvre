@@ -37,7 +37,7 @@ class Billet
      *
      * @ORM\Column(name="quantite", type="integer")
      * @Assert\Range(min=1,
-     *      minMessage ="La quantité saisie ne doit pas être inférieure à 1")
+     *      minMessage ="quantite.valide")
      */
     private $quantite;
 
