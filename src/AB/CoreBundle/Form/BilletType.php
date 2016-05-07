@@ -20,7 +20,7 @@ class BilletType extends AbstractType
             ->add('quantite')
             ->add('type',ChoiceType::class,[
                     'choices' => [
-                        'Choisissez votre type de billet' => [
+                        'choix.type' => [
                             'demi_journee' => 'Demi-journée',
                             'journee' =>'Journée',
                         ],
