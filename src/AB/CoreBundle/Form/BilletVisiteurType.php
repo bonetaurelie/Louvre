@@ -22,7 +22,6 @@ class BilletVisiteurType extends AbstractType
                 // each entry in the array will be an "email" field
                 'entry_type'   => VisiteurType::class,
             ))
-            ->add('valider','submit')
         ;
     }
     

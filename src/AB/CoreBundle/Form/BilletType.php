@@ -31,7 +31,6 @@ class BilletType extends AbstractType
                 'widget'=>'single_text','input' => 'datetime', 'format' => 'dd/MM/y',
                 ))
             ->add('email')
-            ->add('valider','submit')
         ;
     }
     
