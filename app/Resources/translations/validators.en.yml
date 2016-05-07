@@ -3,3 +3,4 @@ error1.reservation: Unable to book a ticket day after 14:00 past
 message.date: The set date cannot be prior to today
 message.ferie: The set date must not be a public holiday
 email.valide: The entered email is not valid
+quantite.valide: The seized amount must not be less than 1
