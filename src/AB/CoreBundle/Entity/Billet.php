@@ -54,37 +54,31 @@ class Billet
      *
      * @ORM\Column(name="date", type="date")
      * @Assert\GreaterThan("Yesterday this year",
-     *     message ="La date saisie ne doit pas être antèrieure à aujourd'hui")
+     *     message ="error.date")
      *  @Assert\NotEqualTo(
      *     value = "may 1st",
-     *     message ="La date saisie ne doit pas être un jour férié")
+     *     message ="message.ferie")
      * @Assert\NotEqualTo(
      *     value = "november 1st",
-     *     message ="La date saisie ne doit pas être un jour férié")
+     *     message ="message.ferie")
      * @Assert\NotEqualTo(
      *     value = "december 25th",
-     *     message ="La date saisie ne doit pas être un jour férié")
+     *     message ="message.ferie")
      *  @Assert\NotEqualTo(
      *     value = "may 8th",
-     *     message ="La date saisie ne doit pas être un jour férié")
+     *     message ="message.ferie")
      *  @Assert\NotEqualTo(
      *     value = "july 14th",
-     *     message ="La date saisie ne doit pas être un jour férié")
+     *     message ="message.ferie")
      *  @Assert\NotEqualTo(
      *     value = "august 15th",
-     *     message ="La date saisie ne doit pas être un jour férié")
+     *     message ="message.ferie")
      *  @Assert\NotEqualTo(
      *     value = "november 11th",
-     *     message ="La date saisie ne doit pas être un jour férié")
+     *     message ="message.ferie")
      *  @Assert\NotEqualTo(
      *     value = "january 1st 2017",
-     *     message ="La date saisie ne doit pas être un jour férié")
-     *  @Assert\NotEqualTo(
-     *     value = "Tuesday",
-     *     message ="Vous ne pouvez pas réserver pour le mardi")
-     *  @Assert\NotEqualTo(
-     *     value = "Sunday",
-     *     message ="Vous ne pouvez pas réserver pour le dimanche")
+     *     message ="message.ferie")
      *
      */
     private $date;
@@ -95,7 +89,7 @@ class Billet
      *
      * @ORM\Column(name="email", type="string", length=255)
      * @Assert\Email(checkMX=true,
-     *      message ="L'e-mail saisi n'est pas valide")
+     *      message ="email.valide")
      */
     private $email;
 
