@@ -62,41 +62,40 @@ class CoreController extends Controller
             }
             $em->persist($billet);
             $em->flush();
-            $billet=$this->getDoctrine()->getRepository('ABCoreBundle:Billet')->findByDate($billet->getDate());
-            $visiteur=$this->getDoctrine()->getRepository('ABCoreBundle:Visiteur')->findByBillet($visiteur->getBillet());
+            $visiteurs=$this->getDoctrine()->getRepository('ABCoreBundle:Visiteur')->find($id);
             $commande = new Commande();
             $em=$this->getDoctrine()->getManager();
-            $commande->setDateResa($billet);
-            $commande->setNom($visiteur);
-            $now=new\ Datetime('today');
+            $commande->setDateResa($billet->getDateResa());
+            $commande->setNom($visiteurs->getNom());
+            $date = new \DateTime(date("d/m/Y"));
             //personne de plus de 12ans 16€
-            if($now>$birthday= new \Datetime('today -12 years')){
+            if($visiteurs->getDateNaissance()>= $date->sub(new \DateInterval('P12Y'))){
                 $commande->setTarif(16);
             }
             //personne entre 4 et 12 ans 8€
-            elseif ($now>$birthday= new \Datetime('today between -4 years and -12 years')){
+            elseif ($visiteurs->getDateNaissance()>= $date->sub(new \DateInterval('P4Y')) && $visiteurs->getDateNaissance() < $date->sub(new \DateInterval('P12Y'))){
                 $commande->setTarif(8);
             }
             //-4 ans gratuit
-            elseif ($now>$birthday= new \Datetime('today between today and -4years')){
+            elseif ($visiteurs->getDateNaissance()< $date->sub(new \DateInterval('P4Y'))){
                 $commande->setTarif(0);
             }
             //+60 ans 12€
-            elseif ($now>$birthday= new \Datetime('today -60years')){
+            elseif ($visiteurs->getDateNaissance()>= $date->sub(new \DateInterval('P60Y'))){
                 $commande->setTarif(12);
             }
             //tarif réduit coché 10€
-            elseif ($visiteur->getTarifReduit()===1){
+            elseif ($visiteurs->getTarifReduit()===1){
                 $commande->setTarif(10);
             }
             //il faut 4 fois le même nom de famille +2 adultes et 2 enfants
-            elseif ($billet->getNom()){
+            elseif ($billet->getQuantite()==4 && $visiteurs->getNom()===$visiteurs->getNom()){
                 $commande->setTarif('35');
             }
 
             //enregistrement du code resa
-            $code=$visiteur->getNom().$visiteur->getDateResa();
-            $visiteur->setCodeResa($code);
+            $code=$visiteurs->getNom().$billet->getDate();
+            $visiteurs->setCodeResa($code);
 
             //enregistrement du crquode
 
@@ -104,12 +103,32 @@ class CoreController extends Controller
             $em->flush();
 
 
-            return $this->redirect($this->generateUrl('ab_core_paiement'));
+            return $this->redirect($this->generateUrl('ab_core_paiement',array('id'=>$commande->getId())));
         }
         return $this->render('ABCoreBundle:Default:visiteur.html.twig',array('visiteur'=>$visiteur, 'form'=>$form->createView()));
     }
 
-    public function paiementAction(){
+    public function paiementAction($id){
+
+        /*$billet=$this->getDoctrine()->getRepository('ABCoreBundle:Billet')->find($id);
+
+        $message = \Swift_Message::newInstance()
+                ->setSubject('Votre réservation au musée du Louvre')
+                ->setFrom($billet->getEmail())
+                // notre adresse mail
+                ->setTo('bonetaurelie@gmail.com')
+                ->setContentType('text/html')
+                //ici nous allons utiliser un template pour pouvoir styliser notre mail si nous le souhaitons
+                ->setBody(
+                    $this->renderView('ABCoreBundle:Default:email.html.twig'));
+
+            // nous appelons le service swiftmailer et on envoi :)
+            $this->get('mailer')->send($message);
+        */
+
+        //si paiement accepté mail envoyé
+        //si erreur -> affiche page d'erreur
+
         return $this->render('ABCoreBundle:Default:paiement.html.twig');
     }
 
