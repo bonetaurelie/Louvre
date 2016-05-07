@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Doctrine\Common\Collections\ArrayCollection;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 
 
 /**
@@ -14,7 +16,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="billet")
  * @ORM\Entity(repositoryClass="AB\CoreBundle\Repository\BilletRepository")
  */
-class Billet
+class Billet implements Translatable
 {
     /**
      * @var int
@@ -28,6 +30,7 @@ class Billet
     /**
      * @var \DateTime
      *
+     * @Gedmo\Translatable
      * @ORM\Column(name="date_resa", type="datetime")     *
      */
     private $dateResa;
@@ -43,19 +46,20 @@ class Billet
 
     /**
      * @var string
-     *
+     * @Gedmo\Translatable
      * @ORM\Column(name="type", type="string", length=50)
-     * 
+     *
      */
     private $type;
 
     /**
      * @var \DateTime
+     * @Gedmo\Translatable
      *
      * @ORM\Column(name="date", type="date")
      * @Assert\GreaterThan("Yesterday this year",
      *     message ="error.date")
-     *  @Assert\NotEqualTo(
+     * @Assert\NotEqualTo(
      *     value = "may 1st",
      *     message ="message.ferie")
      * @Assert\NotEqualTo(
@@ -64,19 +68,19 @@ class Billet
      * @Assert\NotEqualTo(
      *     value = "december 25th",
      *     message ="message.ferie")
-     *  @Assert\NotEqualTo(
+     * @Assert\NotEqualTo(
      *     value = "may 8th",
      *     message ="message.ferie")
-     *  @Assert\NotEqualTo(
+     * @Assert\NotEqualTo(
      *     value = "july 14th",
      *     message ="message.ferie")
-     *  @Assert\NotEqualTo(
+     * @Assert\NotEqualTo(
      *     value = "august 15th",
      *     message ="message.ferie")
-     *  @Assert\NotEqualTo(
+     * @Assert\NotEqualTo(
      *     value = "november 11th",
      *     message ="message.ferie")
-     *  @Assert\NotEqualTo(
+     * @Assert\NotEqualTo(
      *     value = "january 1st 2017",
      *     message ="message.ferie")
      *
@@ -87,6 +91,7 @@ class Billet
     /**
      * @var string
      *
+     * @Gedmo\Translatable
      * @ORM\Column(name="email", type="string", length=255)
      * @Assert\Email(checkMX=true,
      *      message ="email.valide")
@@ -98,7 +103,14 @@ class Billet
      */
     private $visiteurs;
 
-    public function _construct(){
+    /**
+    * @Gedmo\Locale
+    */
+    private $locale;
+
+
+    public function _construct()
+    {
         $this->date = new \Datetime();
         $this->dateResa = new \Datetime();
         $this->visiteurs = new ArrayCollection();
@@ -108,7 +120,7 @@ class Billet
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
 
     public function getId()
@@ -155,7 +167,7 @@ class Billet
     /**
      * Get quantite
      *
-     * @return integer 
+     * @return integer
      */
     public function getQuantite()
     {
@@ -178,7 +190,7 @@ class Billet
     /**
      * Get type
      *
-     * @return string 
+     * @return string
      */
     public function getType()
     {
@@ -224,12 +236,13 @@ class Billet
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
         return $this->email;
     }
+
     /**
      * Constructor
      */
@@ -264,10 +277,15 @@ class Billet
     /**
      * Get visiteurs
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getVisiteurs()
     {
         return $this->visiteurs;
+    }
+
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
     }
 }
