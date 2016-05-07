@@ -1,0 +1,5 @@
+error.reservation: Impossible to book to this day, we are full, sorry!
+error1.reservation: Unable to book a ticket day after 14:00 past
+message.date: The set date cannot be prior to today
+message.ferie: The set date must not be a public holiday
+email.valide: The entered email is not valid

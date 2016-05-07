@@ -1,0 +1,5 @@
+error.reservation: Impossible de réserver pour ce jour, nous sommes complet, désolé !
+error1.reservation: Impossible de réserver un billet journée une fois 14h passées
+message.date: La date saisie ne doit pas être antèrieure à aujourd'hui
+message.ferie: La date saisie ne doit pas être un jour férié
+email.valide: L'e-mail saisi n'est pas valide
