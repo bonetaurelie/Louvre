@@ -13,7 +13,7 @@
     <h1 class="text-center">{{ 'form' |trans }}</h1>
     <div class=" col-md-offset-4 col-md-7 col-sm-offset-3 col-sm-9 col-xs-offset-2 col-xs-10">
         {% if error != "" %}
-            <p class="error text-center">{{ error }}</p>
+            <p class="error text-center">{{ 'error.reservation' | trans }}</p>
         {% endif %}
     </div>
     <div class="form2 col-xs-offset-2 col-sm-offset-2 col-md-offset-3">
@@ -33,7 +33,7 @@
 
         <div class=" col-md-offset-1 col-md-9">
             {% if error1 != "" %}
-                <p class="error1 text-center">{{ error1 }}</p>
+                <p class="error1 text-center">{{ 'error1.reservation' | trans }}</p>
             {% endif %}
         </div>
 
