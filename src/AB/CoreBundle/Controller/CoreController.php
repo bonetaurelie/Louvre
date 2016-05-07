@@ -10,6 +10,7 @@ use AB\CoreBundle\Form\BilletVisiteurType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AB\CoreBundle\Form\VisiteurType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class CoreController extends Controller
 {
@@ -62,40 +63,44 @@ class CoreController extends Controller
             }
             $em->persist($billet);
             $em->flush();
-            $visiteurs=$this->getDoctrine()->getRepository('ABCoreBundle:Visiteur')->find($id);
+
+            $identity=$this->getDoctrine()->getRepository('ABCoreBundle:Visiteur')->find($id);
             $commande = new Commande();
             $em=$this->getDoctrine()->getManager();
             $commande->setDateResa($billet->getDateResa());
-            $commande->setNom($visiteurs->getNom());
+            $commande->setNom($identity->getNom());
             $date = new \DateTime(date("d/m/Y"));
+            $birthday1= new \DateInterval('P12Y');
+            $dateanniv=$identity->getDateNaissance();
+
             //personne de plus de 12ans 16€
-            if($visiteurs->getDateNaissance()>= $date->sub(new \DateInterval('P12Y'))){
+            if($dateanniv>=$date->sub($birthday1)){
                 $commande->setTarif(16);
             }
             //personne entre 4 et 12 ans 8€
-            elseif ($visiteurs->getDateNaissance()>= $date->sub(new \DateInterval('P4Y')) && $visiteurs->getDateNaissance() < $date->sub(new \DateInterval('P12Y'))){
+            elseif ($identity->getDateNaissance()>= $date->sub(new \DateInterval('P4Y')) && $identity->getDateNaissance() < $date->sub(new \DateInterval('P12Y'))){
                 $commande->setTarif(8);
             }
             //-4 ans gratuit
-            elseif ($visiteurs->getDateNaissance()< $date->sub(new \DateInterval('P4Y'))){
+            elseif ($identity->getDateNaissance()< $date->sub(new \DateInterval('P4Y'))){
                 $commande->setTarif(0);
             }
             //+60 ans 12€
-            elseif ($visiteurs->getDateNaissance()>= $date->sub(new \DateInterval('P60Y'))){
+            elseif ($identity->getDateNaissance()>= $date->sub(new \DateInterval('P60Y'))){
                 $commande->setTarif(12);
             }
             //tarif réduit coché 10€
-            elseif ($visiteurs->getTarifReduit()===1){
+            elseif ($identity->getTarifReduit()===1){
                 $commande->setTarif(10);
             }
             //il faut 4 fois le même nom de famille +2 adultes et 2 enfants
-            elseif ($billet->getQuantite()==4 && $visiteurs->getNom()===$visiteurs->getNom()){
+            elseif ($billet->getQuantite()==4 && $identity->getNom()===$identity->getNom()){
                 $commande->setTarif('35');
             }
 
             //enregistrement du code resa
-            $code=$visiteurs->getNom().$billet->getDate();
-            $visiteurs->setCodeResa($code);
+            $code=$identity->getNom().$billet->getDate();
+            $identity->setCodeResa($code);
 
             //enregistrement du crquode
 
@@ -134,5 +139,21 @@ class CoreController extends Controller
 
     public function partageAction(){
         return $this->render('ABCoreBundle:Default:partage.html.twig');
+    }
+
+    public function langueAction($langue = null)
+    {
+        if($langue != null)
+        {
+            // On enregistre la langue en session
+            $this->container->get('session')->setLocale($langue);
+        }
+
+        // on tente de rediriger vers la page d'origine
+        $url = $this->container->get('request')->headers->get('referer');
+        if(empty($url)) {
+            $url = $this->container->get('router')->generate('ab_core_accueil');
+        }
+        return new RedirectResponse($url);
     }
 }
