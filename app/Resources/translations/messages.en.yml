@@ -4,3 +4,11 @@ reserver.index: To book,
 cliquer.index: click here...
 choix.paiement: Choose your method of payment
 form: Please fill out the form
+quantite.reservation: Quantity
+type.reservation: Type of ticket
+jour.reservation: Day of the visit
+email.reservation: Your email
+Demi-journée: Half day
+Journée: Day
+choix.type: Choose your ticket type
+

@@ -4,3 +4,10 @@ reserver.index: 'Pour réserver,'
 cliquer.index: 'cliquez ici...'
 choix.paiement: 'Choisissez votre mode de paiement'
 form: 'Merci de remplir le formulaire'
+quantite.reservation: Quantité
+type.reservation: 'Type de billet'
+jour.reservation: 'Jour de la visite'
+email.reservation: 'Votre email'
+Demi-journée: Demi-journée
+Journée: Journée
+choix.type: 'Choisissez votre type de billet'
