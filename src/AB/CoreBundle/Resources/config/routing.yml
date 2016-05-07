@@ -22,6 +22,4 @@ ab_core_partage:
     path:    /partage
     defaults: { _controller: ABCoreBundle:Core:partage }
 
-ab_core_langue:
-    path:    /langue/{langue}
-    defaults: { _controller: ABCoreBundle:Core:langue }
+
