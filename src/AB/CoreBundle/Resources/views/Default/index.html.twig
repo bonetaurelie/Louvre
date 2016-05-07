@@ -3,8 +3,8 @@
 
 {% block body %}
     <div class="index">
-        <h1 class="text-center">Bienvenue sur le site du musée du Louvre</h1>
-        <p class="text-center col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2">Grâce à cette application en ligne de billets pour visiter le musée, vous allez pouvoir planifier en toute sérénité votre visite mais aussi éviter les longues files d'attente à l'entrée du musée.<br/><br/>
-            Pour réserver, <a href="{{ path('ab_core_reservation') }}">cliquez ici...</a></p>
+        <h1 class="text-center">{{ 'bienvenue.index' | trans }}</h1>
+        <p class="text-center col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2">{{ 'presentation.index' | trans }}<br/><br/>
+            {{ 'reserver.index' | trans }} <a href="{{ path('ab_core_reservation') }}">{{ 'cliquer.index' | trans }}</a></p>
     </div>
 {% endblock %}
