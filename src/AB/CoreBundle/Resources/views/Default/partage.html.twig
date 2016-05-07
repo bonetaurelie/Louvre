@@ -6,10 +6,10 @@
 
 {% block body %}
 <p class="partage text-center">
-    Votre transaction s'est effectuée avec succés.<br>
-    Merci d'avoir réservé en ligne votre ou vos billets pour visiter le musée du Louvre.<br>
-    Vous allez recevoir sous peu un e-mail avec votre ou vos billet(s) de réservation.<br>
-    Pour partager sur les réseaux sociaux vous pouvez cliquer sur Twitter ou Facebook.
+    {{'transaction.succes' | trans }}<br>
+    {{'merci.partage' |trans }}<br>
+    {{'email.partage' |trans }}<br>
+    {{'reseaux.partage' | trans }}
 </p>
     <div class="fb-share-button col-md-offset-4 col-sm-offset-4 col-xs-offset-3" data-href="http://localhost/louvre/web/app_dev.php" data-layout="button" data-mobile-iframe="true"></div>
     <div id="fb-root"></div>
