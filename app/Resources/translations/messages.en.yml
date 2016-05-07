@@ -11,4 +11,10 @@ email.reservation: Your email
 Demi-journée: Half day
 Journée: Day
 choix.type: Choose your ticket type
-
+nom.visiteur: Your name
+prenom.visiteur: Your first name
+naissance.visiteur: Your date of birth
+pays.visiteur: Your country of residence
+tarifreduit: This rate is for students, military, employees of the Museum, a service of the Ministry of culture...
+tarif.info: Please bring proof corresponding to your situation
+tarif.visiteur: Price reduced

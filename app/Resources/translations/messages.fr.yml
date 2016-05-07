@@ -11,3 +11,10 @@ email.reservation: 'Votre email'
 Demi-journée: Demi-journée
 Journée: Journée
 choix.type: 'Choisissez votre type de billet'
+nom.visiteur: 'Votre nom'
+prenom.visiteur: 'Votre prénom'
+naissance.visiteur: 'Votre date de naissance'
+pays.visiteur: 'Votre pays de résidence'
+tarifreduit: 'Ce tarif concerne les étudiants, les militaires, les employés du musée, d''un service du Ministère de la culture....'
+tarif.info: 'Merci de vous munir du justificatif correspondant à votre situation'
+tarif.visiteur: 'Tarif réduit'
