@@ -11,6 +11,8 @@ email.reservation: Your email
 Demi-journée: Half day
 Journée: Day
 choix.type: Choose your ticket type
+error.reservation: Impossible to book to this day, we are full, sorry!
+error1.reservation: Unable to book a ticket day after 14:00 past
 nom.visiteur: Your name
 prenom.visiteur: Your first name
 naissance.visiteur: Your date of birth
@@ -22,3 +24,7 @@ transaction.succes: Your transaction is completed successfully.
 merci.partage: Thank you for reserving online your tickets to visit the Louvre Museum.
 email.partage: You will shortly receive an e-mail with your reservation ticket(s).
 reseaux.partage: To share on social networks you can click on Twitter or Facebook.
+bonjour: Hello,
+email: Following your reservation on line on the site of the Museum of the Louvre, please find attached your ticket(s)
+salutation: Waiting for you review on our site,
+musee: The Louvre Museum
