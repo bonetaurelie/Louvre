@@ -11,11 +11,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AB\CoreBundle\Form\VisiteurType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
+
 
 class CoreController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+        $locale= $request->getLocale();
         return $this->render('ABCoreBundle:Default:index.html.twig');
     }
 
@@ -32,9 +35,8 @@ class CoreController extends Controller
             $em=$this->getDoctrine()->getManager();
             $billets = $this->getDoctrine()->getRepository("ABCoreBundle:Billet")->findByDate($billet->getDate());
             if(count($billets) > 1000){
-                $error="Impossible de réserver pour ce jour, nous sommes complet, désolé !";
+                $error=$this->get('translator')->trans('error.reservation');
             }elseif (($billet->getDateResa()>=$now) && ($billet->getType()==='journee')){
-                $error1="Impossible de réserver un billet journée une fois 14h passées";
             }else {
                 $em->persist($billet);
                 $em->flush();
@@ -141,19 +143,8 @@ class CoreController extends Controller
         return $this->render('ABCoreBundle:Default:partage.html.twig');
     }
 
-    public function langueAction($langue = null)
-    {
-        if($langue != null)
-        {
-            // On enregistre la langue en session
-            $this->container->get('session')->setLocale($langue);
-        }
-
-        // on tente de rediriger vers la page d'origine
-        $url = $this->container->get('request')->headers->get('referer');
-        if(empty($url)) {
-            $url = $this->container->get('router')->generate('ab_core_accueil');
-        }
-        return new RedirectResponse($url);
+    public function onKernelRequest(GestResponseEvent $event){
+        $request=$event->getRequest();
+        $request->getSession()->set('_locale', $locale);
     }
 }
