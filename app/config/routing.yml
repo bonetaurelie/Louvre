@@ -1,5 +1,7 @@
 ab_core:
     resource: "@ABCoreBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /{_locale}
+    requirements:
+            _locale: fr|en
 
 
