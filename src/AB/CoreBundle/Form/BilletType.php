@@ -21,8 +21,8 @@ class BilletType extends AbstractType
             ->add('type',ChoiceType::class,[
                     'choices' => [
                         'choix.type' => [
-                            'demi_journee' => 'Demi-journée',
-                            'journee' =>'Journée',
+                            'demi_journee' => 'demi.type',
+                            'journee' =>'type.resa',
                         ],
                     ]
                 ]
