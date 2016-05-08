@@ -8,8 +8,8 @@ quantite.reservation: Quantité
 type.reservation: 'Type de billet'
 jour.reservation: 'Jour de la visite'
 email.reservation: 'Votre email'
-Demi-journée: Demi-journée
-Journée: Journée
+type.resa: 'Journée entière'
+demi.type: 'Demi journée'
 choix.type: 'Choisissez votre type de billet'
 error.reservation: 'Impossible de réserver pour ce jour, nous sommes complet, désolé !'
 error1.reservation: 'Impossible de réserver un billet journée une fois 14h passées'

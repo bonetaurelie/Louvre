@@ -8,8 +8,8 @@ quantite.reservation: Quantity
 type.reservation: Type of ticket
 jour.reservation: Day of the visit
 email.reservation: Your email
-Demi-journée: Half day
-Journée: Day
+type.resa: Full day
+demi.type: Half day
 choix.type: Choose your ticket type
 error.reservation: Impossible to book to this day, we are full, sorry!
 error1.reservation: Unable to book a ticket day after 14:00 past
