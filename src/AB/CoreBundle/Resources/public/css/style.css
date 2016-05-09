@@ -73,12 +73,16 @@ p{
     padding-top: 50px;
 }
 
-.form2 ul li{
+.form3{
+    padding-top: 50px;
+}
+
+.form3 ul li{
     list-style-type: none;
 }
 
 @media all and (max-width: 768px) {
-    .form2 li{
+    .form3 li{
         color: #AA1111;
         border-bottom: 100px;
         border-top: 100px;
@@ -93,7 +97,7 @@ p{
 
 /* Small devices (tablets, 768px and up) */
 @media all and (min-width: 768px) {
-    .form2 li{
+    .form3 li{
         color: #AA1111;
         border-bottom: 100px;
         border-top: 100px;
@@ -108,7 +112,7 @@ p{
 
 /* Medium devices (desktops, 992px and up) */
 @media all and (min-width:992px) {
-    .form2 li{
+    .form3 li{
         color: #AA1111;
         border-bottom: 100px;
         border-top: 100px;
