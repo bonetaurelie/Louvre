@@ -26,7 +26,8 @@ class Visiteur
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=255)
-     * @Assert\Length(min=2)
+     * @Assert\Length(min=2,
+     *     minMessage="nom.message")
      */
     private $nom;
 
@@ -34,7 +35,8 @@ class Visiteur
      * @var string
      *
      * @ORM\Column(name="prenom", type="string", length=255)
-     * @Assert\Length(min=2)
+     * @Assert\Length(min=2,
+     *     minMessage="prenom.message")
      */
     private $prenom;
 
@@ -42,7 +44,8 @@ class Visiteur
      * @var \DateTime
      *
      * @ORM\Column(name="date_naissance", type="date")
-     * @Assert\Date()
+     * @Assert\Date(
+     *     message="date.message")
      */
     private $dateNaissance;
 
@@ -50,7 +53,8 @@ class Visiteur
      * @var string
      *
      * @ORM\Column(name="pays", type="string", length=255)
-     * @Assert\Length(min=2)
+     * @Assert\Length(min=2,
+     *     minMessage="pays.message")
      */
     private $pays;
 

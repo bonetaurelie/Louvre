@@ -4,7 +4,6 @@ namespace AB\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
@@ -31,7 +30,7 @@ class Billet implements Translatable
      * @var \DateTime
      *
      * @Gedmo\Translatable
-     * @ORM\Column(name="date_resa", type="datetime")     *
+     * @ORM\Column(name="date_resa", type="datetime")
      */
     private $dateResa;
 
@@ -41,6 +40,8 @@ class Billet implements Translatable
      * @ORM\Column(name="quantite", type="integer")
      * @Assert\Range(min=1,
      *      minMessage ="quantite.valide")
+     * @Assert\NotBlank(
+     *     message="error.message")
      */
     private $quantite;
 
@@ -63,13 +64,13 @@ class Billet implements Translatable
      *     value = "may 1st",
      *     message ="message.ferie")
      * @Assert\NotEqualTo(
+     *     value = "may 8th",
+     *     message ="message.ferie")
+     * @Assert\NotEqualTo(
      *     value = "november 1st",
      *     message ="message.ferie")
      * @Assert\NotEqualTo(
      *     value = "december 25th",
-     *     message ="message.ferie")
-     * @Assert\NotEqualTo(
-     *     value = "may 8th",
      *     message ="message.ferie")
      * @Assert\NotEqualTo(
      *     value = "july 14th",
@@ -95,6 +96,8 @@ class Billet implements Translatable
      * @ORM\Column(name="email", type="string", length=255)
      * @Assert\Email(checkMX=true,
      *      message ="email.valide")
+     * @Assert\NotBlank(
+     *     message="error.message")
      */
     private $email;
 
