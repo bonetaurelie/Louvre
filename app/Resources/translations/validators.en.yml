@@ -2,3 +2,7 @@ message.date: The set date cannot be prior to today
 message.ferie: The set date must not be a public holiday
 email.valide: The entered email is not valid
 quantite.valide: The seized amount must not be less than 1
+nom.message: Please enter a name in the proper format
+prenom.message: Please enter a first name in the proper format
+date.message: Please indicate your date of birth
+pays.message: Please enter your country in the proper format
