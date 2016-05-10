@@ -6,3 +6,5 @@ nom.message: Please enter a name in the proper format
 prenom.message: Please enter a first name in the proper format
 date.message: Please indicate your date of birth
 pays.message: Please enter your country in the proper format
+message.mardi: You cannot book Tuesday
+message.dimanche: You cannot book Sunday
