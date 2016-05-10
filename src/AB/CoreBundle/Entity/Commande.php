@@ -63,10 +63,13 @@ class Commande
      */
 
     /**
-     *  @ORM\OneToOne(targetEntity="Billet")
-     *  @ORM\JoinColumn(name="billet_id", referencedColumnName="id")
+     * @ORM\ManyToMany(targetEntity="Billet")
+     * @ORM\JoinTable(name="commande_billets",
+     *      joinColumns={@ORM\JoinColumn(name="commande_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="billet_id", referencedColumnName="id", unique=false)}
+     *      )
      */
-    private $billet;
+    private $billets;
 
     /**
      *  @ORM\OneToOne(targetEntity="Visiteur")
@@ -74,6 +77,10 @@ class Commande
      */
     private $visiteur;
 
+    public function __construct()
+    {
+        $this->billets = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
 
     /**
@@ -253,5 +260,38 @@ class Commande
     public function getVisiteur()
     {
         return $this->visiteur;
+    }
+
+    /**
+     * Add billets
+     *
+     * @param \AB\CoreBundle\Entity\Billet $billets
+     * @return Commande
+     */
+    public function addBillet(\AB\CoreBundle\Entity\Billet $billets)
+    {
+        $this->billets[] = $billets;
+
+        return $this;
+    }
+
+    /**
+     * Remove billets
+     *
+     * @param \AB\CoreBundle\Entity\Billet $billets
+     */
+    public function removeBillet(\AB\CoreBundle\Entity\Billet $billets)
+    {
+        $this->billets->removeElement($billets);
+    }
+
+    /**
+     * Get billets
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBillets()
+    {
+        return $this->billets;
     }
 }
