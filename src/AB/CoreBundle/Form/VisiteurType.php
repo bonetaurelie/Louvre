@@ -17,8 +17,8 @@ class VisiteurType extends AbstractType
         $builder
             ->add('nom')
             ->add('prenom')
-            ->add('dateNaissance', 'date', array(
-                'widget'=>'single_text',
+            ->add('dateNaissance','date', array(
+                'widget'=>'single_text'
             ))
             ->add('pays')
             ->add('tarifReduit','checkbox',array('required'=>false))
