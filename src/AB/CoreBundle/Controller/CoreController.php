@@ -28,16 +28,25 @@ class CoreController extends Controller
         $billet= new Billet();
         $billet->setDate( new \Datetime());
         $billet->setDateResa(new \DateTime());
-        $now = new \DateTime(date("d/m/Y 14:00:00"));
-       
+        $now = new \DateTime();
+
         $form= $this->get('form.factory')->create(new BilletType(),$billet);
         if($form->handleRequest($request)->isValid()){
             $em=$this->getDoctrine()->getManager();
             $billets = $this->getDoctrine()->getRepository("ABCoreBundle:Billet")->findByDate($billet->getDate());
+            $flag = TRUE;
             if(count($billets) > 1000){
                 $error=$this->get('translator')->trans('error.reservation');
-            }elseif (($billet->getDateResa()>=$now) && ($billet->getType()==='journee')){
-            }else {
+                $flag = FALSE;
+            }
+            if ($billet->getDate()->format('d/m/Y') == $now->format('d/m/Y') ){
+                if($billet->getType()==='journee' && $billet->getDateResa()->format('H') >= "14"){
+                    $error1=$this->get('translator')->trans('error1.reservation');
+                    $flag = FALSE;
+                }
+            }
+
+            if($flag){
                 $em->persist($billet);
                 $em->flush();
                 return $this->redirect($this->generateUrl('ab_core_visiteur',array('id'=>$billet->getId())));
@@ -59,56 +68,71 @@ class CoreController extends Controller
         }
         if($form->handleRequest($request)->isValid()){
             $em=$this->getDoctrine()->getManager();
+            $flag_famille = TRUE;
+            if($billet->getQuantite()==4){
+                $nom_prec = "";
+                $cpt = 0;
+                foreach($billet->getVisiteurs() as $vis){
+                    if($vis->getNom() != $nom_prec && $cpt > 0 ){
+                        $flag_famille = FALSE;
+                        break;
+                    }else {
+                        //RAJOUTER UNE CONDITION POUR QUE 2 ENF ET 2ADULTES
+                        $cpt++;
+                        $nom_prec = $vis->getNom();
+                    }
+                }
+            }else {
+                $flag_famille = FALSE;
+            }
             foreach($billet->getVisiteurs() as $visiteur){
                 $visiteur->setBillet($billet);
                 $em->persist($visiteur);
+                $em->flush();
+                $commande = new Commande();
+                $commande->setDateResa($billet->getDate());
+                $commande->setNom($visiteur->getNom());
+                $dateanniv=$visiteur->getDateNaissance();
+                $date = new \DateTime(date("d/m/Y"));
+
+                if($flag_famille){
+                    $commande->setTarif(35);
+                }else {
+                    //tarif réduit coché 10€
+                    if($visiteur->getTarifReduit()==1){
+                        $commande->setTarif(10);
+                    }else {
+                        //personne entre 4 et 12 ans 8€
+                        if ($dateanniv <= $date->sub(new \DateInterval('P4Y')) && $dateanniv >= $date->sub(new \DateInterval('P12Y'))){
+                            $commande->setTarif(8);
+                        }
+                        //-4 ans gratuit
+                        elseif ($dateanniv > $date->sub(new \DateInterval('P4Y'))){
+                            $commande->setTarif(0);
+                        }
+                        //+60 ans 12€   PREND EN COMPTE A PARTIR DE 1936 =80ans???? AU LIEU DU 1956
+                        elseif ($dateanniv <= $date->sub(new \DateInterval('P60Y'))){
+                            $commande->setTarif(12);
+                        }
+                        //personne de plus de 12ans 16€
+                        else{
+                            $commande->setTarif(16);
+                        }
+                    }
+                }
+                //enregistrement du code resa
+                $codeResa = $visiteur->getNom().$billet->getDate()->format('ymd');
+                $commande->setCodeResa($codeResa);
+
+                //enregistrement du crquode = code resa
+                $commande->setQrcode( $visiteur->getNom().$billet->getDate()->format('ymd'));
+                $commande->setVisiteur($visiteur);
+                $commande->setBillet($billet);
+                $em->persist($commande);
+                $em->flush();
             }
             $em->persist($billet);
             $em->flush();
-
-            $identity=$this->getDoctrine()->getRepository('ABCoreBundle:Visiteur')->find($id);
-            $commande = new Commande();
-            $em=$this->getDoctrine()->getManager();
-            $commande->setDateResa($billet->getDateResa());
-            $commande->setNom($identity->getNom());
-            $date = new \DateTime(date("d/m/Y"));
-            $birthday1= new \DateInterval('P12Y');
-            $dateanniv=$identity->getDateNaissance();
-
-            //personne de plus de 12ans 16€
-            if($dateanniv>=$date->sub($birthday1)){
-                $commande->setTarif(16);
-            }
-            //personne entre 4 et 12 ans 8€
-            elseif ($identity->getDateNaissance()>= $date->sub(new \DateInterval('P4Y')) && $identity->getDateNaissance() < $date->sub(new \DateInterval('P12Y'))){
-                $commande->setTarif(8);
-            }
-            //-4 ans gratuit
-            elseif ($identity->getDateNaissance()< $date->sub(new \DateInterval('P4Y'))){
-                $commande->setTarif(0);
-            }
-            //+60 ans 12€
-            elseif ($identity->getDateNaissance()>= $date->sub(new \DateInterval('P60Y'))){
-                $commande->setTarif(12);
-            }
-            //tarif réduit coché 10€
-            elseif ($identity->getTarifReduit()===1){
-                $commande->setTarif(10);
-            }
-            //il faut 4 fois le même nom de famille +2 adultes et 2 enfants
-            elseif ($billet->getQuantite()==4 && $identity->getNom()===$identity->getNom()){
-                $commande->setTarif('35');
-            }
-
-            //enregistrement du code resa
-            $code=$identity->getNom().$billet->getDate();
-            $identity->setCodeResa($code);
-
-            //enregistrement du crquode
-
-            $em->persist($commande);
-            $em->flush();
-
 
             return $this->redirect($this->generateUrl('ab_core_paiement',array('id'=>$commande->getId())));
         }
