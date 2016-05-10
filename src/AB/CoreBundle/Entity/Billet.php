@@ -112,6 +112,11 @@ class Billet implements Translatable
      */
     private $visiteurs;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Commande", mappedBy="billet")
+     */
+    private $commandes;
+
 
     /**
     * @Gedmo\Locale
@@ -124,6 +129,7 @@ class Billet implements Translatable
         $this->date = new \Datetime();
         $this->dateResa = new \Datetime();
         $this->visiteurs = new ArrayCollection();
+        $this->commandes = new ArrayCollection();
 
     }
 
@@ -297,5 +303,38 @@ class Billet implements Translatable
     public function setTranslatableLocale($locale)
     {
         $this->locale = $locale;
+    }
+
+    /**
+     * Add commandes
+     *
+     * @param \AB\CoreBundle\Entity\Commande $commandes
+     * @return Billet
+     */
+    public function addCommande(\AB\CoreBundle\Entity\Commande $commandes)
+    {
+        $this->commandes[] = $commandes;
+
+        return $this;
+    }
+
+    /**
+     * Remove commandes
+     *
+     * @param \AB\CoreBundle\Entity\Commande $commandes
+     */
+    public function removeCommande(\AB\CoreBundle\Entity\Commande $commandes)
+    {
+        $this->commandes->removeElement($commandes);
+    }
+
+    /**
+     * Get commandes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCommandes()
+    {
+        return $this->commandes;
     }
 }

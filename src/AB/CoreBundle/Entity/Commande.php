@@ -63,26 +63,17 @@ class Commande
      */
 
     /**
-     * @ORM\ManyToMany(targetEntity="Billet")
-     * @ORM\JoinTable(name="commande_billets",
-     *      joinColumns={@ORM\JoinColumn(name="commande_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="billet_id", referencedColumnName="id", unique=false)}
-     *      )
+     * @ORM\ManyToOne(targetEntity="Billet", inversedBy="visiteurs")
+     * @ORM\JoinColumn(name="id_billet", referencedColumnName="id")
      */
-    private $billets;
+    private $billet;
 
     /**
      *  @ORM\OneToOne(targetEntity="Visiteur")
      *  @ORM\JoinColumn(name="visiteur_id", referencedColumnName="id")
      */
     private $visiteur;
-
-    public function __construct()
-    {
-        $this->billets = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-
+    
     /**
      * Get id
      *
