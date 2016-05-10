@@ -124,7 +124,6 @@ class Billet implements Translatable
         $this->date = new \Datetime();
         $this->dateResa = new \Datetime();
         $this->visiteurs = new ArrayCollection();
-        $this->commandes = new ArrayCollection();
 
     }
 
