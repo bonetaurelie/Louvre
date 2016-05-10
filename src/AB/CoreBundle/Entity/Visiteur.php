@@ -61,12 +61,12 @@ class Visiteur
     /**
      * @var bool
      *
-     * @ORM\Column(name="tarif_reduit", type="boolean")     *
+     * @ORM\Column(name="tarif_reduit", type="boolean")
      */
     private $tarifReduit;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Billet", inversedBy="visiteurs")
+     * @ORM\ManyToOne(targetEntity="Billet", inversedBy="visiteurs",cascade={"persist"})
      * @ORM\JoinColumn(name="id_billet", referencedColumnName="id")
      */
     private $billet;
