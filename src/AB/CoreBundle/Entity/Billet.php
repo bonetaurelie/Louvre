@@ -84,6 +84,12 @@ class Billet implements Translatable
      * @Assert\NotEqualTo(
      *     value = "january 1st 2017",
      *     message ="message.ferie")
+     *  @Assert\NotEqualTo(
+     *     value = "tuesday",
+     *     message ="message.mardi")
+     *  @Assert\NotEqualTo(
+     *     value = "sunday",
+     *     message ="message.dimanche")
      *
      */
     private $date;
