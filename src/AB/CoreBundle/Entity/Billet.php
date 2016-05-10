@@ -102,9 +102,10 @@ class Billet implements Translatable
     private $email;
 
     /**
-     * @ORM\OneToMany(targetEntity="Visiteur", mappedBy="billet")
+     * @ORM\OneToMany(targetEntity="Visiteur", mappedBy="billet",cascade={"persist"})
      */
     private $visiteurs;
+
 
     /**
     * @Gedmo\Locale
@@ -117,6 +118,7 @@ class Billet implements Translatable
         $this->date = new \Datetime();
         $this->dateResa = new \Datetime();
         $this->visiteurs = new ArrayCollection();
+        $this->commandes = new ArrayCollection();
 
     }
 
