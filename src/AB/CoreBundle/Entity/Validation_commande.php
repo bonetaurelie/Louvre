@@ -24,9 +24,9 @@ class Validation_commande
     /**
      * @var int
      *
-     * @ORM\Column(name="montant", type="integer")
+     * @ORM\Column(name="tarif", type="integer")
      */
-    private $montant;
+    private $tarif;
 
     /**
      * @var string
@@ -44,6 +44,52 @@ class Validation_commande
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set tarif
+     *
+     * @param integer $tarif
+     * @return Validation_commande
+     */
+    public function setTarif($tarif)
+    {
+        $this->tarif = $tarif;
+
+        return $this;
+    }
+
+    /**
+     * Get tarif
+     *
+     * @return integer 
+     */
+    public function geTarif()
+    {
+        return $this->geTarif();
+    }
+
+    /**
+     * Set statut
+     *
+     * @param string $statut
+     * @return Validation_commande
+     */
+    public function setStatut($statut)
+    {
+        $this->statut = $statut;
+
+        return $this;
+    }
+
+    /**
+     * Get statut
+     *
+     * @return string 
+     */
+    public function getStatut()
+    {
+        return $this->statut;
     }
 
     /**
@@ -70,25 +116,12 @@ class Validation_commande
     }
 
     /**
-     * Set statut
+     * Get tarif
      *
-     * @param string $statut
-     * @return Validation_commande
+     * @return integer 
      */
-    public function setStatut($statut)
+    public function getTarif()
     {
-        $this->statut = $statut;
-
-        return $this;
-    }
-
-    /**
-     * Get statut
-     *
-     * @return string 
-     */
-    public function getStatut()
-    {
-        return $this->statut;
+        return $this->tarif;
     }
 }
