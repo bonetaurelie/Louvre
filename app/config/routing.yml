@@ -1,7 +1,33 @@
-ab_core:
-    resource: "@ABCoreBundle/Resources/config/routing.yml"
-    prefix:   /{_locale}
+ab_core_accueil:
+    path:     /{_locale}
+    defaults: { _controller: ABCoreBundle:Core:index, _locale: fr }
     requirements:
         _locale: fr|en
+
+ab_core_reservation:
+    path:    /reservation/{_locale}
+    defaults: { _controller: ABCoreBundle:Core:reservation }
+    requirements:
+        _locale: fr|en
+
+ab_core_visiteur:
+    path:    /visiteur/{id}/{_locale}
+    defaults: { _controller: ABCoreBundle:Core:visiteur }
+    requirements:
+        id: \d+
+        _locale: fr|en
+
+ab_core_paiement:
+    path:    /paiement/{id}/{_locale}
+    defaults: { _controller: ABCoreBundle:Core:paiement }
+    requirements:
+        id: \d+
+        _locale: fr|en
+
+ab_core_partage:
+    path:    /partage/{_locale}
+    defaults: { _controller: ABCoreBundle:Core:partage }
+    requirements:
+         _locale: fr|en
 
 

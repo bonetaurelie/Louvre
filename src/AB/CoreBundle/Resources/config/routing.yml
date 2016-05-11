@@ -1,25 +1,3 @@
-ab_core_accueil:
-    path:     /
-    defaults: { _controller: ABCoreBundle:Core:index }
 
-ab_core_reservation:
-    path:    /reservation
-    defaults: { _controller: ABCoreBundle:Core:reservation }
-
-ab_core_visiteur:
-    path:    /visiteur/{id}
-    defaults: { _controller: ABCoreBundle:Core:visiteur }
-    requirements:
-        id: \d+
-
-ab_core_paiement:
-    path:    /paiement/{id}
-    defaults: { _controller: ABCoreBundle:Core:paiement }
-    requirements:
-        id: \d+
-
-ab_core_partage:
-    path:    /partage
-    defaults: { _controller: ABCoreBundle:Core:partage }
 
 
