@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "46c119c1475dbcc0fc3abafaa376f731",
-    "content-hash": "d43ed5e6f8869b7a7c68cec64e1438e1",
+    "hash": "30d69df8aac7102245c8e0621e7a21ca",
+    "content-hash": "8a1a486dc58bfce603d980b47fb54ae2",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1057,6 +1057,54 @@
             "time": "2016-04-12 18:29:35"
         },
         {
+            "name": "obtao/html2pdf-bundle",
+            "version": "dev-master",
+            "target-dir": "Obtao/Bundle/Html2PdfBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/obtao/Html2PdfBundle.git",
+                "reference": "df43177eb864cd96ea577c848c22b91fd4a7082c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/obtao/Html2PdfBundle/zipball/df43177eb864cd96ea577c848c22b91fd4a7082c",
+                "reference": "df43177eb864cd96ea577c848c22b91fd4a7082c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "symfony/symfony": ">=2.1"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Obtao\\Bundle\\Html2PdfBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Grégory Quatannens",
+                    "email": "gregory@obtao.com",
+                    "homepage": "http://obtao.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://github.com/obtao/Html2PdfBundle/contributors"
+                }
+            ],
+            "description": "This Bundle allows you to generate pdf files into a Symfony2 project.",
+            "keywords": [
+                "file",
+                "generator",
+                "pdf"
+            ],
+            "time": "2014-02-06 10:09:20"
+        },
+        {
             "name": "paragonie/random_compat",
             "version": "v1.4.1",
             "source": {
@@ -2045,16 +2093,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v2.8.5",
+            "version": "v2.8.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "39ddd2383f4113cf67f8b28cde2c9d3fa340c3c2"
+                "reference": "8408816780215fae055599d100b5385d9a247151"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/39ddd2383f4113cf67f8b28cde2c9d3fa340c3c2",
-                "reference": "39ddd2383f4113cf67f8b28cde2c9d3fa340c3c2",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/8408816780215fae055599d100b5385d9a247151",
+                "reference": "8408816780215fae055599d100b5385d9a247151",
                 "shasum": ""
             },
             "require": {
@@ -2175,7 +2223,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2016-04-29 15:34:08"
+            "time": "2016-05-09 21:45:54"
         },
         {
             "name": "twig/twig",
@@ -2294,7 +2342,7 @@
         },
         {
             "name": "symfony/phpunit-bridge",
-            "version": "v2.8.5",
+            "version": "v2.8.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/phpunit-bridge.git",
@@ -2350,7 +2398,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "obtao/html2pdf-bundle": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

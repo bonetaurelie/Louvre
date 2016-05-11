@@ -17,6 +17,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new AB\CoreBundle\ABCoreBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            new Obtao\Bundle\Html2PdfBundle\ObtaoHtml2PdfBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
