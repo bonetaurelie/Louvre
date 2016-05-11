@@ -75,8 +75,12 @@
          </li>
         {% endfor %}
 
-        <div class="valider col-xs-offset-4 col-sm-offset-4 col-md-offset-4">
+        <div class="valider col-xs-offset-5 col-sm-offset-5 col-md-offset-5">
             <input type="submit" value="{{ 'valider.form' | trans }}" class="btn" />
+        </div>
+
+        <div class=" retour col-xs-offset-2 col-sm-offset-2 col-md-offset-2">
+            <a class="btn btn-danger" href="{{ path('ab_core_reservation')}}" role="button">Retour</a>
         </div>
 
         {{ form_rest(form) }}
