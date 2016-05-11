@@ -46,6 +46,10 @@ p{
     background-color: #EBEBEB;
 }
 
+.retour{
+    margin-top: -35px;
+}
+
 .error{
     color: #AA1111;
     border-bottom: 100px;
@@ -164,6 +168,33 @@ p{
     margin-top: 150px;
 }
 
+@media all and (max-width: 768px) {
+    .annulation{
+        margin-top: 30px;
+        margin-left: 270px;
+    }
+}
+
+/* Small devices (tablets, 768px and up) */
+@media all and (min-width: 768px) {
+    .annulation{
+        margin-top: 30px;
+        margin-left: 330px;
+    }
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media all and (min-width:992px) {
+    .annulation {
+        margin-top: 30px;
+        margin-left: 600px;
+    }
+}
+
+.annulation{
+    margin-top: 30px;
+}
+
 /* bouton stripe revoir positionnement*/
 .stripe{
     padding-top: 100px;
@@ -184,4 +215,9 @@ p{
 
 .tweeter{
     margin-top: -20px;
+}
+
+.accueil{
+    color: black;
+    margin-top: -320px;
 }
