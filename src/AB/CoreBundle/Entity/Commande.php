@@ -43,16 +43,16 @@ class Commande
     private $tarif;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="code_resa", type="integer")
+     * @ORM\Column(name="code_resa", type="string")
      */
     private $codeResa;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="qrcode", type="integer")
+     * @ORM\Column(name="qrcode", type="string")
      */
     private $qrcode;
 
