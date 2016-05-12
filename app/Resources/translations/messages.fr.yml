@@ -35,4 +35,10 @@ annulation: Annulation
 retour: Retour
 erreur: 'Une erreur s''est produite lors de la transaction.'
 lien.erreur: 'Veuillez cliquer sur le lien ci-dessous pour vous rediriger sur le choix du mode de paiement.'
-retour.paiement: Retour à la page de paiement
+retour.paiement: 'Retour à la page de paiement'
+erreur.titre: Erreur
+paiement.titre: Paiement
+partage.titre: Partager
+reservation.titre: Réservation
+visiteur.titre: 'Enregistrement des visiteurs'
+billetterie.titre: 'Billetterie du Louvre'

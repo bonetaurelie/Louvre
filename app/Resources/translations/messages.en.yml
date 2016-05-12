@@ -36,3 +36,9 @@ retour: Return
 erreur: An error occurred during the transaction.
 lien.erreur: Please click on the link below to redirect you on the choice of the mode of payment.
 retour.paiement: Return to the payment page
+erreur.titre: Error
+paiement.titre: Paymeent
+partage.titre: Share
+reservation.titre: Reservation
+visiteur.titre: Registration of customers
+billetterie.titre: Box office of the Louvre
