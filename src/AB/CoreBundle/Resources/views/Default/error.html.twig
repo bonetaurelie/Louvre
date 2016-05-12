@@ -6,11 +6,16 @@
 
 {% block body %}
 
-<div>
-    <p>{{ 'erreur' |trans }}<br/>
-   {{ 'lien.erreur' |trans }}</p>
+<div class="page_error text-center col-md-7 col-md-offset-3 col-sm-7 col-sm-offset-3 col-xs-7 col-xs-offset-3">
+    <div class="text_error">
+        <p>{{ 'erreur' |trans }}<br/>
+            {{ 'lien.erreur' |trans }}</p>
+    </div>
+
+    <div class="lien">
+        <a href="{{ path('ab_core_paiement',{'id':billet.id}) }}">{{ 'retour.paiement' |trans }}</a>
+    </div>
 </div>
 
-<a href="{{ path('ab_core_paiement',{'id':billet.id}) }}">{{ 'retour.paiement' |trans }}</a>
 
 {% endblock %}
