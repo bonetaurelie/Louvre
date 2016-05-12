@@ -38,7 +38,7 @@ class Commande
     /**
      * @var int
      *
-     * @ORM\Column(name="tarif", type="integer")
+     * @ORM\Column(name="tarif", type="decimal")
      */
     private $tarif;
 
