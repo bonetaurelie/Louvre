@@ -1,0 +1,16 @@
+{% extends 'ABCoreBundle::layout.html.twig' %}
+
+{% block title %}
+    {{ parent() }} - Erreur
+{% endblock %}
+
+{% block body %}
+
+<div>
+    <p>{{ 'erreur' |trans }}<br/>
+   {{ 'lien.erreur' |trans }}</p>
+</div>
+
+<a href="{{ path('ab_core_paiement',{'id':billet.id}) }}"></a>
+
+{% endblock %}
