@@ -30,4 +30,12 @@ ab_core_partage:
     requirements:
          _locale: fr|en
 
+ab_core_error:
+    path:    /error/{id}/{_locale}
+    defaults: { _controller: ABCoreBundle:Core:error }
+    requirements:
+         id: \d+
+         _locale: fr|en
+
+
 
