@@ -33,3 +33,5 @@ tweet.partage: I just book online tickets for the Museum of the Louvre
 accueil: Back to home
 annulation: Cancellation
 retour: Return
+erreur: An error occurred during the transaction.
+lien.erreur: Please click on the link below to redirect you on the choice of the mode of payment.

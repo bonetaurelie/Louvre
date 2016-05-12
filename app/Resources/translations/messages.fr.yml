@@ -30,6 +30,8 @@ salutation: 'Dans l''attente de vous revoir sur notre site,'
 musee: 'Le Musée du Louvre'
 valider.form: Valider
 tweet.partage: 'Je viens de réserver en ligne mes billets pour le Musée du Louvre'
-accueil: Retour à l'accueil
+accueil: 'Retour à l''accueil'
 annulation: Annulation
 retour: Retour
+erreur: 'Une erreur s''est produite lors de la transaction.'
+lien.erreur: 'Veuillez cliquer sur le lien ci-dessous pour vous rediriger sur le choix du mode de paiement.'
