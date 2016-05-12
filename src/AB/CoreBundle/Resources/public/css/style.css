@@ -198,3 +198,13 @@ p{
     color: black;
     margin-top: -320px;
 }
+
+/*page erreur*/
+.lien a{
+    text-decoration: none;
+    color: #AA1111;
+}
+
+.page_error{
+margin-top: 150px;
+}
