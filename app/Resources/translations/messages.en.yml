@@ -35,3 +35,4 @@ annulation: Cancellation
 retour: Return
 erreur: An error occurred during the transaction.
 lien.erreur: Please click on the link below to redirect you on the choice of the mode of payment.
+retour.paiement: Return to the payment page
