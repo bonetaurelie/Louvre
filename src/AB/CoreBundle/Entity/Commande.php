@@ -38,7 +38,7 @@ class Commande
     /**
      * @var int
      *
-     * @ORM\Column(name="tarif", type="decimal")
+     * @ORM\Column(name="tarif", type="decimal",precision=5, scale=2)
      */
     private $tarif;
 
@@ -73,6 +73,12 @@ class Commande
      *  @ORM\JoinColumn(name="visiteur_id", referencedColumnName="id")
      */
     private $visiteur;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Validation_commande", inversedBy="commandes")
+     * @ORM\JoinColumn(name="validation_commande_id", referencedColumnName="id")
+    */
+    private $validation_commande;
     
     /**
      * Get id
@@ -284,5 +290,28 @@ class Commande
     public function getBillets()
     {
         return $this->billets;
+    }
+
+    /**
+     * Set validation_commande
+     *
+     * @param \AB\CoreBundle\Entity\Validation_commande $validationCommande
+     * @return Commande
+     */
+    public function setValidationCommande(\AB\CoreBundle\Entity\Validation_commande $validationCommande = null)
+    {
+        $this->validation_commande = $validationCommande;
+
+        return $this;
+    }
+
+    /**
+     * Get validation_commande
+     *
+     * @return \AB\CoreBundle\Entity\Validation_commande 
+     */
+    public function getValidationCommande()
+    {
+        return $this->validation_commande;
     }
 }
