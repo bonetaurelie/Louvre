@@ -32,7 +32,7 @@ valider.form: Valider
 tweet.partage: 'Je viens de réserver en ligne mes billets pour le Musée du Louvre'
 accueil: 'Retour à l''accueil'
 annulation: Annulation
-retour: Retour
+modifier: Modifier
 erreur: 'Une erreur s''est produite lors de la transaction.'
 lien.erreur: 'Veuillez cliquer sur le lien ci-dessous pour vous rediriger sur le choix du mode de paiement.'
 retour.paiement: 'Retour à la page de paiement'
@@ -42,3 +42,4 @@ partage.titre: Partager
 reservation.titre: Réservation
 visiteur.titre: 'Enregistrement des visiteurs'
 billetterie.titre: 'Billetterie du Louvre'
+site: Site Officiel du Musée du Louvre
