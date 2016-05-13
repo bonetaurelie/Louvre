@@ -42,12 +42,18 @@ p{
     margin-top: 150px;
 }
 
-.btn{
+.btn.btn-default{
     background-color: #EBEBEB;
 }
 
-.retour{
-    margin-top: -35px;
+.retour .btn{
+    margin-top: -58px;
+    background-color: #AA1111;
+}
+
+.btn.btn-danger{
+    background-color: #AA1111;
+    color: black;
 }
 
 .error{
