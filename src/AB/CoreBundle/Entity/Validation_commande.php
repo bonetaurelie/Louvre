@@ -3,6 +3,7 @@
 namespace AB\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Validation_commande
@@ -24,7 +25,7 @@ class Validation_commande
     /**
      * @var int
      *
-     * @ORM\Column(name="tarif", type="decimal")
+     * @ORM\Column(name="tarif", type="decimal",precision=5, scale=2)
      */
     private $tarif;
 
@@ -34,6 +35,16 @@ class Validation_commande
      * @ORM\Column(name="statut", type="string", length=255)
      */
     private $statut;
+
+    /**
+    *@ORM\OneToMany(targetEntity="Commande", mappedBy="validation_commande")
+    */
+    
+    private $commandes;
+
+    public function __construct() {
+        $this->commandes = new ArrayCollection();
+    }
 
 
     /**
@@ -62,7 +73,7 @@ class Validation_commande
     /**
      * Get tarif
      *
-     * @return integer 
+     * @return integer
      */
     public function geTarif()
     {
@@ -123,5 +134,38 @@ class Validation_commande
     public function getTarif()
     {
         return $this->tarif;
+    }
+
+    /**
+     * Add commandes
+     *
+     * @param \AB\CoreBundle\Entity\Commande $commandes
+     * @return Validation_commande
+     */
+    public function addCommande(\AB\CoreBundle\Entity\Commande $commandes)
+    {
+        $this->commandes[] = $commandes;
+
+        return $this;
+    }
+
+    /**
+     * Remove commandes
+     *
+     * @param \AB\CoreBundle\Entity\Commande $commandes
+     */
+    public function removeCommande(\AB\CoreBundle\Entity\Commande $commandes)
+    {
+        $this->commandes->removeElement($commandes);
+    }
+
+    /**
+     * Get commandes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCommandes()
+    {
+        return $this->commandes;
     }
 }
