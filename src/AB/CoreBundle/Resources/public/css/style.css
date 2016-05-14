@@ -171,7 +171,11 @@ p{
 
 /*paiement*/
 .payment{
-    margin-top: 150px;
+    margin-top: 250px;
+}
+
+.payment_block{
+    margin-bottom: 90px;
 }
 
 .annulation{
@@ -180,7 +184,7 @@ p{
 
 /* bouton stripe revoir positionnement*/
 .stripe{
-    padding-top: 100px;
+    padding-top: 50px;
 }
 
 .paypal{
@@ -190,6 +194,10 @@ p{
 /*partage*/
 .partage{
     margin-top: 250px;
+}
+
+.partage_block{
+    margin-bottom: 229px;
 }
 
 .fb-share-button{

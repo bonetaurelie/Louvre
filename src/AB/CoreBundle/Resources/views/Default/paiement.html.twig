@@ -6,6 +6,7 @@
 
 {% block body %}
 
+    <div class="payment_block">
     <div class="payment">
         <h1 class="text-center">{{ 'choix.paiement' | trans }}</h1>
     </div>
@@ -38,10 +39,12 @@
         </form>
     </div>
     </div>
-
-    <div class="annulation col-xs-offset-8 col-sm-offset-7 col-md-offset-8">
-        <a class="btn btn-danger" href="{{ path('ab_core_accueil')}}" role="button">{{ 'annulation' |trans }}</a>
+        <div class="annulation col-xs-offset-8 col-sm-offset-7 col-md-offset-8">
+            <a class="btn btn-danger" href="{{ path('ab_core_accueil')}}" role="button">{{ 'annulation' |trans }}</a>
+        </div>
     </div>
+
+
 
 
 
