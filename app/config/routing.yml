@@ -10,6 +10,13 @@ ab_core_reservation:
     requirements:
         _locale: fr|en
 
+ab_core_updateresa:
+    path: /modification_reservation/{id}/{_locale}
+    defaults: {_controller: ABCoreBundle:Core:updateresa}
+    requirements:
+        id: \d+
+        _locale: fr|en
+
 ab_core_visiteur:
     path:    /visiteur/{id}/{_locale}
     defaults: { _controller: ABCoreBundle:Core:visiteur }
