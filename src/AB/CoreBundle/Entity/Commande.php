@@ -24,7 +24,7 @@ class Commande
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_resa", type="datetime")
+     * @ORM\Column(name="date_resa", type="date")
      */
     private $dateResa;
 
