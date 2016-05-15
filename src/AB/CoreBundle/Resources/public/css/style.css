@@ -220,8 +220,10 @@ p{
 }
 
 .page_error{
-margin-top: 150px;
+    margin-top: 150px;
+    margin-bottom: 159px;
 }
+
 
 /*footer*/
 footer{
