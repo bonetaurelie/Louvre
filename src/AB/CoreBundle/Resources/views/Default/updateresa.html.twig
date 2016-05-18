@@ -1,0 +1,94 @@
+{% extends 'ABCoreBundle::layout.html.twig' %}
+{% block stylesheet %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/abcore/css/bootstrap-datepicker3.min.css') }}">
+{% endblock %}
+{% block title %}
+    {{ parent() }} - {{ 'reservation.titre'|trans }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="form">
+        <h1 class="text-center">{{ 'form' |trans }}</h1>
+        <div class=" col-md-offset-4 col-md-7 col-sm-offset-3 col-sm-9 col-xs-offset-2 col-xs-10">
+            {% if error != "" %}
+                <p class="error text-center">{{ 'error.reservation' | trans }}</p>
+            {% endif %}
+        </div>
+        <div class="form3 col-xs-offset-2 col-sm-offset-2 col-md-offset-3">
+            {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+            {{ form_errors(form) }}
+
+            <div class="form-group">
+                {{ form_label(form.quantite, "quantite.reservation", {'label_attr': {'class': 'col-xs-3 col-sm-3 control-label'}}) }}
+
+                {{ form_errors(form.quantite) }}
+
+                <div class="col-xs-2 col-sm-2 col-md-2">
+                    {{ form_widget(form.quantite, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+
+            <div class=" col-md-offset-1 col-md-9">
+                {% if error1 != "" %}
+                    <p class="error1 text-center">{{ 'error1.reservation' | trans }}</p>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.type, "type.reservation", {'label_attr': {'class': 'col-xs-3 col-sm-3 col-md-3 control-label'}}) }}
+                {{ form_errors(form.type) }}
+                <div class="col-xs-4 col-sm-4 col-md-3">
+                    {{ form_widget(form.type, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.date, "jour.reservation", {'label_attr': {'class': 'col-xs-3 col-sm-3 control-label'}}) }}
+
+                {{ form_errors(form.date) }}
+
+                <div class="col-xs-4 col-sm-3 col-md-3">
+                    {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.email, "email.reservation", {'label_attr': {'class': 'col-xs-3 col-sm-3 control-label'}}) }}
+
+                {{ form_errors(form.email) }}
+
+                <div class="col-xs-5 col-sm-5 col-md-4">
+                    {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+
+            <div class="col-xs-offset-3 col-sm-offset-4 col-md-offset-4">
+                <input type="submit" value="{{ 'valider.form' | trans }}" class="btn btn-default" />
+            </div>
+
+            {{ form_rest(form) }}
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block jquery %}
+    {{ parent() }}
+    <script src="{{ asset ('bundles/abcore/js/bootstrap-datepicker.min.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#billet_date').datepicker({
+                format: "dd/mm/yyyy",
+                todayBtn: "linked",
+                language: "fr",
+                daysOfWeekDisabled: "0,2",
+                autoclose: true
+            });
+        });
+    </script>
+{% endblock %}
