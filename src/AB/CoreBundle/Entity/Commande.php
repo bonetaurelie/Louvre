@@ -73,12 +73,7 @@ class Commande
      *  @ORM\JoinColumn(name="visiteur_id", referencedColumnName="id")
      */
     private $visiteur;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Validation_commande", inversedBy="commandes")
-     * @ORM\JoinColumn(name="validation_commande_id", referencedColumnName="id")
-    */
-    private $validation_commande;
+    
     
     /**
      * Get id

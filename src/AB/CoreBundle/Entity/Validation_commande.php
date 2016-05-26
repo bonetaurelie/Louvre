@@ -37,10 +37,10 @@ class Validation_commande
     private $statut;
 
     /**
-    *@ORM\OneToMany(targetEntity="Commande", mappedBy="validation_commande")
-    */
-    
-    private $commandes;
+     * @ORM\ManyToOne(targetEntity="Billet", inversedBy="validations")
+     * @ORM\JoinColumn(name="id_billet", referencedColumnName="id")
+     */
+    private $billet;
 
     public function __construct() {
         $this->commandes = new ArrayCollection();
@@ -167,5 +167,51 @@ class Validation_commande
     public function getCommandes()
     {
         return $this->commandes;
+    }
+
+    /**
+     * Set validations
+     *
+     * @param \AB\CoreBundle\Entity\Billet $validations
+     * @return Validation_commande
+     */
+    public function setValidations(\AB\CoreBundle\Entity\Billet $validations = null)
+    {
+        $this->validations = $validations;
+
+        return $this;
+    }
+
+    /**
+     * Get validations
+     *
+     * @return \AB\CoreBundle\Entity\Billet 
+     */
+    public function getValidations()
+    {
+        return $this->validations;
+    }
+
+    /**
+     * Set billet
+     *
+     * @param \AB\CoreBundle\Entity\Billet $billet
+     * @return Validation_commande
+     */
+    public function setBillet(\AB\CoreBundle\Entity\Billet $billet = null)
+    {
+        $this->billet = $billet;
+
+        return $this;
+    }
+
+    /**
+     * Get billet
+     *
+     * @return \AB\CoreBundle\Entity\Billet 
+     */
+    public function getBillet()
+    {
+        return $this->billet;
     }
 }
