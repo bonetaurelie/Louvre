@@ -35,12 +35,7 @@ class Validation_commande
      * @ORM\Column(name="statut", type="string", length=255)
      */
     private $statut;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Billet", inversedBy="validations")
-     * @ORM\JoinColumn(name="id_billet", referencedColumnName="id")
-     */
-    private $billet;
+    
 
     public function __construct() {
         $this->commandes = new ArrayCollection();
