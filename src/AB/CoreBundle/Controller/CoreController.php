@@ -87,14 +87,14 @@ class CoreController extends Controller
                 return $this->redirect($this->generateUrl('ab_core_visiteur',array('id'=>$billet->getId())));
             }
         }
-        return $this->render('ABCoreBundle:Default:reservation.html.twig',array('billet'=>$billet,'form'=>$form->createView(),'error'=>$error,'error1'=>$error1));
+        return $this->render('ABCoreBundle:Default:updateresa.html.twig',array('billet'=>$billet,'form'=>$form->createView(),'error'=>$error,'error1'=>$error1));
     }
-
 
     public function visiteurAction($id, Request $request){
         $billet = $this->getDoctrine()->getRepository("ABCoreBundle:Billet")->find($id);
 
         $form= $this->get('form.factory')->create(new BilletVisiteurType(),$billet);
+
 
         for($a = 0;$a < $billet->getQuantite();$a++){
             $visiteur= new Visiteur();
@@ -102,32 +102,49 @@ class CoreController extends Controller
             $visiteurform = $form->get('visiteurs')->get($a);
             $visiteurform->setData($visiteur);
         }
-        if($form->handleRequest($request)->isValid()){
+        if($form->handleRequest($request)->isValid() ){
+
             $em=$this->getDoctrine()->getManager();
             $flag_famille = TRUE;
 
-            if($billet->getQuantite()==4){
+
+            if ($billet->getQuantite() == 4) {
                 $nom_prec = "";
                 $cpt = 0;
-                foreach($billet->getVisiteurs() as $vis){
-                    if($vis->getNom() != $nom_prec && $cpt > 0 ){
-                        $flag_famille = FALSE;
-                        break;
+                foreach ($billet->getVisiteurs() as $vis) {
+                    $nom_actuel = strtolower($vis->getNom());
+                    if($cpt == 0){
+                        $nom_prec = $nom_actuel;
                     }else {
-                        //RAJOUTER UNE CONDITION POUR QUE 2 ENF ET 2ADULTES et que les noms soient au même format
-                        $cpt++;
-                        $nom_prec = $vis->getNom();
-                        // $date = new \DateTime(date("d/m/Y"));
-                        //if($enf=$visiteur->getDateNaissance() >= $date->sub(new \DateInterval('P12Y')) && $adulte=$visiteur->getDateNaissance() <= $date->sub(new \DateInterval('P18Y')) ){
-                        //
-                        //}else{
-                        //$flag_famille = FALSE;
-                        //}
+                        if ($nom_actuel !== $nom_prec) {
+                            $flag_famille = FALSE;
+                            break;
+                        }
+                        else{
+                            if ($nom_actuel == $nom_prec){
+                                $enf="";
+                                $adulte="";
+                                $date = new \DateTime();
+                                foreach($billet->getVisiteurs() as $visi){
+                                    $dateanniv=$visi->getDateNaissance();
+                                    if( $enf= $dateanniv >= $date->sub(new \DateInterval('P12Y')) && $adulte= $dateanniv <= $date->sub(new \DateInterval(('P18Y')))){
+                                        $flag_famille = TRUE;
+                                }
+                                    $enf++;
+                                    $adulte++;
+                                }
+
+                            }
+
+                        }
                     }
+                    $cpt++;
                 }
-            }else {
-                $flag_famille = FALSE;
             }
+            else {
+                    $flag_famille = FALSE;
+                }
+
             foreach($billet->getVisiteurs() as $visiteur){
                 $visiteur->setBillet($billet);
                 $em->persist($visiteur);
@@ -135,11 +152,8 @@ class CoreController extends Controller
                 $commande = new Commande();
                 $commande->setDateResa($billet->getDate());
                 $commande->setNom($visiteur->getNom());
-                //enregistrement du code resa
                 $code=$visiteur->getNom().$visiteur->getPrenom().$billet->getDate()->format('dmy');
                 $commande->setCodeResa($code);
-
-                //enregistrement du crquode = code resa
                 $commande->setQrcode( $commande->getCodeResa());
 
                 $dateanniv=$visiteur->getDateNaissance();
@@ -179,25 +193,22 @@ class CoreController extends Controller
             $em->flush();
 
             return $this->redirect($this->generateUrl('ab_core_paiement',array('id'=>$commande->getId())));
+
         }
-        return $this->render('ABCoreBundle:Default:visiteur.html.twig',array('visiteur'=>$visiteur, 'form'=>$form->createView()));
-
-
-        // SI ON CLIQUE SUR MODIF REDIRECTION VERS ab_core-modifresa
+        return $this->render('ABCoreBundle:Default:visiteur.html.twig',array('billet'=>$billet,'visiteur'=>$visiteur, 'form'=>$form->createView()));
     }
 
-    public function paiementAction($id){
-        $billet=$this->getDoctrine()->getRepository('ABCoreBundle:Billet')->find($id);
+    public function paiementAction($id, Request $request){
+        $commande=$this->getDoctrine()->getRepository('ABCoreBundle:Commande')->find($id);
+        $em= $this->getDoctrine()->getManager();
         $val_commande = new Validation_commande();
+        $billet= new Billet();
 
-        /*if($billet->getQuantite()===1){
-
-            $em= $this->getDoctrine()->getManager();
-            $commande= new Commande();
-            $commandes=$this->getDoctrine()->getRepository('ABCoreBundle:Commande')->findByTarif($commande->getTarif());
+        //if($billet->getQuantite()===1){
             $val_commande->setTarif($commande->getTarif());
-        }
-        elseif ($billet->getQuantite()>1){
+        //}
+
+       /* else ($billet->getQuantite()>1){
             $ret=0;
             foreach($commande->getTarif() as $tarif){
                 if(is_array($tarif)) {
@@ -206,10 +217,12 @@ class CoreController extends Controller
                 }
             }
         }
-       if(Paiement PayPal validé{
-       $val_commande->setStatut('P');
 
-       $message = \Swift_Message::newInstance()
+
+        if($request->get('submit') && paiement accepté){
+            $val_commande->setStatut('P');
+
+        $message = \Swift_Message::newInstance()
                 ->setSubject('Votre réservation au musée du Louvre')
                 ->setFrom('bonetaurelie@gmail.com')
                 ->setTo($billet->getEmail())
@@ -219,10 +232,11 @@ class CoreController extends Controller
                 ->attach(Swift_Attachment::fromPath('/path/to/a/file.zip'));
             $this->get('mailer')->send($message);
 
-       }
-       elseIf(Paiement Stripe validé){
-       $val_commande->setStatut('S');
-       $message = \Swift_Message::newInstance()
+        }
+        elseIf(Paiement Stripe){
+            if(paiement accepté){
+        $val_commande->setStatut('S');
+        $message = \Swift_Message::newInstance()
                 ->setSubject('Votre réservation au musée du Louvre')
                 ->setFrom('bonetaurelie@gmail.com')
                 ->setTo($billet->getEmail())
@@ -232,26 +246,26 @@ class CoreController extends Controller
                 ->attach(Swift_Attachment::fromPath('/path/to/a/file.zip'));   ->->->path?????
             $this->get('mailer')->send($message);
        }
-       elseIf(Paiement retourne une erreur){
-       $val_commande->setStatut('E');
+       }
+        else{
+            $val_commande->setStatut('E');
 
-       return $this->redirect(generateurl('ab_core_error'));
-       }
-       elseIf(Paiement annulé){
-       $val_commande->setStatut('A');
-       return $this->redirect(generateurl('ab_core_accueil'));
-       }
+            return $this->redirect(generateurl('ab_core_error'));
+        }
+        elseIf($request->get('annulation')){
+            $val_commande->setStatut('A');
+        }*/
 
 
         $em->persist($val_commande);
-        $em->flush();*/
+        $em->flush();
 
-        return $this->render('ABCoreBundle:Default:paiement.html.twig',array('val_commande'=>$val_commande));
+        return $this->render('ABCoreBundle:Default:paiement.html.twig',array('val_commande'=>$val_commande,'commande'=>$commande));
     }
 
     public function errorAction($id){
-        $billet= $this->getDoctrine()->getManager()->getRepository('ABCoreBundle:Commande')->find($id);
-        return $this->render('ABCoreBundle:Default:error.html.twig',array('billet'=>$billet));
+        $commande= $this->getDoctrine()->getManager()->getRepository('ABCoreBundle:Commande')->find($id);
+        return $this->render('ABCoreBundle:Default:error.html.twig',array('commande'=>$commande));
     }
 
     public function partageAction(){
