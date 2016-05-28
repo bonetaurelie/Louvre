@@ -1,4 +1,4 @@
-message.date: 'La date saisie ne doit pas être antèrieure à aujourd''hui'
+error.date: 'La date saisie ne doit pas être antèrieure à aujourd''hui'
 message.ferie: 'La date saisie ne doit pas être un jour férié'
 email.valide: 'L''e-mail saisi n''est pas valide'
 quantite.valide: 'La quantité saisie ne doit pas être inférieure à 1'
