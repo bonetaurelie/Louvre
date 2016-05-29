@@ -79,10 +79,6 @@ p{
     margin-right: 150px;
 }
 
-.form2{
-    padding-top: 50px;
-}
-
 .form3{
     padding-top: 50px;
 }
@@ -169,6 +165,60 @@ p{
     padding-top: 20px;
 }
 
+.form2{
+    padding-top: 50px;
+}
+
+.form2 ul li{
+    list-style-type: none;
+}
+
+@media all and (max-width: 768px) {
+    .form2 li.list li{
+        color: #AA1111;
+        border-bottom: 100px;
+        border-top: 100px;
+        border-left: 70px;
+        border-right: 70px;
+        background-color: #EBEBEB;
+        border-radius: 5px 5px 5px 5px;
+        margin-left: 50px;
+        margin-right: 50px;
+        padding-top: 5px;
+    }
+}
+
+/* Small devices (tablets, 768px and up) */
+@media all and (min-width: 768px) {
+    .form2 li.list li{
+        color: #AA1111;
+        border-bottom: 100px;
+        border-top: 100px;
+        border-left: 70px;
+        border-right: 70px;
+        background-color: #EBEBEB;
+        border-radius: 5px 5px 5px 5px;
+        margin-left: 150px;
+        margin-right: 50px;
+        padding-top: 5px;
+    }
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media all and (min-width:992px) {
+    .form2 li.list li{
+        color: #AA1111;
+        border-bottom: 100px;
+        border-top: 100px;
+        border-left: 70px;
+        border-right: 70px;
+        background-color: #EBEBEB;
+        border-radius: 5px 5px 5px 5px;
+        margin-left: 200px;
+        margin-right: 300px;
+        padding-top: 5px;
+    }
+}
 /*paiement*/
 .payment{
     margin-top: 250px;
