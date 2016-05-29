@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class VisiteurType extends AbstractType
 {
@@ -31,7 +32,8 @@ class VisiteurType extends AbstractType
             ))
             ->add('dateNaissance','date', array(
                 'widget'=>'single_text',
-                'constraints'=>new Date(array(
+                'required'=>false,
+                'constraints'=>new NotBlank(array(
                     'message'=>'date.message'))
             ))
             ->add('pays','text',array(
