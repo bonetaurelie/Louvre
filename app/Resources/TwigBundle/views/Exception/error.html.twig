@@ -2,16 +2,15 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Une erreur s'est produite: {{ status_text }}</title>
+    <title>{{ 'erreur.exception'|trans }}: {{ status_text }}</title>
     <link rel="stylesheet" href="{{ asset ('Resources/TwigBundle/views/css/error.css') }}">
 </head>
 <body>
-<h1>Oops! Une erreur s'est produite</h1>
-<h2>Le serveur a retourné une erreur "{{ status_code }} {{ status_text }}".</h2>
+<h1>Oops! {{'erreur.exception'|trans  }}</h1>
+<h2> "{{ status_code }} {{ status_text }}".</h2>
 
 <div>
-    Quelque chose s'est passé. Si vous le souhaitez vous pouvez nous envoyer un e-mail à bonetaurelie@gmail.com. Nous réparerons cette erreur aussi vite que possible.
-    Nous nous excusons pour le désagrément causé.
+   {{ 'texte.exception'|trans }}
 </div>
 </body>
 </html>
