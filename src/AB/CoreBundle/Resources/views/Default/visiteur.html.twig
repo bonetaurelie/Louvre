@@ -38,7 +38,7 @@
 
             {{ form_errors(visiteur.dateNaissance) }}
 
-            <div class="col-xs-5 col-sm-4 col-md-3">
+            <div class="col-xs-7 col-sm-4 col-md-1">
                 {{ form_widget(visiteur.dateNaissance, {'attr': {'class': 'form-control'}}) }}
             </div>
         </div>
@@ -79,7 +79,7 @@
             <input type="submit" value="{{ 'valider.form' | trans }}" class="btn btn-default" />
         </div>
 
-        <div class="retour col-xs-offset-2 col-sm-offset-2 col-md-offset-2">
+        <div class="retour col-xs-offset-1 col-sm-offset-2 col-md-offset-2">
             <a class="btn btn-danger" href="{{ path('ab_core_updateresa',{'id':billet.id})}}" role="button">{{ 'modifier' |trans }}</a>
         </div>
 
