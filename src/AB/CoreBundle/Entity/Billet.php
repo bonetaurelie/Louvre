@@ -40,8 +40,6 @@ class Billet implements Translatable
      * @ORM\Column(name="quantite", type="integer")
      * @Assert\Range(min=1,
      *      minMessage ="quantite.valide")
-     * @Assert\NotBlank(
-     *     message="error.message")
      */
     private $quantite;
 
@@ -102,8 +100,6 @@ class Billet implements Translatable
      * @ORM\Column(name="email", type="string", length=255)
      * @Assert\Email(checkMX=true,
      *      message ="email.valide")
-     * @Assert\NotBlank(
-     *     message="error.message")
      */
     private $email;
 
