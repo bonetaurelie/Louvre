@@ -43,3 +43,6 @@ reservation.titre: Réservation
 visiteur.titre: 'Enregistrement des visiteurs'
 billetterie.titre: 'Billetterie du Louvre'
 site: 'Site Officiel du Musée du Louvre'
+erreur.exception: 'Une erreur s''est produite'
+serveur.erreur: 'Le serveur a retourné une erreur'
+texte.exception: 'Quelque chose s''est passé. Si vous le souhaitez vous pouvez nous envoyer un e-mail à bonetaurelie@gmail.com. Nous réparerons cette erreur aussi vite que possible. Nous nous excusons pour le désagrément causé.'
