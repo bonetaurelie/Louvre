@@ -19,7 +19,6 @@ class BilletVisiteurType extends AbstractType
     {
         $builder
             ->add("visiteurs", CollectionType::class, array(
-                // each entry in the array will be an "email" field
                 'entry_type'   => VisiteurType::class,
             ))
         ;
