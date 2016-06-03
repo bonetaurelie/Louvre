@@ -14,6 +14,7 @@ use AB\CoreBundle\Form\VisiteurType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
+
 class CoreController extends Controller
 {
 
@@ -102,17 +103,19 @@ class CoreController extends Controller
             $visiteurform = $form->get('visiteurs')->get($a);
             $visiteurform->setData($visiteur);
         }
-        if($form->handleRequest($request)->isValid() ){
+        if($form->handleRequest($request)->isValid() ) {
 
-            $em=$this->getDoctrine()->getManager();
+            $em = $this->getDoctrine()->getManager();
             $flag_famille = TRUE;
-
 
             if ($billet->getQuantite() == 4) {
                 $nom_prec = "";
                 $cpt = 0;
+                $enf = $adulte = 0;
+                $date = new \DateTime();
                 foreach ($billet->getVisiteurs() as $vis) {
                     $nom_actuel = strtolower($vis->getNom());
+                    $age=$vis->getDateNaissance();
                     if($cpt == 0){
                         $nom_prec = $nom_actuel;
                     }else {
@@ -121,29 +124,40 @@ class CoreController extends Controller
                             break;
                         }
                         else{
-                            if ($nom_actuel == $nom_prec){
-                                $enf="";
-                                $adulte="";
-                                $date = new \DateTime();
-                                foreach($billet->getVisiteurs() as $visi){
-                                    $dateanniv=$visi->getDateNaissance();
-                                    if( $enf= $dateanniv >= $date->sub(new \DateInterval('P12Y')) && $adulte= $dateanniv <= $date->sub(new \DateInterval(('P18Y')))){
-                                        $flag_famille = TRUE;
-                                }
+                            if ($nom_actuel == $nom_prec) {
+                                $age_pour_enf = $date->sub(new \DateInterval('P12Y'));
+                                if ($vis->getDateNaissance() >= $age_pour_enf) {
+                                    echo "enfants";
+                                    // C'est un enfant !
+                                    dump($enf);
+
                                     $enf++;
+                                } else {
+                                    echo "adultes";
+                                    dump($adulte);
+                                    // C'est un adulte
                                     $adulte++;
                                 }
-
                             }
-
                         }
                     }
                     $cpt++;
                 }
-            }
-            else {
+                if($enf == 2 && $adulte == 2){
+                    echo"famille";
+
+                    // C'est une famille avec deux enfants 2 adultes
+                    $flag_famille = TRUE;
+                }else{
+                    // C'est pas une famille
+                    echo "Il y a ".$enf." enfant(s) et ".$adulte." adulte(s)";
                     $flag_famille = FALSE;
                 }
+            }
+            else {
+                $flag_famille = FALSE;
+            }
+
 
             foreach($billet->getVisiteurs() as $visiteur){
                 $visiteur->setBillet($billet);
@@ -189,34 +203,44 @@ class CoreController extends Controller
                 $em->persist($commande);
                 $em->flush();
             }
-            $em->persist($billet);
+            /*$em->persist($billet);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('ab_core_paiement',array('id'=>$commande->getId())));
+            return $this->redirect($this->generateUrl('ab_core_paiement',array('id'=>$billet->getId())));*/
 
         }
-        return $this->render('ABCoreBundle:Default:visiteur.html.twig',array('billet'=>$billet,'visiteur'=>$visiteur, 'form'=>$form->createView()));
+        return $this->render('ABCoreBundle:Default:visiteur.html.twig',array('billet'=>$billet, 'form'=>$form->createView()));
     }
 
-    public function paiementAction($id, Request $request){
-        $commande=$this->getDoctrine()->getRepository('ABCoreBundle:Commande')->find($id);
-        $em= $this->getDoctrine()->getManager();
+    public function paiementAction($id, Request $request)
+    {
+        $billet= $this->getDoctrine()->getRepository('ABCoreBundle:Billet')->find($id);
+        $em = $this->getDoctrine()->getManager();
         $val_commande = new Validation_commande();
-        $billet= new Billet();
+        $commande= $em->getRepository('ABCoreBundle:Commande')->find($id);
 
-        //if($billet->getQuantite()===1){
+        if($billet->getQuantite()==1){
             $val_commande->setTarif($commande->getTarif());
-        //}
+            dump($commande);
+        }
 
-       /* else ($billet->getQuantite()>1){
+
+
+        
+       /* elseif($billet->getQuantite()==4 && famille){
+       $val_commande->setTarif($commande->getTarif());
+       }
+       else{
             $ret=0;
             foreach($commande->getTarif() as $tarif){
-                if(is_array($tarif)) {
                     $s = array_sum($tarif);
                     $ret += $s+$s;
-                }
+                    $val_commande->setTarif($commande->getTarif));
             }
+       }
         }
+       
+        $em->persist($val-commande);
 
 
         if($request->get('submit') && paiement accepté){
@@ -229,7 +253,7 @@ class CoreController extends Controller
                 ->setContentType('text/html')
                 ->setBody(
                     $this->renderView('ABCoreBundle:Default:email.html.twig'))
-                ->attach(Swift_Attachment::fromPath('/path/to/a/file.zip'));
+                ->attach(Swift_Attachment::fromPath('/path/to/a/file.zip'));   //--->> PJ VOIR
             $this->get('mailer')->send($message);
 
         }
@@ -255,12 +279,10 @@ class CoreController extends Controller
         elseIf($request->get('annulation')){
             $val_commande->setStatut('A');
         }*/
+        
+        /*$em->flush();*/
 
-
-        $em->persist($val_commande);
-        $em->flush();
-
-        return $this->render('ABCoreBundle:Default:paiement.html.twig',array('val_commande'=>$val_commande,'commande'=>$commande));
+        return $this->render('ABCoreBundle:Default:paiement.html.twig',array('val_commande'=>$val_commande));
     }
 
     public function errorAction($id){
@@ -291,4 +313,25 @@ class CoreController extends Controller
     }
 
 
+    public function prepareStripeJsPaymentAction(Request $request)
+    {
+        $gatewayName = 'stripe_louvre';
+
+        $storage = $this->getPayum()->getStorage('Acme\GatewayBundle\Entity\PaymentDetails');
+
+        /** @var PaymentDetails $details */
+        $details = $storage->create();
+        $details["amount"] = 20;
+        $details["currency"] = 'EUR';
+        $details["description"] = 'Montant de la transaction';
+        $storage->update($details);
+
+        $captureToken = $this->get('payum')->getTokenFactory()->createCaptureToken(
+            $gatewayName,
+            $details,
+            'ab_core_partage' // the route to redirect after capture;
+        );
+
+        return $this->render('ABCoreBundle:Default:paiement.html.twig');
+    }
 }
