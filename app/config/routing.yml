@@ -17,9 +17,9 @@ ab_core_update_reservation:
         id: \d+
         _locale: fr|en
 
-ab_core_visiteur:
+ab_core_reservation_seconde_etape:
     path:    /visiteur/{id}/{_locale}
-    defaults: { _controller: ABCoreBundle:Core:visiteur }
+    defaults: { _controller: ABCoreBundle:Reservation:reservationSecondeEtape }
     requirements:
         id: \d+
         _locale: fr|en
