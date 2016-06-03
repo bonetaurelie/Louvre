@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class VisiteurType extends AbstractType
 {
@@ -19,15 +20,17 @@ class VisiteurType extends AbstractType
     {
         $builder
             ->add('nom','text',array(
-                'constraints'=>new Length(array(
-                    'min'=>2,
-                    'minMessage'=>'nom.message'
+                'constraints'=>new Regex(array(
+                    'pattern'=>'/\d/',
+                    'match'=> false,
+                    'message'=>'nom.messages'
                 ))
             ))
             ->add('prenom','text',array(
-                'constraints'=>new Length(array(
-                    'min'=>2,
-                    'minMessage'=>'prenom.message'
+                'constraints'=>new Regex(array(
+                    'pattern'=>'/\d/',
+                    'match'=> false,
+                    'message'=>'prenom.messages'
                 ))
             ))
             ->add('dateNaissance','date', array(
@@ -37,9 +40,10 @@ class VisiteurType extends AbstractType
                     'message'=>'date.message'))
             ))
             ->add('pays','text',array(
-                'constraints'=> new Length(array(
-                    'min'=>2,
-                    'minMessage'=>'pays.message'
+                'constraints'=> new Regex(array(
+                    'pattern'=>'/\d/',
+                    'match'=> false,
+                    'message'=>'pays.messages'
                 ))
             ))
             ->add('tarifReduit','checkbox',array('required'=>false))
