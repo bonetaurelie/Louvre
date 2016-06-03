@@ -299,39 +299,4 @@ class CoreController extends Controller
         $request->getSession()->set('_locale', $locale);
     }
 
-    public function generatePdfAction(){
-
-        // ... some code
-
-        $content = $this->renderView('ABCoreBundle:Default:pdf.html.twig');
-        $pdfData = $this->get('obtao.pdf.generator')->outputPdf($content,array('font'=>'Arvo','format'=>'P','language'=>'fr','size'=>'A6'));
-
-        $response = new Response($pdfData);
-        $response->headers->set('Content-Type', 'application/pdf');
-
-        return $response;
-    }
-
-
-    public function prepareStripeJsPaymentAction(Request $request)
-    {
-        $gatewayName = 'stripe_louvre';
-
-        $storage = $this->getPayum()->getStorage('Acme\GatewayBundle\Entity\PaymentDetails');
-
-        /** @var PaymentDetails $details */
-        $details = $storage->create();
-        $details["amount"] = 20;
-        $details["currency"] = 'EUR';
-        $details["description"] = 'Montant de la transaction';
-        $storage->update($details);
-
-        $captureToken = $this->get('payum')->getTokenFactory()->createCaptureToken(
-            $gatewayName,
-            $details,
-            'ab_core_partage' // the route to redirect after capture;
-        );
-
-        return $this->render('ABCoreBundle:Default:paiement.html.twig');
-    }
 }
