@@ -6,13 +6,13 @@ ab_core_accueil:
 
 ab_core_reservation:
     path:    /reservation/{_locale}
-    defaults: { _controller: ABCoreBundle:Core:reservation }
+    defaults: { _controller: ABCoreBundle:Reservation:reservation }
     requirements:
         _locale: fr|en
 
-ab_core_updateresa:
+ab_core_update_reservation:
     path: /modification_reservation/{id}/{_locale}
-    defaults: {_controller: ABCoreBundle:Core:updateresa}
+    defaults: {_controller: ABCoreBundle:Reservation:updateReservation}
     requirements:
         id: \d+
         _locale: fr|en

@@ -2,11 +2,9 @@
 
 namespace AB\CoreBundle\Controller;
 
-use AB\CoreBundle\Entity\Billet;
 use AB\CoreBundle\Entity\Commande;
 use AB\CoreBundle\Entity\Validation_commande;
 use AB\CoreBundle\Entity\Visiteur;
-use AB\CoreBundle\Form\BilletType;
 use AB\CoreBundle\Form\BilletVisiteurType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,72 +22,7 @@ class CoreController extends Controller
         return $this->render('ABCoreBundle:Default:index.html.twig');
     }
 
-    public function reservationAction( Request $request){
-        $error="";
-        $error1="";
-        $billet= new Billet();
-        $billet->setDate( new \Datetime());
-        $billet->setDateResa(new \DateTime());
-        $now = new \DateTime();
 
-        $form= $this->get('form.factory')->create(new BilletType(),$billet);
-        if($form->handleRequest($request)->isValid()){
-            $em=$this->getDoctrine()->getManager();
-            $billets = $this->getDoctrine()->getRepository("ABCoreBundle:Billet")->findByDate($billet->getDate());
-            $flag = TRUE;
-            if(count($billets) > 1000){
-                $error=$this->get('translator')->trans('error.reservation');
-                $flag = FALSE;
-            }
-            if ($billet->getDate()->format('d/m/Y') == $now->format('d/m/Y') ){
-                if($billet->getType()==='journee' && $billet->getDateResa()->format('H') >= "14"){
-                    $error1=$this->get('translator')->trans('error1.reservation');
-                    $flag = FALSE;
-                }
-            }
-
-            if($flag){
-                $em->persist($billet);
-                $em->flush();
-                return $this->redirect($this->generateUrl('ab_core_visiteur',array('id'=>$billet->getId())));
-            }
-        }
-        return $this->render('ABCoreBundle:Default:reservation.html.twig',array('billet'=>$billet,'form'=>$form->createView(),'error'=>$error,'error1'=>$error1));
-    }
-    
-    public function updateresaAction($id, Request $request){
-        $error="";
-        $error1="";
-        $billet= $this->getDoctrine()->getRepository('ABCoreBundle:Billet')->find($id);
-        $billet->getDate();
-        $billet->getType();
-        $billet->setDateResa(new \DateTime());
-        $now = new \DateTime();
-
-        $form= $this->get('form.factory')->create(new BilletType(),$billet);
-        if($form->handleRequest($request)->isValid()){
-            $em=$this->getDoctrine()->getManager();
-            $billets = $this->getDoctrine()->getRepository("ABCoreBundle:Billet")->findByDate($billet->getDate());
-            $flag = TRUE;
-            if(count($billets) > 1000){
-                $error=$this->get('translator')->trans('error.reservation');
-                $flag = FALSE;
-            }
-            if ($billet->getDate()->format('d/m/Y') == $now->format('d/m/Y') ){
-                if($billet->getType()==='journee' && $billet->getDateResa()->format('H') >= "14"){
-                    $error1=$this->get('translator')->trans('error1.reservation');
-                    $flag = FALSE;
-                }
-            }
-
-            if($flag){
-                $em->persist($billet);
-                $em->flush();
-                return $this->redirect($this->generateUrl('ab_core_visiteur',array('id'=>$billet->getId())));
-            }
-        }
-        return $this->render('ABCoreBundle:Default:updateresa.html.twig',array('billet'=>$billet,'form'=>$form->createView(),'error'=>$error,'error1'=>$error1));
-    }
 
     public function visiteurAction($id, Request $request){
         $billet = $this->getDoctrine()->getRepository("ABCoreBundle:Billet")->find($id);
