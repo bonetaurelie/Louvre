@@ -73,8 +73,8 @@ class Commande
      *  @ORM\JoinColumn(name="visiteur_id", referencedColumnName="id")
      */
     private $visiteur;
-    
-    
+
+
     /**
      * Get id
      *
@@ -177,13 +177,6 @@ class Commande
         return $this->qrcode;
     }
 
-    /**
-     * Set statut
-     *
-     * @param string $statut
-     * @return Commande
-     */
-    
 
     /**
      * Set nom
@@ -252,61 +245,5 @@ class Commande
     public function getVisiteur()
     {
         return $this->visiteur;
-    }
-
-    /**
-     * Add billets
-     *
-     * @param \AB\CoreBundle\Entity\Billet $billets
-     * @return Commande
-     */
-    public function addBillet(\AB\CoreBundle\Entity\Billet $billets)
-    {
-        $this->billets[] = $billets;
-
-        return $this;
-    }
-
-    /**
-     * Remove billets
-     *
-     * @param \AB\CoreBundle\Entity\Billet $billets
-     */
-    public function removeBillet(\AB\CoreBundle\Entity\Billet $billets)
-    {
-        $this->billets->removeElement($billets);
-    }
-
-    /**
-     * Get billets
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getBillets()
-    {
-        return $this->billets;
-    }
-
-    /**
-     * Set validation_commande
-     *
-     * @param \AB\CoreBundle\Entity\Validation_commande $validationCommande
-     * @return Commande
-     */
-    public function setValidationCommande(\AB\CoreBundle\Entity\Validation_commande $validationCommande = null)
-    {
-        $this->validation_commande = $validationCommande;
-
-        return $this;
-    }
-
-    /**
-     * Get validation_commande
-     *
-     * @return \AB\CoreBundle\Entity\Validation_commande 
-     */
-    public function getValidationCommande()
-    {
-        return $this->validation_commande;
     }
 }

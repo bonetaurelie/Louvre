@@ -108,7 +108,6 @@ class Billet implements Translatable
      */
     private $visiteurs;
 
-
     /**
     * @Gedmo\Locale
     */
@@ -120,7 +119,6 @@ class Billet implements Translatable
         $this->date = new \Datetime();
         $this->dateResa = new \Datetime();
         $this->visiteurs = new ArrayCollection();
-        $this->commandes = new ArrayCollection();
 
     }
 
@@ -295,5 +293,4 @@ class Billet implements Translatable
     {
         $this->locale = $locale;
     }
-    
 }

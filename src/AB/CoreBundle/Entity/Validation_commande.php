@@ -70,9 +70,9 @@ class Validation_commande
      *
      * @return integer
      */
-    public function geTarif()
+    public function getTarif()
     {
-        return $this->geTarif();
+        return $this->getTarif();
     }
 
     /**
@@ -96,39 +96,6 @@ class Validation_commande
     public function getStatut()
     {
         return $this->statut;
-    }
-
-    /**
-     * Set montant
-     *
-     * @param integer $montant
-     * @return Validation_commande
-     */
-    public function setMontant($montant)
-    {
-        $this->montant = $montant;
-
-        return $this;
-    }
-
-    /**
-     * Get montant
-     *
-     * @return integer 
-     */
-    public function getMontant()
-    {
-        return $this->montant;
-    }
-
-    /**
-     * Get tarif
-     *
-     * @return integer 
-     */
-    public function getTarif()
-    {
-        return $this->tarif;
     }
 
     /**
