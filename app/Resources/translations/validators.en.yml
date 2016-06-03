@@ -2,9 +2,9 @@ error.date: The set date cannot be prior to today
 message.ferie: The set date must not be a public holiday
 email.valide: The entered email is not valid
 quantite.valide: The seized amount must not be less than 1
-nom.message: Please enter at least 2 characters
-prenom.message: Please enter at least 2 characters
+nom.message: Please enter only letters
+prenom.message: Please enter only letters
 date.message: Please indicate your date of birth
-pays.message: Please enter at least 2 characters
+pays.message: Please enter only letters
 message.mardi: You cannot book Tuesday
 message.dimanche: You cannot book Sunday
