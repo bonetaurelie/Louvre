@@ -20,6 +20,7 @@ use AB\CoreBundle\Entity\Visiteur;
 use AB\CoreBundle\Form\BilletVisiteurType;
 use AB\CoreBundle\Form\VisiteurType;
 use AB\CoreBundle\Entity\Commande;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class ReservationController extends Controller
 {
@@ -122,114 +123,50 @@ class ReservationController extends Controller
             $visiteurform = $form->get('visiteurs')->get($a);
         }
 
+        //Si le formulaire est soumis en rentre dans la boucle
         if($request->getMethod("post")){
 
+            //On rattache les données de la requête au formulaire
             $form->handleRequest($request);
 
+            //On vérifie que le formulaire est valide
             if($form->isValid()) {
 
-                $em = $this->getDoctrine()->getManager();
-                $flag_famille = TRUE;
+                //Si le nombre de billets est égal à 4 c'est peut-être une famille
+                if($billet->getQuantite() == 4){
 
-                if ($billet->getQuantite() == 4) {
-                    $nom_prec = "";
-                    $cpt = 0;
-                    $enf = $adulte = 0;
-                    $date = new \DateTime();
-                    foreach ($billet->getVisiteurs() as $vis) {
-                        $nom_actuel = strtolower($vis->getNom());
-                        $age=$vis->getDateNaissance();
-                        if($cpt == 0){
-                            $nom_prec = $nom_actuel;
-                        }else {
-                            if ($nom_actuel !== $nom_prec) {
-                                $flag_famille = FALSE;
-                                break;
-                            }
-                            else{
-                                if ($nom_actuel == $nom_prec) {
-                                    $age_pour_enf = $date->sub(new \DateInterval('P12Y'));
-                                    if ($vis->getDateNaissance() >= $age_pour_enf) {
-                                        echo "enfants";
-                                        // C'est un enfant !
-                                        dump($enf);
+                    $date = new \DateTime("now");
+                    $isChild = 0;
+                    $age_pour_enf = $date->sub(new \DateInterval('P12Y'));
 
-                                        $enf++;
-                                    } else {
-                                        echo "adultes";
-                                        dump($adulte);
-                                        // C'est un adulte
-                                        $adulte++;
-                                    }
-                                }
-                            }
+                    $personName = array();
+
+                    foreach($billet->getVisiteurs() as $visiteur){
+
+                        $personName[] = strtolower($visiteur->getNom());
+
+                        if ($visiteur->getDateNaissance() >= $age_pour_enf) {
+                            $isChild++;
                         }
-                        $cpt++;
                     }
-                    if($enf == 2 && $adulte == 2){
-                        echo"famille";
 
-                        // C'est une famille avec deux enfants 2 adultes
-                        $flag_famille = TRUE;
+                    //S'il y a deux enfants on check s'ils sont de la même famille
+                    if($isChild == 2){
+
+                        //Flag Famille
+                        $flag_famille = $this->isFamily($personName);
+
+                        if($flag_famille){
+                            #TODO : Action à faire
+                        }else{
+                            #TODO : Action à faire si y'a deux enfants mais qu'ils n'ont pas le même nom
+                        }
+
                     }else{
-                        // C'est pas une famille
-                        echo "Il y a ".$enf." enfant(s) et ".$adulte." adulte(s)";
-                        $flag_famille = FALSE;
+                        #TODO : Action à faire si pas 2 enfants ça veut dire pas de famille
                     }
+
                 }
-                else {
-                    $flag_famille = FALSE;
-                }
-
-
-                foreach($billet->getVisiteurs() as $visiteur){
-                    $visiteur->setBillet($billet);
-                    $em->persist($visiteur);
-                    $em->flush();
-                    $commande = new Commande();
-                    $commande->setDateResa($billet->getDate());
-                    $commande->setNom($visiteur->getNom());
-                    $code=$visiteur->getNom().$visiteur->getPrenom().$billet->getDate()->format('dmy');
-                    $commande->setCodeResa($code);
-                    $commande->setQrcode( $commande->getCodeResa());
-
-                    $dateanniv=$visiteur->getDateNaissance();
-                    $date = new \DateTime();
-
-                    if($flag_famille){
-                        $commande->setTarif(35,00);
-                    }else {
-                        //tarif réduit coché 10€
-                        if($visiteur->getTarifReduit()==1){
-                            $commande->setTarif(10,00);
-                        }else {
-                            //personne entre 4 et 12 ans 8€
-                            if ($dateanniv <= $date->sub(new \DateInterval('P4Y')) && $dateanniv >= $date->sub(new \DateInterval('P12Y'))){
-                                $commande->setTarif(8,00);
-                            }
-                            //-4 ans gratuit
-                            elseif ($dateanniv > $date->sub(new \DateInterval('P4Y'))){
-                                $commande->setTarif(0,00);
-                            }
-                            //+60 ans 12€   !!!!!!!!PREND EN COMPTE A PARTIR DE 1936 =80ans???? AU LIEU DU 1956 IL FAUT -40 pour que 1956 et - PRIS EN CPTE
-                            elseif ($dateanniv <= $date->sub(new \DateInterval('P40Y'))){
-                                $commande->setTarif(12,00);
-                            }
-                            //personne de plus de 12ans 16€
-                            else{
-                                $commande->setTarif(16,00);
-                            }
-                        }
-                    }
-                    $commande->setVisiteur($visiteur);
-                    $commande->setBillet($billet);
-                    $em->persist($commande);
-                    $em->flush();
-                }
-                /*$em->persist($billet);
-                $em->flush();
-
-                return $this->redirect($this->generateUrl('ab_core_paiement',array('id'=>$billet->getId())));*/
 
             }
 
@@ -238,6 +175,76 @@ class ReservationController extends Controller
             'billet'    => $billet,
             'form'      => $form->createView()
         ));
+    }
+
+    /**
+     * On check si les noms de l'array sont tous identiques
+     * @param $personName
+     * @return bool
+     */
+    private function isFamily($personName){
+
+        $firstValue = current($personName);
+        foreach ($personName as $val) {
+            if ($firstValue !== $val) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    public function reservationTroisiemeEtapeAction(){
+
+
+//        foreach($billet->getVisiteurs() as $visiteur){
+//            $visiteur->setBillet($billet);
+//            $em->persist($visiteur);
+//            $em->flush();
+//            $commande = new Commande();
+//            $commande->setDateResa($billet->getDate());
+//            $commande->setNom($visiteur->getNom());
+//            $code=$visiteur->getNom().$visiteur->getPrenom().$billet->getDate()->format('dmy');
+//            $commande->setCodeResa($code);
+//            $commande->setQrcode( $commande->getCodeResa());
+//
+//            $dateanniv=$visiteur->getDateNaissance();
+//            $date = new \DateTime();
+//
+//            if($flag_famille){
+//                $commande->setTarif(35,00);
+//            }else {
+//                //tarif réduit coché 10€
+//                if($visiteur->getTarifReduit()==1){
+//                    $commande->setTarif(10,00);
+//                }else {
+//                    //personne entre 4 et 12 ans 8€
+//                    if ($dateanniv <= $date->sub(new \DateInterval('P4Y')) && $dateanniv >= $date->sub(new \DateInterval('P12Y'))){
+//                        $commande->setTarif(8,00);
+//                    }
+//                    //-4 ans gratuit
+//                    elseif ($dateanniv > $date->sub(new \DateInterval('P4Y'))){
+//                        $commande->setTarif(0,00);
+//                    }
+//                    //+60 ans 12€   !!!!!!!!PREND EN COMPTE A PARTIR DE 1936 =80ans???? AU LIEU DU 1956 IL FAUT -40 pour que 1956 et - PRIS EN CPTE
+//                    elseif ($dateanniv <= $date->sub(new \DateInterval('P40Y'))){
+//                        $commande->setTarif(12,00);
+//                    }
+//                    //personne de plus de 12ans 16€
+//                    else{
+//                        $commande->setTarif(16,00);
+//                    }
+//                }
+//            }
+//            $commande->setVisiteur($visiteur);
+//            $commande->setBillet($billet);
+//            $em->persist($commande);
+//            $em->flush();
+//        }
+        /*$em->persist($billet);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('ab_core_paiement',array('id'=>$billet->getId())));*/
     }
 
     /**
