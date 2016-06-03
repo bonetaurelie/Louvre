@@ -23,14 +23,14 @@ class VisiteurType extends AbstractType
                 'constraints'=>new Regex(array(
                     'pattern'=>'/\d/',
                     'match'=> false,
-                    'message'=>'nom.messages'
+                    'message'=>'nom.message'
                 ))
             ))
             ->add('prenom','text',array(
                 'constraints'=>new Regex(array(
                     'pattern'=>'/\d/',
                     'match'=> false,
-                    'message'=>'prenom.messages'
+                    'message'=>'prenom.message'
                 ))
             ))
             ->add('dateNaissance','date', array(
@@ -43,7 +43,7 @@ class VisiteurType extends AbstractType
                 'constraints'=> new Regex(array(
                     'pattern'=>'/\d/',
                     'match'=> false,
-                    'message'=>'pays.messages'
+                    'message'=>'pays.message'
                 ))
             ))
             ->add('tarifReduit','checkbox',array('required'=>false))
