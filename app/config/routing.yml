@@ -1,6 +1,3 @@
-payum_capture:
-    resource: "@PayumBundle/Resources/config/routing/capture.xml"
-
 ab_core_accueil:
     path:     /{_locale}
     defaults: { _controller: ABCoreBundle:Core:index, _locale: fr }
@@ -21,7 +18,7 @@ ab_core_update_reservation:
         _locale: fr|en
 
 ab_core_reservation_seconde_etape:
-    path:    /visiteur/{id}/{_locale}
+    path:    /reservation/etape-2/{id}/{_locale}
     defaults: { _controller: ABCoreBundle:Reservation:reservationSecondeEtape }
     requirements:
         id: \d+
@@ -53,7 +50,6 @@ ab_core_error:
     requirements:
          id: \d+
          _locale: fr|en
-
 
 
 
