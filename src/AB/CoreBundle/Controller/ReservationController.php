@@ -171,6 +171,7 @@ class ReservationController extends Controller
             }
 
         }
+
         return $this->render('ABCoreBundle:Reservation:seconde-etape.html.twig',array(
             'billet'    => $billet,
             'form'      => $form->createView()
