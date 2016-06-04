@@ -129,6 +129,10 @@ class ReservationController extends Controller
                     }
                 }
             }
+            $em->persist($visiteur);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('ab_core_reservation_troisieme_etape',array('id'=>$billet->getId())));
         }
         return $this->render('ABCoreBundle:Reservation:seconde-etape.html.twig',array(
             'billet'    => $billet,
