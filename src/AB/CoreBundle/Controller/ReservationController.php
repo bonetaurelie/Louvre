@@ -129,6 +129,7 @@ class ReservationController extends Controller
                     }
                 }
             }
+            
             $em->persist($visiteur);
             $em->flush();
 
