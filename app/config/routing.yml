@@ -1,3 +1,6 @@
+payum_capture:
+    resource: "@PayumBundle/Resources/config/routing/capture.xml"
+
 ab_core_accueil:
     path:     /{_locale}
     defaults: { _controller: ABCoreBundle:Core:index, _locale: fr }
@@ -6,20 +9,27 @@ ab_core_accueil:
 
 ab_core_reservation:
     path:    /reservation/{_locale}
-    defaults: { _controller: ABCoreBundle:Core:reservation }
+    defaults: { _controller: ABCoreBundle:Reservation:reservation }
     requirements:
         _locale: fr|en
 
-ab_core_updateresa:
+ab_core_update_reservation:
     path: /modification_reservation/{id}/{_locale}
-    defaults: {_controller: ABCoreBundle:Core:updateresa}
+    defaults: {_controller: ABCoreBundle:Reservation:updateReservation}
     requirements:
         id: \d+
         _locale: fr|en
 
-ab_core_visiteur:
+ab_core_reservation_seconde_etape:
     path:    /visiteur/{id}/{_locale}
-    defaults: { _controller: ABCoreBundle:Core:visiteur }
+    defaults: { _controller: ABCoreBundle:Reservation:reservationSecondeEtape }
+    requirements:
+        id: \d+
+        _locale: fr|en
+
+ab_core_reservation_troisieme_etape:
+    path:    /reservation/etape-3/{id}/{_locale}
+    defaults: { _controller: ABCoreBundle:Reservation:reservationTroisiemeEtape }
     requirements:
         id: \d+
         _locale: fr|en
@@ -43,6 +53,7 @@ ab_core_error:
     requirements:
          id: \d+
          _locale: fr|en
+
 
 
 
