@@ -178,9 +178,19 @@ class ReservationController extends Controller
                     'id' => $id
                 )));
 
+                //Si le formulaire est valide, on enregistre en BDD
+                $em->persist($visiteur);
+                $em->flush();
+
+            }else{
+                $this->get('session')->getFlashBag()->add('error', "Veuillez corriger vos erreurs");
+                return $this->redirect($this->generateUrl('ab_core_reservation_seconde_etape',array(
+                    'id' => $id
+                )));
             }
 
         }
+
         return $this->render('ABCoreBundle:Reservation:seconde-etape.html.twig',array(
             'billet'    => $billet,
             'form'      => $form->createView()
