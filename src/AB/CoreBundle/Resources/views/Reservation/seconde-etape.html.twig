@@ -88,6 +88,11 @@
         {{ form_end(form) }}
     </div>
 </div>
+        {% for flash_message in app.session.flashBag.get('error') %}
+            <div class="flash-error">
+                {{ flash_message }}
+            </div>
+        {% endfor %}
 
     </ul>
 
