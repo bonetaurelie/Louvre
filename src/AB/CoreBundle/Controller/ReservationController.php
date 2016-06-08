@@ -145,7 +145,7 @@ class ReservationController extends Controller
 
                         $personName[] = strtolower($visiteur->getNom());
                         //On affecte le billet à chaque visiteur
-                        $visiteur->setBillet($billet);
+                        //$visiteur->setBillet($billet);
 
                         if ($visiteur->getDateNaissance() >= $age_pour_enf) {
                             $isChild++;
@@ -169,14 +169,6 @@ class ReservationController extends Controller
                     }
 
                 }
-                //Si le formulaire est valide, on enregistre en BDD
-                $em->persist($visiteur);
-                $em->flush();
-            }else{
-               // $this->get('session')->getFlashBag()->add('error', "Veuillez corriger vos erreurs");
-                return $this->redirect($this->generateUrl('ab_core_reservation_seconde_etape',array(
-                    'id' => $id
-                )));
 
                 //Si le formulaire est valide, on enregistre en BDD
                 $em->persist($visiteur);
