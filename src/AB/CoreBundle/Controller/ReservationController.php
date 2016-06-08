@@ -108,6 +108,8 @@ class ReservationController extends Controller
      */
     public function reservationSecondeEtapeAction($id, Request $request){
 
+        //var_dump($request);die();
+
         $em = $this->getDoctrine()->getManager();
         // Récupération des informations du billet (Date / Nombre de place / etc.)
         $billet = $em->getRepository("ABCoreBundle:Billet")->find($id);
@@ -120,11 +122,11 @@ class ReservationController extends Controller
         for($a = 0;$a < $billet->getQuantite();$a++){
             $visiteur= new Visiteur();
             $form->get('visiteurs')->add($a, new VisiteurType());
-            //$visiteurform = $form->get('visiteurs')->get($a);
+            $visiteurform = $form->get('visiteurs')->get($a);
         }
 
         //Si le formulaire est soumis en rentre dans la boucle
-        if($request->getMethod("post")){
+        if($form->isSubmitted()){
 
             //On rattache les données de la requête au formulaire
             $form->handleRequest($request);
@@ -175,6 +177,7 @@ class ReservationController extends Controller
                 $em->flush();
 
             }else{
+
                 $this->get('session')->getFlashBag()->add('error', "Veuillez corriger vos erreurs");
                 return $this->redirect($this->generateUrl('ab_core_reservation_seconde_etape',array(
                     'id' => $id
