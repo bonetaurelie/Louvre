@@ -26,7 +26,7 @@ ab_core_reservation_seconde_etape:
 
 ab_core_paiement:
     path:    /paiement/{id}/{_locale}
-    defaults: { _controller: ABCoreBundle:Core:paiement }
+    defaults: { _controller: ABCoreBundle:Order:paiement }
     requirements:
         id: \d+
         _locale: fr|en
