@@ -24,13 +24,6 @@ ab_core_reservation_seconde_etape:
         id: \d+
         _locale: fr|en
 
-ab_core_reservation_troisieme_etape:
-    path:    /reservation/etape-3/{id}/{_locale}
-    defaults: { _controller: ABCoreBundle:Reservation:reservationTroisiemeEtape }
-    requirements:
-        id: \d+
-        _locale: fr|en
-
 ab_core_paiement:
     path:    /paiement/{id}/{_locale}
     defaults: { _controller: ABCoreBundle:Core:paiement }
