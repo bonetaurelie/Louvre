@@ -108,7 +108,7 @@ class ReservationController extends Controller
      */
     public function reservationSecondeEtapeAction($id, Request $request){
 
-        //var_dump($request);die();
+
 
         $em = $this->getDoctrine()->getManager();
         // Récupération des informations du billet (Date / Nombre de place / etc.)
@@ -118,15 +118,17 @@ class ReservationController extends Controller
         //Génération du formulaire avec les informations du billet (slot réservation)
         $form= $this->get('form.factory')->create(new BilletVisiteurType(),$billet);
 
+        $visiteur= new Visiteur();
 
         for($a = 0;$a < $billet->getQuantite();$a++){
             $visiteur= new Visiteur();
             $form->get('visiteurs')->add($a, new VisiteurType());
-            $visiteurform = $form->get('visiteurs')->get($a);
+            //$visiteurform = $form->get('visiteurs')->get($a);
+
         }
 
         //Si le formulaire est soumis en rentre dans la boucle
-        if($form->isSubmitted()){
+        if($request->isMethod("post")){
 
             //On rattache les données de la requête au formulaire
             $form->handleRequest($request);
@@ -144,16 +146,16 @@ class ReservationController extends Controller
                     $personName = array();
 
                     foreach($billet->getVisiteurs() as $visiteur){
-
                         $personName[] = strtolower($visiteur->getNom());
                         //On affecte le billet à chaque visiteur
-                        //$visiteur->setBillet($billet);
+                        $visiteur->setBillet($billet);
 
                         if ($visiteur->getDateNaissance() >= $age_pour_enf) {
                             $isChild++;
                         }
                     }
 
+                    $commande= new Commande();
                     //S'il y a deux enfants on check s'ils sont de la même famille
                     if($isChild == 2){
 
@@ -161,20 +163,49 @@ class ReservationController extends Controller
                         $flag_famille = $this->isFamily($personName);
 
                         if($flag_famille){
-                            #TODO : Action à faire
-                        }else{
-                            #TODO : Action à faire si y'a deux enfants mais qu'ils n'ont pas le même nom
+                            $commande->setTarif(35.00);
+                            $em->persist($commande);
+                            $em->persist($visiteur);
+                            $em->flush();
+
+                            $this->get('session')->getFlashBag()->add('notice', "Votre commande a bien été enregistrée");
+                            return $this->redirect($this->generateUrl('ab_core_reservation_troisieme_etape',array(
+                                'id' =>$commande->getId()
+                            )));
                         }
-
                     }else{
-                        #TODO : Action à faire si pas 2 enfants ça veut dire pas de famille
+                        $dateanniv=$visiteur->getDateNaissance();
+                        $date = new \DateTime();
+                        //tarif réduit coché 10€
+                        if($visiteur->getTarifReduit()==1){
+                            $commande->setTarif(10.00);
+                        }else {
+                            //personne entre 4 et 12 ans 8€
+                            if ($dateanniv <= $date->sub(new \DateInterval('P4Y')) && $dateanniv >= $date->sub(new \DateInterval('P12Y'))){
+                                $commande->setTarif(8.00);
+                            }
+                            //-4 ans gratuit
+                            elseif ($dateanniv > $date->sub(new \DateInterval('P4Y'))){
+                                $commande->setTarif(0.00);
+                            }
+                            //+60 ans 12€   !!!!!!!!PREND EN COMPTE A PARTIR DE 1936 =80ans???? AU LIEU DU 1956 IL FAUT -40 pour que 1956 et - PRIS EN CPTE
+                            elseif ($dateanniv <= $date->sub(new \DateInterval('P40Y'))){
+                                $commande->setTarif(12.00);
+                            }
+                            //personne de plus de 12ans 16€
+                            else{
+                                $commande->setTarif(16.00);
+                            }
+                        }
                     }
-
+                    $em->persist($commande);
+                    $em->persist($visiteur);
+                    $em->flush();
                 }
 
                 //Si le formulaire est valide, on enregistre en BDD
-                $em->persist($visiteur);
-                $em->flush();
+               $em->persist($visiteur);
+               $em->flush();
 
             }else{
 
@@ -209,57 +240,37 @@ class ReservationController extends Controller
     }
 
 
-    public function reservationTroisiemeEtapeAction(){
+    public function reservationTroisiemeEtapeAction($id){
 
+        $em = $this->getDoctrine()->getManager();
+        // Récupération des informations du billet (Date / Nombre de place / etc.)
+        $commande = $em->getRepository("ABCoreBundle:Commande")->find($id);
 
-//        foreach($billet->getVisiteurs() as $visiteur){
-//            $visiteur->setBillet($billet);
-//            $em->persist($visiteur);
-//            $em->flush();
-//            $commande = new Commande();
-//            $commande->setDateResa($billet->getDate());
-//            $commande->setNom($visiteur->getNom());
-//            $code=$visiteur->getNom().$visiteur->getPrenom().$billet->getDate()->format('dmy');
-//            $commande->setCodeResa($code);
-//            $commande->setQrcode( $commande->getCodeResa());
-//
-//            $dateanniv=$visiteur->getDateNaissance();
-//            $date = new \DateTime();
-//
-//            if($flag_famille){
-//                $commande->setTarif(35,00);
-//            }else {
-//                //tarif réduit coché 10€
-//                if($visiteur->getTarifReduit()==1){
-//                    $commande->setTarif(10,00);
-//                }else {
-//                    //personne entre 4 et 12 ans 8€
-//                    if ($dateanniv <= $date->sub(new \DateInterval('P4Y')) && $dateanniv >= $date->sub(new \DateInterval('P12Y'))){
-//                        $commande->setTarif(8,00);
-//                    }
-//                    //-4 ans gratuit
-//                    elseif ($dateanniv > $date->sub(new \DateInterval('P4Y'))){
-//                        $commande->setTarif(0,00);
-//                    }
-//                    //+60 ans 12€   !!!!!!!!PREND EN COMPTE A PARTIR DE 1936 =80ans???? AU LIEU DU 1956 IL FAUT -40 pour que 1956 et - PRIS EN CPTE
-//                    elseif ($dateanniv <= $date->sub(new \DateInterval('P40Y'))){
-//                        $commande->setTarif(12,00);
-//                    }
-//                    //personne de plus de 12ans 16€
-//                    else{
-//                        $commande->setTarif(16,00);
-//                    }
-//                }
-//            }
-//            $commande->setVisiteur($visiteur);
-//            $commande->setBillet($billet);
-//            $em->persist($commande);
-//            $em->flush();
-//        }
-        /*$em->persist($billet);
+        $billet= new Billet();
+        foreach($billet->getVisiteurs() as $visiteur){
+            $visiteur->setBillet($billet);
+            $em->persist($visiteur);
+            $em->flush();
+            $commande = new Commande();
+            $commande->setDateResa($billet->getDate());
+            $commande->setNom($visiteur->getNom());
+            $code=$visiteur->getNom().$visiteur->getPrenom().$billet->getDate()->format('dmy');
+            $commande->setCodeResa($code);
+            $commande->setQrcode( $commande->getCodeResa());
+
+            $commande->setVisiteur($visiteur);
+            $commande->setBillet($billet);
+            $em->persist($commande);
+        }
+        $em->persist($billet);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('ab_core_paiement',array('id'=>$billet->getId())));*/
+        return $this->redirect($this->generateUrl('ab_core_paiement',array('id'=>$billet->getId())));
+
+        return $this->render('ABCoreBundle:Reservation:troisieme-etape.html.twig',array(
+            'commande'    => $commande,
+
+        ));
     }
 
     /**
