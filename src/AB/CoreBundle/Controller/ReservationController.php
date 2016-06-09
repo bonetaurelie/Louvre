@@ -108,17 +108,15 @@ class ReservationController extends Controller
      */
     public function reservationSecondeEtapeAction($id, Request $request){
 
-
-
         $em = $this->getDoctrine()->getManager();
         // Récupération des informations du billet (Date / Nombre de place / etc.)
         $billet = $em->getRepository("ABCoreBundle:Billet")->find($id);
-
 
         //Génération du formulaire avec les informations du billet (slot réservation)
         $form= $this->get('form.factory')->create(new BilletVisiteurType(),$billet);
 
         $visiteur= new Visiteur();
+        $commande= new Commande();
 
         for($a = 0;$a < $billet->getQuantite();$a++){
             $visiteur= new Visiteur();
@@ -164,13 +162,12 @@ class ReservationController extends Controller
 
                         if($flag_famille){
                             $commande->setTarif(35.00);
-                            $em->persist($commande);
                             $em->persist($visiteur);
                             $em->flush();
 
                             $this->get('session')->getFlashBag()->add('notice', "Votre commande a bien été enregistrée");
                             return $this->redirect($this->generateUrl('ab_core_reservation_troisieme_etape',array(
-                                'id' =>$commande->getId()
+                                'id' =>$billet->getId()
                             )));
                         }
                     }else{
@@ -198,14 +195,50 @@ class ReservationController extends Controller
                             }
                         }
                     }
-                    $em->persist($commande);
                     $em->persist($visiteur);
                     $em->flush();
-                }
 
-                //Si le formulaire est valide, on enregistre en BDD
-               $em->persist($visiteur);
-               $em->flush();
+                    $this->get('session')->getFlashBag()->add('notice', "Votre commande a bien été enregistrée");
+                    return $this->redirect($this->generateUrl('ab_core_reservation_troisieme_etape',array(
+                        'id' =>$billet->getId()
+                    )));
+                }
+                else{
+                    foreach($billet->getVisiteurs() as $visiteur){
+                        //On affecte le billet à chaque visiteur
+                        $visiteur->setBillet($billet);
+                    }
+                    $dateanniv=$visiteur->getDateNaissance();
+                    $date = new \DateTime();
+                    //tarif réduit coché 10€
+                    if($visiteur->getTarifReduit()==1){
+                        $commande->setTarif(10.00);
+                    }else {
+                        //personne entre 4 et 12 ans 8€
+                        if ($dateanniv <= $date->sub(new \DateInterval('P4Y')) && $dateanniv >= $date->sub(new \DateInterval('P12Y'))){
+                            $commande->setTarif(8.00);
+                        }
+                        //-4 ans gratuit
+                        elseif ($dateanniv > $date->sub(new \DateInterval('P4Y'))){
+                            $commande->setTarif(0.00);
+                        }
+                        //+60 ans 12€   !!!!!!!!PREND EN COMPTE A PARTIR DE 1936 =80ans???? AU LIEU DU 1956 IL FAUT -40 pour que 1956 et - PRIS EN CPTE
+                        elseif ($dateanniv <= $date->sub(new \DateInterval('P40Y'))){
+                            $commande->setTarif(12.00);
+                        }
+                        //personne de plus de 12ans 16€
+                        else{
+                            $commande->setTarif(16.00);
+                        }
+                    }
+
+                    $em->persist($visiteur);
+                    $em->flush();
+                    $this->get('session')->getFlashBag()->add('notice', "Votre commande a bien été enregistrée");
+                    return $this->redirect($this->generateUrl('ab_core_reservation_troisieme_etape',array(
+                        'id' =>$billet->getId()
+                    )));
+                }
 
             }else{
 
@@ -239,36 +272,55 @@ class ReservationController extends Controller
         return true;
     }
 
-
-    public function reservationTroisiemeEtapeAction($id){
+    public function reservationTroisiemeEtapeAction($id, Request $request){
 
         $em = $this->getDoctrine()->getManager();
         // Récupération des informations du billet (Date / Nombre de place / etc.)
-        $commande = $em->getRepository("ABCoreBundle:Commande")->find($id);
+        $billet = $em->getRepository("ABCoreBundle:Billet")->find($id);
 
-        $billet= new Billet();
-        foreach($billet->getVisiteurs() as $visiteur){
-            $visiteur->setBillet($billet);
-            $em->persist($visiteur);
-            $em->flush();
-            $commande = new Commande();
-            $commande->setDateResa($billet->getDate());
-            $commande->setNom($visiteur->getNom());
-            $code=$visiteur->getNom().$visiteur->getPrenom().$billet->getDate()->format('dmy');
-            $commande->setCodeResa($code);
-            $commande->setQrcode( $commande->getCodeResa());
+        $commande= new Commande();
 
-            $commande->setVisiteur($visiteur);
-            $commande->setBillet($billet);
-            $em->persist($commande);
+        $form= $this->get('form.factory')->create(new BilletVisiteurType(),$billet);
+
+
+        for($a = 0;$a < $billet->getQuantite();$a++){
+            $visiteur= new Visiteur();
+            $form->get('visiteurs')->add($a, new VisiteurType());
+            //$visiteurform = $form->get('visiteurs')->get($a);
+
         }
-        $em->persist($billet);
-        $em->flush();
 
-        return $this->redirect($this->generateUrl('ab_core_paiement',array('id'=>$billet->getId())));
+        //Si le formulaire est soumis en rentre dans la boucle
+        if($request->isMethod("post")) {
+
+            //On rattache les données de la requête au formulaire
+            $form->handleRequest($request);
+
+            //On vérifie que le formulaire est valide
+            if ($form->isValid()) {
+
+                foreach ($billet->getVisiteurs() as $visiteur) {
+                    $visiteur->setBillet($billet);
+                    $commande->setDateResa($billet->getDate());
+                    $commande->setNom($visiteur->getNom());
+                    $code = $visiteur->getNom() . $visiteur->getPrenom() . $billet->getDate()->format('dmy');
+                    $commande->setCodeResa($code);
+                    $commande->setQrcode($commande->getCodeResa());
+                    $commande->setTarif($visiteur);
+                    $commande->setVisiteur($visiteur);
+                    $commande->setBillet($billet);
+                    $em->persist($commande);
+                }
+            }
+                $em->persist($billet);
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('ab_core_paiement', array('id' => $billet->getId())));
+        }
 
         return $this->render('ABCoreBundle:Reservation:troisieme-etape.html.twig',array(
-            'commande'    => $commande,
+            'billet'    => $billet,
+            'form'=>$form->createView()
 
         ));
     }
