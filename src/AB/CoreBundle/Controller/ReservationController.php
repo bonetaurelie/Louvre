@@ -153,10 +153,6 @@ class ReservationController extends Controller
                         $commande->setCodeResa($code);
                         $commande->setQrcode($commande->getCodeResa());
                         $commande->setTarif($visiteur);
-                        $commande->setVisiteur($visiteur);
-                        $commande->setBillet($billet);
-                        $em->persist($commande);
-                        $em->flush();
 
                         if ($visiteur->getDateNaissance() >= $age_pour_enf) {
                             $isChild++;
@@ -172,7 +168,25 @@ class ReservationController extends Controller
                         $flag_famille = $this->isFamily($personName);
 
                         if($flag_famille){
-                            $commande->setTarif(35.00);
+                            foreach($billet->getVisiteurs() as $visiteur){
+                                $personName[] = strtolower($visiteur->getNom());
+                                //On affecte le billet à chaque visiteur
+                                $visiteur->setBillet($billet);
+                                $commande= new Commande();
+                                $commande->setDateResa($billet->getDate());
+                                $commande->setNom($visiteur->getNom());
+                                $code = $visiteur->getNom() . $visiteur->getPrenom() . $billet->getDate()->format('dmy');
+                                $commande->setCodeResa($code);
+                                $commande->setQrcode($commande->getCodeResa());
+                                $commande->setTarif(35.00);
+
+                                if ($visiteur->getDateNaissance() >= $age_pour_enf) {
+                                    $isChild++;
+                                }
+                                $commande->setVisiteur($visiteur);
+                                $commande->setBillet($billet);
+                                $em->persist($commande);
+                            }
                             $em->persist($visiteur);
                             $em->flush();
 
@@ -181,30 +195,44 @@ class ReservationController extends Controller
                                 'id' =>$billet->getId()
                             )));
                         }
-                    }else{
-                        $dateanniv=$visiteur->getDateNaissance();
-                        $date = new \DateTime();
-                        //tarif réduit coché 10€
-                        if($visiteur->getTarifReduit()==1){
-                            $commande->setTarif(10.00);
-                        }else {
-                            //personne entre 4 et 12 ans 8€
-                            if ($dateanniv <= $date->sub(new \DateInterval('P4Y')) && $dateanniv >= $date->sub(new \DateInterval('P12Y'))){
-                                $commande->setTarif(8.00);
+                    }else {
+                        foreach ($billet->getVisiteurs() as $visiteur) {
+                            $personName[] = strtolower($visiteur->getNom());
+                            //On affecte le billet à chaque visiteur
+                            $visiteur->setBillet($billet);
+                            $commande = new Commande();
+                            $commande->setDateResa($billet->getDate());
+                            $commande->setNom($visiteur->getNom());
+                            $code = $visiteur->getNom() . $visiteur->getPrenom() . $billet->getDate()->format('dmy');
+                            $commande->setCodeResa($code);
+                            $commande->setQrcode($commande->getCodeResa());
+                            $commande->setTarif($visiteur);
+
+                            $dateanniv = $visiteur->getDateNaissance();
+                            $date = new \DateTime();
+                            //tarif réduit coché 10€
+                            if ($visiteur->getTarifReduit() == 1) {
+                                $commande->setTarif(10.00);
+                            } else {
+                                //personne entre 4 et 12 ans 8€
+                                if ($dateanniv <= $date->sub(new \DateInterval('P4Y')) && $dateanniv >= $date->sub(new \DateInterval('P12Y'))) {
+                                    $commande->setTarif(8.00);
+                                } //-4 ans gratuit
+                                elseif ($dateanniv > $date->sub(new \DateInterval('P4Y'))) {
+                                    $commande->setTarif(0.00);
+                                } //+60 ans 12€   !!!!!!!!PREND EN COMPTE A PARTIR DE 1936 =80ans???? AU LIEU DU 1956 IL FAUT -40 pour que 1956 et - PRIS EN CPTE
+                                elseif ($dateanniv <= $date->sub(new \DateInterval('P40Y'))) {
+                                    $commande->setTarif(12.00);
+                                } //personne de plus de 12ans 16€
+                                else {
+                                    $commande->setTarif(16.00);
+                                }
                             }
-                            //-4 ans gratuit
-                            elseif ($dateanniv > $date->sub(new \DateInterval('P4Y'))){
-                                $commande->setTarif(0.00);
-                            }
-                            //+60 ans 12€   !!!!!!!!PREND EN COMPTE A PARTIR DE 1936 =80ans???? AU LIEU DU 1956 IL FAUT -40 pour que 1956 et - PRIS EN CPTE
-                            elseif ($dateanniv <= $date->sub(new \DateInterval('P40Y'))){
-                                $commande->setTarif(12.00);
-                            }
-                            //personne de plus de 12ans 16€
-                            else{
-                                $commande->setTarif(16.00);
-                            }
+                            $commande->setVisiteur($visiteur);
+                            $commande->setBillet($billet);
+                            $em->persist($commande);
                         }
+
                     }
                     $em->persist($visiteur);
                     $em->flush();
