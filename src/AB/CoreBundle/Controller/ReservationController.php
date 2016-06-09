@@ -288,7 +288,6 @@ class ReservationController extends Controller
                 }
 
             }else{
-
                 $this->get('session')->getFlashBag()->add('error', "Veuillez corriger vos erreurs");
                 return $this->redirect($this->generateUrl('ab_core_reservation_seconde_etape',array(
                     'id' => $id
