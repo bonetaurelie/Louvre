@@ -10,20 +10,22 @@ namespace AB\CoreBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Ps\PdfBundle\Annotation\Pdf;
+
+
 
 class PDFController extends Controller
 {
-    public function generatePdfAction(){
+    public function generatePdfAction($id){
 
-        // ... some code
+        $commande= $this->getDoctrine()->getRepository('ABCoreBundle:Commande')->find($id);
+        $em = $this->getDoctrine()->getManager();
+        
+        $format = $this->get('request')->get('_format');
 
-        $content = $this->renderView('ABCoreBundle:Default:pdf.html.twig');
-        $pdfData = $this->get('obtao.pdf.generator')->outputPdf($content,array('font'=>'Arvo','format'=>'P','language'=>'fr','size'=>'A6'));
-
-        $response = new Response($pdfData);
-        $response->headers->set('Content-Type', 'application/pdf');
-
-        return $response;
+        return $this->render(sprintf('ABCoreBundle:Default:pdf.html.twig', $format), array(
+            'commande' => $commande,
+        ));
     }
 
 }
