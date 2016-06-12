@@ -51,3 +51,5 @@ musee.pdf: 'Le musée du Louvre'
 nom.pdf: Nom
 code.pdf: 'Votre code de réservation'
 tarif.pdf: Tarif
+error.message: 'Veuillez corriger les champs avec des erreurs'
+validation.message: 'Votre commande a bien été enregistrée'
