@@ -45,4 +45,15 @@ ab_core_error:
          _locale: fr|en
 
 
+ab_core_mail:
+    path:    /pdf/{id}
+    defaults: { _controller: ABCoreBundle:PDF:generatePdf }
+    requirements:
+        id: \d+
+
+
+my_barcode_playground:
+    resource: "@MopaBarcodeBundle/Resources/config/routing/barcode_playground.yml"
+    prefix:   /
+
 
