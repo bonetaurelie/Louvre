@@ -45,11 +45,12 @@ ab_core_error:
          _locale: fr|en
 
 
-ab_core_mail:
-    path:    /pdf/{id}
+ab_core_pdf:
+    path:    /pdf/{id}/{_locale}
     defaults: { _controller: ABCoreBundle:PDF:generatePdf }
     requirements:
         id: \d+
+        _locale: fr|en
 
 
 my_barcode_playground:
