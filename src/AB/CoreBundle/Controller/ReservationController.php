@@ -190,7 +190,7 @@ class ReservationController extends Controller
                             $em->persist($visiteur);
                             $em->flush();
 
-                            $this->get('session')->getFlashBag()->add('notice', "Votre commande a bien été enregistrée");
+                            $this->get('session')->getFlashBag()->add('notice',$this->get('translator')->trans('validation.message'));
                             return $this->redirect($this->generateUrl('ab_core_paiement',array(
                                 'id' =>$commande->getId()
                             )));
@@ -237,7 +237,7 @@ class ReservationController extends Controller
                     $em->persist($visiteur);
                     $em->flush();
 
-                    $this->get('session')->getFlashBag()->add('notice', "Votre commande a bien été enregistrée");
+                    $this->get('session')->getFlashBag()->add('notice',$this->get('translator')->trans('validation.message'));
                     return $this->redirect($this->generateUrl('ab_core_paiement',array(
                         'id' =>$commande->getId()
                     )));
@@ -281,14 +281,14 @@ class ReservationController extends Controller
 
                     $em->persist($visiteur);
                     $em->flush();
-                    $this->get('session')->getFlashBag()->add('notice', "Votre commande a bien été enregistrée");
+                    $this->get('session')->getFlashBag()->add('notice',$this->get('translator')->trans('validation.message'));
                     return $this->redirect($this->generateUrl('ab_core_paiement',array(
                         'id' =>$commande->getId()
                     )));
                 }
 
             }else{
-                $this->get('session')->getFlashBag()->add('error', "Veuillez corriger vos erreurs");
+                $this->get('session')->getFlashBag()->add('error',$this->get('translator')->trans('error.message'));
                 return $this->redirect($this->generateUrl('ab_core_reservation_seconde_etape',array(
                     'id' => $id
                 )));
