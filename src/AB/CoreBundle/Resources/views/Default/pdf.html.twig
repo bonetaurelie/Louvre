@@ -1,0 +1,21 @@
+<page>
+    <style type="text/css">
+        #hello{
+            color: #002549;
+            font-family: Helvetica, sans-serif;
+            text-align:center;
+            font-size: 40px;
+        }
+    </style>
+
+    <p>{{ 'musee.pdf'|trans }}</p>
+    <img src="{{ asset('bundles/abcore/images/logo-louvre bis.jpg') }}"/>
+
+    <p>{{ 'date.pdf'|trans }}: {{ commande.dateResa|date("d/m/Y") }}</p>
+    <p>{{ 'nom.pdf'|trans }}: {{ commande.nom }}</p>
+    <p>{{ 'tarif.pdf'|trans }}: {{ commande.tarif }} €</p>
+    <p>{{ 'code.pdf'|trans }}: {{ commande.codeResa }}</p>
+    <p><img src="{{ mopa_barcode_url('qr', "commande.qrCode", {'size':2, 'level':3, 'margin':0, 'useOverlay': true}) }}"/></p>
+</page>
+
+
