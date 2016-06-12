@@ -276,7 +276,7 @@ p{
 /*paiement*/
 @media all and (min-width:992px) {
     .flash-notice {
-        color: rgb(4,22,244);
+        color: #0416f4;
         border-bottom: 1px;
         border-top: 1px;
         border-left: 1px;
