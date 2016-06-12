@@ -7,6 +7,8 @@ namespace AB\CoreBundle\Controller;
  * Date: 03/06/2016
  * Time: 14:33
  */
+use AB\CoreBundle\Entity\Validation_commande;
+use Proxies\__CG__\AB\CoreBundle\Entity\Commande;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,31 +18,35 @@ class OrderController extends Controller
 {
     public function paiementAction($id, Request $request)
     {
-        $billet= $this->getDoctrine()->getRepository('ABCoreBundle:Billet')->find($id);
+        $commande= $this->getDoctrine()->getRepository('ABCoreBundle:Commande')->find($id);
         $em = $this->getDoctrine()->getManager();
+
         $val_commande = new Validation_commande();
-        $commande= $em->getRepository('ABCoreBundle:Commande')->find($id);
-        if($billet->getQuantite()==1){
+
+        if($commande->getBillet()->getQuantite()==1){
             $val_commande->setTarif($commande->getTarif());
-            dump($commande);
         }
 
-        /* elseif($billet->getQuantite()==4 && famille){
-        $val_commande->setTarif($commande->getTarif());
-        }
-        else{
-             $ret=0;
-             foreach($commande->getTarif() as $tarif){
-                     $s = array_sum($tarif);
-                     $ret += $s+$s;
-                     $val_commande->setTarif($commande->getTarif));
+         elseif($commande->getBillet()->getQuantite()==4){
+             if($commande->getTarif()==35){
+                 $val_commande->setTarif($commande->getTarif());
+             }
+             else {
+                 $tarifCommande = array();
+                 foreach ($commande->getBillet() as $tarif) {
+                     $tarifCommande[]= $tarif->getTarif();
+                     $val_commande->setTarif(array_sum($tarifCommande));
+                 }
+             }
+         }else{
+             $tarifCommande= array();
+             foreach($commande->getBillet() as $tarif){
+                    $tarifCommande[]=$tarif;
+                     $val_commande->setTarif(array_sum($tarifCommande));
              }
         }
-         }
-
-         $em->persist($val-commande);
         
-         if($request->get('submit') && paiement accepté){
+         /*if($request->get('submit') && paiement accepté){
              $val_commande->setStatut('P');
          $message = \Swift_Message::newInstance()
                  ->setSubject('Votre réservation au musée du Louvre')
@@ -74,7 +80,8 @@ class OrderController extends Controller
              $val_commande->setStatut('A');
          }*/
 
-        /*$em->flush();*/
+        $em->persist($val_commande);
+        $em->flush();
         return $this->render('ABCoreBundle:Default:paiement.html.twig',array('val_commande'=>$val_commande));
     }
     
