@@ -46,3 +46,8 @@ site: The Louvre Museum official website
 erreur.exception: An error occurred
 serveur.erreur: The server returned an error
 texte.exception: Something has happened. If you wish you can send us an e-mail to bonetaurelie@gmail.com. We will repair this error as soon as possible. We apologize for the inconvenience caused.
+date.pdf: Date of your reservation
+musee.pdf: The Louvre Museum
+nom.pdf: Name
+code.pdf: Your reservation code
+tarif.pdf: Price
