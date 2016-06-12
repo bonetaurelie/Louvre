@@ -192,7 +192,7 @@ class ReservationController extends Controller
 
                             $this->get('session')->getFlashBag()->add('notice', "Votre commande a bien été enregistrée");
                             return $this->redirect($this->generateUrl('ab_core_paiement',array(
-                                'id' =>$billet->getId()
+                                'id' =>$commande->getId()
                             )));
                         }
                     }else {
@@ -239,7 +239,7 @@ class ReservationController extends Controller
 
                     $this->get('session')->getFlashBag()->add('notice', "Votre commande a bien été enregistrée");
                     return $this->redirect($this->generateUrl('ab_core_paiement',array(
-                        'id' =>$billet->getId()
+                        'id' =>$commande->getId()
                     )));
                 }
                 else{
@@ -283,7 +283,7 @@ class ReservationController extends Controller
                     $em->flush();
                     $this->get('session')->getFlashBag()->add('notice', "Votre commande a bien été enregistrée");
                     return $this->redirect($this->generateUrl('ab_core_paiement',array(
-                        'id' =>$billet->getId()
+                        'id' =>$commande->getId()
                     )));
                 }
 
