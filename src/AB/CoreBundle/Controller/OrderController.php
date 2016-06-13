@@ -18,32 +18,41 @@ class OrderController extends Controller
 {
     public function paiementAction($id, Request $request)
     {
-        $commande= $this->getDoctrine()->getRepository('ABCoreBundle:Commande')->find($id);
         $em = $this->getDoctrine()->getManager();
+        $commande= $em->getRepository('ABCoreBundle:Commande')->findByBillet($id);
 
         $val_commande = new Validation_commande();
+        $val_commande->setStatut("En cours");
+        $tarifCommande= array();
 
-        if($commande->getBillet()->getQuantite()==1){
-            $val_commande->setTarif($commande->getTarif());
-        }
+        foreach($commande as $oneCommande){
 
-         elseif($commande->getBillet()->getQuantite()==4){
-             if($commande->getTarif()==35){
-                 $val_commande->setTarif($commande->getTarif());
-             }
-             else {
-                 $tarifCommande = array();
-                 foreach ($commande->getBillet() as $tarif) {
-                     $tarifCommande[]= $tarif->getTarif();
-                     $val_commande->setTarif(array_sum($tarifCommande));
-                 }
-             }
-         }else{
-             $tarifCommande= array();
-             foreach($commande->getBillet() as $tarif){
-                    $tarifCommande[]=$tarif;
-                     $val_commande->setTarif(array_sum($tarifCommande));
-             }
+            if ($oneCommande->getBillet()->getQuantite()==1){
+
+                $val_commande->setTarif($oneCommande->getTarif());
+
+            } elseif ($oneCommande->getBillet()->getQuantite()==4){
+
+                if ($oneCommande->getTarif() == 35) {
+
+                    $val_commande->setTarif($oneCommande->getTarif());
+
+                } else {
+
+                    foreach ($oneCommande->getBillet() as $tarif) {
+
+                        $tarifCommande[]= $tarif->getTarif();
+                        $val_commande->setTarif(array_sum($tarifCommande));
+                    }
+
+                }
+
+            } else {
+
+                $tarifCommande[] = $oneCommande->getTarif();
+                $val_commande->setTarif(array_sum($tarifCommande));
+
+            }
         }
         
          /*if($request->get('submit') && paiement accepté){
