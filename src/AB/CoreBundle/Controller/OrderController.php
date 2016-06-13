@@ -26,22 +26,25 @@ class OrderController extends Controller
         $val_commande->setStatut("En cours");
         $tarifCommande= array();
 
+
         foreach($commande as $oneCommande) {
 
+
             if ($oneCommande->getBillet()->getQuantite() == 1) {
+
 
                 $val_commande->setTarif($oneCommande->getTarif());
 
             } elseif ($oneCommande->getBillet()->getQuantite() == 4) {
 
                 if ($oneCommande->getTarif() == 35) {
-                    $val_commande->setTarif($oneCommande->getTarif());
-                } else {
-                    foreach ($oneCommande->getBillet() as $tarif) {
-                        $tarifCommande[] = $tarif->getTarif();
-                        $val_commande->setTarif(array_sum($tarifCommande));
-                    }
 
+                    $val_commande->setTarif($oneCommande->getTarif());
+
+                } else {
+
+                    $tarifCommande[] = $oneCommande->getTarif();
+                    $val_commande->setTarif(array_sum($tarifCommande));
                 }
 
             } else {
@@ -49,7 +52,6 @@ class OrderController extends Controller
                 $val_commande->setTarif(array_sum($tarifCommande));
             }
         }
-
 
                 /*if($request->get('submit') && paiement accepté){
                     $val_commande->setStatut('P');
