@@ -283,7 +283,7 @@ class ReservationController extends Controller
                     $em->flush();
                     $this->get('session')->getFlashBag()->add('notice',$this->get('translator')->trans('validation.message'));
                     return $this->redirect($this->generateUrl('ab_core_paiement',array(
-                        'id' =>$commande->getId()
+                        'id' =>$billet->getId()
                     )));
                 }
 
