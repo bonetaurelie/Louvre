@@ -192,7 +192,7 @@ class ReservationController extends Controller
 
                             $this->get('session')->getFlashBag()->add('notice',$this->get('translator')->trans('validation.message'));
                             return $this->redirect($this->generateUrl('ab_core_paiement',array(
-                                'id' =>$commande->getId()
+                                'id' =>$billet->getId()
                             )));
                         }
                     }else {
@@ -239,7 +239,7 @@ class ReservationController extends Controller
 
                     $this->get('session')->getFlashBag()->add('notice',$this->get('translator')->trans('validation.message'));
                     return $this->redirect($this->generateUrl('ab_core_paiement',array(
-                        'id' =>$commande->getId()
+                        'id' =>$billet->getId()
                     )));
                 }
                 else{
