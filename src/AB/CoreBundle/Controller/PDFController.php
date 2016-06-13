@@ -18,14 +18,18 @@ class PDFController extends Controller
 {
     public function generatePdfAction($id){
 
-        $commande= $this->getDoctrine()->getRepository('ABCoreBundle:Commande')->find($id);
+        $commande= $this->getDoctrine()->getRepository('ABCoreBundle:Commande')->findByBillet($id);
         $em = $this->getDoctrine()->getManager();
         
-        $format = $this->get('request')->get('_format');
+        foreach ($commande as $value) {
+            if ($value->getBillet()->getQuantite() >= 1) {
+                $format = $this->get('request')->get('_format');
 
-        return $this->render(sprintf('ABCoreBundle:Default:pdf.html.twig', $format), array(
-            'commande' => $commande,
-        ));
+                return $this->render(sprintf('ABCoreBundle:Default:pdf.html.twig', $format), array(
+                    'commande' => $commande,
+                ));
+            }
+        }
     }
 
 }
