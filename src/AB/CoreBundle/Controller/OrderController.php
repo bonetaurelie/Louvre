@@ -8,6 +8,7 @@ namespace AB\CoreBundle\Controller;
  * Time: 14:33
  */
 use AB\CoreBundle\Entity\Validation_commande;
+use Proxies\__CG__\AB\CoreBundle\Entity\Billet;
 use Proxies\__CG__\AB\CoreBundle\Entity\Commande;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -18,67 +19,71 @@ class OrderController extends Controller
 {
     public function paiementAction($id, Request $request)
     {
-        $commande= $this->getDoctrine()->getRepository('ABCoreBundle:Commande')->find($id);
+        $commande= $this->getDoctrine()->getRepository('ABCoreBundle:Commande')->findByBillet($id);
         $em = $this->getDoctrine()->getManager();
 
         $val_commande = new Validation_commande();
+        $val_commande->setStatut("En cours");
+        $tarifCommande= array();
 
-        if($commande->getBillet()->getQuantite()==1){
-            $val_commande->setTarif($commande->getTarif());
+        foreach($commande as $oneCommande) {
+
+            if ($oneCommande->getBillet()->getQuantite() == 1) {
+
+                $val_commande->setTarif($oneCommande->getTarif());
+
+            } elseif ($oneCommande->getBillet()->getQuantite() == 4) {
+
+                if ($oneCommande->getTarif() == 35) {
+                    $val_commande->setTarif($oneCommande->getTarif());
+                } else {
+                    foreach ($oneCommande->getBillet() as $tarif) {
+                        $tarifCommande[] = $tarif->getTarif();
+                        $val_commande->setTarif(array_sum($tarifCommande));
+                    }
+
+                }
+
+            } else {
+                $tarifCommande[] = $oneCommande->getTarif();
+                $val_commande->setTarif(array_sum($tarifCommande));
+            }
         }
 
-         elseif($commande->getBillet()->getQuantite()==4){
-             if($commande->getTarif()==35){
-                 $val_commande->setTarif($commande->getTarif());
-             }
-             else {
-                 $tarifCommande = array();
-                 foreach ($commande->getBillet() as $tarif) {
-                     $tarifCommande[]= $tarif->getTarif();
-                     $val_commande->setTarif(array_sum($tarifCommande));
-                 }
-             }
-         }else{
-             $tarifCommande= array();
-             foreach($commande->getBillet() as $tarif){
-                    $tarifCommande[]=$tarif;
-                     $val_commande->setTarif(array_sum($tarifCommande));
-             }
-        }
-        
-         /*if($request->get('submit') && paiement accepté){
-             $val_commande->setStatut('P');
-         $message = \Swift_Message::newInstance()
-                 ->setSubject('Votre réservation au musée du Louvre')
-                 ->setFrom('bonetaurelie@gmail.com')
-                 ->setTo($billet->getEmail())
-                 ->setContentType('text/html')
-                 ->setBody(
-                     $this->renderView('ABCoreBundle:Default:email.html.twig'))
-                 ->attach(Swift_Attachment::fromPath('/path/to/a/file.zip'));   //--->> PJ VOIR
-             $this->get('mailer')->send($message);
-         }
-         elseIf(Paiement Stripe){
-             if(paiement accepté){
-         $val_commande->setStatut('S');
-         $message = \Swift_Message::newInstance()
-                 ->setSubject('Votre réservation au musée du Louvre')
-                 ->setFrom('bonetaurelie@gmail.com')
-                 ->setTo($billet->getEmail())
-                 ->setContentType('text/html')
-                 ->setBody(
-                     $this->renderView('ABCoreBundle:Default:email.html.twig'))
-                 ->attach(Swift_Attachment::fromPath('/path/to/a/file.zip'));   ->->->path?????
-             $this->get('mailer')->send($message);
-        }
-        }
-         else{
-             $val_commande->setStatut('E');
-             return $this->redirect(generateurl('ab_core_error'));
-         }
-         elseIf($request->get('annulation')){
-             $val_commande->setStatut('A');
-         }*/
+
+                /*if($request->get('submit') && paiement accepté){
+                    $val_commande->setStatut('P');
+                $message = \Swift_Message::newInstance()
+                        ->setSubject('Votre réservation au musée du Louvre')
+                        ->setFrom('bonetaurelie@gmail.com')
+                        ->setTo($billet->getEmail())
+                        ->setContentType('text/html')
+                        ->setBody(
+                            $this->renderView('ABCoreBundle:Default:email.html.twig'))
+                        ->attach(Swift_Attachment::fromPath('/path/to/a/file.zip'));   //--->> PJ VOIR
+                    $this->get('mailer')->send($message);
+                }
+                elseIf(Paiement Stripe){
+                    if(paiement accepté){
+                $val_commande->setStatut('S');
+                $message = \Swift_Message::newInstance()
+                        ->setSubject('Votre réservation au musée du Louvre')
+                        ->setFrom('bonetaurelie@gmail.com')
+                        ->setTo($billet->getEmail())
+                        ->setContentType('text/html')
+                        ->setBody(
+                            $this->renderView('ABCoreBundle:Default:email.html.twig'))
+                        ->attach(Swift_Attachment::fromPath('/path/to/a/file.zip'));   ->->->path?????
+                    $this->get('mailer')->send($message);
+               }
+               }
+                else{
+                    $val_commande->setStatut('E');
+                    return $this->redirect(generateurl('ab_core_error'));
+                }
+                elseIf($request->get('annulation')){
+                    $val_commande->setStatut('A');
+                }*/
 
         $em->persist($val_commande);
         $em->flush();
