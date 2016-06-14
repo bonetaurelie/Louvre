@@ -10,14 +10,14 @@
 
     {% for value in commande %}
 
-    <p>{{ 'musee.pdf'|trans }}</p>
     <img src="{{ asset('bundles/abcore/images/logo-louvre bis.jpg') }}"/>
+        <p><b>{{ 'musee.pdf'|trans }}</b></p>
 
-    <p>{{ 'date.pdf'|trans }}: {{ value.dateResa|date("d/m/Y") }}</p>
-    <p>{{ 'nom.pdf'|trans }}: {{ value.nom }}</p>
-    <p>{{ 'tarif.pdf'|trans }}: {{ value.tarif }} €</p>
-    <p>{{ 'code.pdf'|trans }}: {{ value.codeResa }}</p>
-    <p><img src="{{ mopa_barcode_url('qr', "value.qrCode", {'size':2, 'level':3, 'margin':0, 'useOverlay': true}) }}"/></p>
+    <p><b>{{ 'date.pdf'|trans }}:</b> {{ value.dateResa|date("d/m/Y") }}</p>
+    <p><b>{{ 'nom.pdf'|trans }}:</b> {{ value.nom }}</p>
+    <p><b>{{ 'tarif.pdf'|trans }}:</b> {{ value.tarif }} €</p>
+    <p><b>{{ 'code.pdf'|trans }}:</b> {{ value.codeResa }}</p>
+    <p><img src="{{ mopa_barcode_url('qr', "{{ value.qrCode }}", {'size':2, 'level':3, 'margin':0, 'useOverlay': true}) }}"/></p>
         <hr>
     {% endfor %}
 </page>
