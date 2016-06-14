@@ -19,18 +19,16 @@
 
     <div class="bouton">
     <div class="stripe col-xs-offset-2 col-sm-offset-3 col-md-offset-4">
-        <form action="/charge" method="POST">
-            <script
-                    src="https://checkout.stripe.com/checkout.js"
-                    class="stripe-button"
-                    data-key="pk_test_Iq8HgCaJ7j4ImKUmIVdVTIBm"
+            <script src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
+                    data-key="pk_test_ur0ebwOGBrsNzQrpdCNENIu4"
                     data-image="{{ asset('bundles/abcore/images/le-musee-du-louvre.jpg') }}"
-                    data-name="Musée du Louvre"
-                    data-description="Montant de la transation"
-                    data-amount="2000"
-                    data-currency="EUR">
-            </script>
-        </form>
+                    data-data-amount="1900"
+                    data-data-description="Musée du Louvre"
+                    data-address='true'
+                    data-name='Musée du Louvre'
+                    data-description='Montant de la transaction'
+                    data-panel-label='Valider'
+            ></script>
     </div>
 
     <div class="paypal col-xs-offset-5 col-sm-offset-5 col-md-offset-6">
