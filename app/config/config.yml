@@ -86,21 +86,8 @@ imports:
     - { resource: @MopaBootstrapSandboxBundle/Resources/config/examples/example_menu.yml }
     - { resource: @MopaBootstrapSandboxBundle/Resources/config/examples/example_navbar.yml }
 
-#payum:
-#    security:
-#        token_storage:
-#            AB\CoreBundle\Entity\PaymentToken: { doctrine: orm }
-#
-#    storages:
-#        AB\CoreBundle\Entity\Payment: { doctrine: orm }
-#
-#    gateways_v2:
-#        offline:
-#            offline: ~
-#        stripe_louvre:
-#            factory: stripe_js
-#            publishable_key: 'pk_test_NHnOC4NL0JVZGhMuDumzLF0x'
-#            secret_key:      'sk_test_gUDd5mHdcXGQoxBmsBxgEXvN'
+
+
 
 
 
