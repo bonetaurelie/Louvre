@@ -28,7 +28,8 @@
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",
-        "symfony/phpunit-bridge": "~2.7"
+        "symfony/phpunit-bridge": "~2.7",
+        "symfony/var-dumper": "~2.8"
     },
     "scripts": {
         "post-install-cmd": [
@@ -51,7 +52,7 @@
     "config": {
         "bin-dir": "bin",
         "platform": {
-            "php": "5.3.9"
+            "php": "5.5.0"
         }
     },
     "extra": {
