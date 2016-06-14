@@ -26,8 +26,10 @@ class Visiteur
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=255)
-     * @Assert\Length(min=2,
-     *     minMessage="nom.message")
+     * @Assert\Regex(
+     *     pattern="/\d/",
+     *     match= false,
+     *     message="nom.message")
      */
     private $nom;
 
@@ -35,8 +37,10 @@ class Visiteur
      * @var string
      *
      * @ORM\Column(name="prenom", type="string", length=255)
-     * @Assert\Length(min=2,
-     *     minMessage="prenom.message")
+     * @Assert\Regex(
+     *     pattern="/\d/",
+     *     match= false,
+     *     message="nom.message")
      */
     private $prenom;
 
@@ -53,8 +57,10 @@ class Visiteur
      * @var string
      *
      * @ORM\Column(name="pays", type="string", length=255)
-     * @Assert\Length(min=2,
-     *     minMessage="pays.message")
+     * @ @Assert\Regex(
+     *     pattern="/\d/",
+     *     match= false,
+     *     message="nom.message")
      */
     private $pays;
 
