@@ -31,6 +31,15 @@ ab_core_paiement:
         id: \d+
         _locale: fr|en
 
+
+ab_core_stripe:
+    path:    /paiement/{id}/{_locale}
+    defaults: { _controller: ABCoreBundle:Order:stripe }
+    requirements:
+        id: \d+
+        _locale: fr|en
+
+
 ab_core_partage:
     path:    /partage/{_locale}
     defaults: { _controller: ABCoreBundle:Core:partage }
