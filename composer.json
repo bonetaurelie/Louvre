@@ -24,7 +24,8 @@
         "stof/doctrine-extensions-bundle": "1.2.2 ",
         "psliwa/pdf-bundle": "~1.0",
         "mopa/barcode-bundle": "dev-master",
-        "avalanche123/imagine-bundle": "dev-master"
+        "avalanche123/imagine-bundle": "dev-master",
+        "stripe/stripe-php": "3.*"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",
