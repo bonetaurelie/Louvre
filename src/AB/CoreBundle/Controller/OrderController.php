@@ -32,7 +32,6 @@ class OrderController extends Controller
             if ($oneCommande->getBillet()->getQuantite() == 1) {
 
                 $val_commande->setTarif($oneCommande->getTarif());
-                var_dump($val_commande->getTarif());
 
             } elseif ($oneCommande->getBillet()->getQuantite() == 4) {
 
@@ -51,7 +50,6 @@ class OrderController extends Controller
                 $val_commande->setTarif(array_sum($tarifCommande));
             }
         }
-        die();
         //l'email qui se trouve dans l'entité billet
                 /*if($request->get('submit')){
                     if($request->isValid()){
