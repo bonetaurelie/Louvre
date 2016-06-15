@@ -11,6 +11,9 @@
         <h1 class="text-center">{{ 'choix.paiement' | trans }}</h1>
     </div>
 
+
+        <p>Le montant de votre commande est de : {{ val_commande.tarif }}€</p>
+
         {% for flash_message in app.session.flashBag.get('notice') %}
             <div class="flash-notice">
                 {{ flash_message }}
