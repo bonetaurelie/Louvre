@@ -20,21 +20,19 @@ class OrderController extends Controller
 {
     public function paiementAction($id, Request $request)
     {
-        $commande= $this->getDoctrine()->getRepository('ABCoreBundle:Commande')->findByBillet($id);
         $em = $this->getDoctrine()->getManager();
+        $commande= $em->getRepository('ABCoreBundle:Commande')->findByBillet($id);
 
         $val_commande = new Validation_commande();
         $val_commande->setStatut("En cours");
         $tarifCommande= array();
 
-
         foreach($commande as $oneCommande) {
-
 
             if ($oneCommande->getBillet()->getQuantite() == 1) {
 
-
                 $val_commande->setTarif($oneCommande->getTarif());
+                var_dump($val_commande->getTarif());
 
             } elseif ($oneCommande->getBillet()->getQuantite() == 4) {
 
@@ -53,7 +51,7 @@ class OrderController extends Controller
                 $val_commande->setTarif(array_sum($tarifCommande));
             }
         }
-
+        die();
         //l'email qui se trouve dans l'entité billet
                 /*if($request->get('submit')){
                     if($request->isValid()){
@@ -114,12 +112,12 @@ class OrderController extends Controller
 
             $token = $request->get('stripeToken');
 
-            $customer = Stripe_Customer::create(array(
+            $customer = \Stripe\Customer::create(array(
                 'email' => 'customer@example.com',
                 'card'  => $token
             ));
 
-            Stripe_Charge::create(array(
+            \Stripe\Charge::create(array(
                 'customer' => $customer->id,
                 'amount'   => 5000,
                 'currency' => 'usd'

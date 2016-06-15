@@ -35,17 +35,12 @@ class Validation_commande
      * @ORM\Column(name="statut", type="string", length=255)
      */
     private $statut;
-    
-
-    public function __construct() {
-        $this->commandes = new ArrayCollection();
-    }
 
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -55,7 +50,8 @@ class Validation_commande
     /**
      * Set tarif
      *
-     * @param integer $tarif
+     * @param string $tarif
+     *
      * @return Validation_commande
      */
     public function setTarif($tarif)
@@ -68,17 +64,18 @@ class Validation_commande
     /**
      * Get tarif
      *
-     * @return integer
+     * @return string
      */
     public function getTarif()
     {
-        return $this->getTarif();
+        return $this->tarif;
     }
 
     /**
      * Set statut
      *
      * @param string $statut
+     *
      * @return Validation_commande
      */
     public function setStatut($statut)
@@ -91,89 +88,10 @@ class Validation_commande
     /**
      * Get statut
      *
-     * @return string 
+     * @return string
      */
     public function getStatut()
     {
         return $this->statut;
-    }
-
-    /**
-     * Add commandes
-     *
-     * @param \AB\CoreBundle\Entity\Commande $commandes
-     * @return Validation_commande
-     */
-    public function addCommande(\AB\CoreBundle\Entity\Commande $commandes)
-    {
-        $this->commandes[] = $commandes;
-
-        return $this;
-    }
-
-    /**
-     * Remove commandes
-     *
-     * @param \AB\CoreBundle\Entity\Commande $commandes
-     */
-    public function removeCommande(\AB\CoreBundle\Entity\Commande $commandes)
-    {
-        $this->commandes->removeElement($commandes);
-    }
-
-    /**
-     * Get commandes
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getCommandes()
-    {
-        return $this->commandes;
-    }
-
-    /**
-     * Set validations
-     *
-     * @param \AB\CoreBundle\Entity\Billet $validations
-     * @return Validation_commande
-     */
-    public function setValidations(\AB\CoreBundle\Entity\Billet $validations = null)
-    {
-        $this->validations = $validations;
-
-        return $this;
-    }
-
-    /**
-     * Get validations
-     *
-     * @return \AB\CoreBundle\Entity\Billet 
-     */
-    public function getValidations()
-    {
-        return $this->validations;
-    }
-
-    /**
-     * Set billet
-     *
-     * @param \AB\CoreBundle\Entity\Billet $billet
-     * @return Validation_commande
-     */
-    public function setBillet(\AB\CoreBundle\Entity\Billet $billet = null)
-    {
-        $this->billet = $billet;
-
-        return $this;
-    }
-
-    /**
-     * Get billet
-     *
-     * @return \AB\CoreBundle\Entity\Billet 
-     */
-    public function getBillet()
-    {
-        return $this->billet;
     }
 }

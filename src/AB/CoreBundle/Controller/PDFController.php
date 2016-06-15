@@ -18,8 +18,8 @@ class PDFController extends Controller
 {
     public function generatePdfAction($id){
 
-        $commande= $this->getDoctrine()->getRepository('ABCoreBundle:Commande')->findByBillet($id);
         $em = $this->getDoctrine()->getManager();
+        $commande= $em->getRepository('ABCoreBundle:Commande')->findByBillet($id);
         
         foreach ($commande as $value) {
             if ($value->getBillet()->getQuantite() >= 1) {
