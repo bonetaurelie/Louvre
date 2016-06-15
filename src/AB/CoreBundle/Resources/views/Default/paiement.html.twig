@@ -19,16 +19,17 @@
 
     <div class="bouton">
     <div class="stripe col-xs-offset-2 col-sm-offset-3 col-md-offset-4">
-            <script src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
-                    data-key="pk_test_ur0ebwOGBrsNzQrpdCNENIu4"
+        <form action="" method="POST">
+            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-key="pk_test_NHnOC4NL0JVZGhMuDumzLF0x"
                     data-image="{{ asset('bundles/abcore/images/le-musee-du-louvre.jpg') }}"
-                    data-data-amount="1900"
-                    data-data-description="Musée du Louvre"
+                    data-amount="1600"
                     data-address='true'
                     data-name='Musée du Louvre'
                     data-description='Montant de la transaction'
                     data-panel-label='Valider'
             ></script>
+        </form>
     </div>
 
     <div class="paypal col-xs-offset-5 col-sm-offset-5 col-md-offset-6">
@@ -47,12 +48,4 @@
             <a class="btn btn-danger" href="{{ path('ab_core_accueil')}}" role="button">{{ 'annulation' |trans }}</a>
         </div>
     </div>
-
-
-
-
-
-
-
-
 {% endblock %}
