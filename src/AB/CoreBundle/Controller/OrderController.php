@@ -10,6 +10,7 @@ namespace AB\CoreBundle\Controller;
 use AB\CoreBundle\Entity\Validation_commande;
 use Proxies\__CG__\AB\CoreBundle\Entity\Billet;
 use Proxies\__CG__\AB\CoreBundle\Entity\Commande;
+use Stripe\Stripe;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -53,7 +54,9 @@ class OrderController extends Controller
             }
         }
 
-                /*if($request->get('submit') && paiement accepté){
+        //l'email qui se trouve dans l'entité billet
+                /*if($request->get('submit')){
+                    if($request->isValid()){
                     $val_commande->setStatut('P');
                 $message = \Swift_Message::newInstance()
                         ->setSubject('Votre réservation au musée du Louvre')
@@ -65,8 +68,11 @@ class OrderController extends Controller
                         ->attach(Swift_Attachment::fromPath('/path/to/a/file.zip'));   //--->> PJ VOIR
                     $this->get('mailer')->send($message);
                 }
-                elseIf(Paiement Stripe){
-                    if(paiement accepté){
+                    $this->get('session')->getFlashBag()->add('notice','Votre transaction d\'un montant de .... a bien été efectuée');
+                    return $this->redirect($this->generateUrl('ab_core_partage'));
+                }
+                elseIf($request->get('Musée du Louvre')){
+                    if($request->isValid()){
                 $val_commande->setStatut('S');
                 $message = \Swift_Message::newInstance()
                         ->setSubject('Votre réservation au musée du Louvre')
@@ -75,43 +81,57 @@ class OrderController extends Controller
                         ->setContentType('text/html')
                         ->setBody(
                             $this->renderView('ABCoreBundle:Default:email.html.twig'))
-                        ->attach(Swift_Attachment::fromPath('/path/to/a/file.zip'));   ->->->path?????
+                        ->attach(Swift_Attachment::fromPath('/path/to/a/file.zip'));  // ->->->path?????
                     $this->get('mailer')->send($message);
                }
+                    $this->get('session')->getFlashBag()->add('notice','Votre transaction d\'un montant de .... a bien été efectuée');
+                    return $this->redirect($this->generateUrl('ab_core_partage'));
                }
-                else{
-                    $val_commande->setStatut('E');
-                    return $this->redirect(generateurl('ab_core_error'));
-                }
                 elseIf($request->get('annulation')){
                     $val_commande->setStatut('A');
+                }
+                else{
+                    $val_commande->setStatut('E');
+                    return $this->redirect($this->generateurl('ab_core_error',array('id'=>$id)));
                 }*/
+
 
         $em->persist($val_commande);
         $em->flush();
         return $this->render('ABCoreBundle:Default:paiement.html.twig',array('val_commande'=>$val_commande));
     }
     
-    public function prepareStripeJsPaymentAction(Request $request)
+    public function stripeAction($id, Request $request)
     {
-        $gatewayName = 'stripe_louvre';
+        $val_commande= $this->getDoctrine()->getRepository('ABCoreBundle:Validation_commande')->find($id);
+        $em = $this->getDoctrine()->getManager();
 
-        $storage = $this->getPayum()->getStorage('Acme\GatewayBundle\Entity\PaymentDetails');
+        $request = $this->container->get('request');
 
-        /** @var PaymentDetails $details */
-        $details = $storage->create();
-        $details["amount"] = 20;
-        $details["currency"] = 'EUR';
-        $details["description"] = 'Montant de la transaction';
-        $storage->update($details);
+        if($request->get('Musée du Louvre'))
+        {
+            Stripe::setApiKey('sk_test_gUDd5mHdcXGQoxBmsBxgEXvN');
 
-        $captureToken = $this->get('payum')->getTokenFactory()->createCaptureToken(
-            $gatewayName,
-            $details,
-            'ab_core_partage' // the route to redirect after capture;
-        );
+            $token = $request->get('stripeToken');
 
-        return $this->render('ABCoreBundle:Default:paiement.html.twig');
+            $customer = Stripe_Customer::create(array(
+                'email' => 'customer@example.com',
+                'card'  => $token
+            ));
+
+            Stripe_Charge::create(array(
+                'customer' => $customer->id,
+                'amount'   => 5000,
+                'currency' => 'usd'
+            ));
+
+            $message = '<h1>Successfully charged $50.00!</h1>';
+
+        }
+        return $this->render('ABCoreBundle:Default:paiement.html.twig',array('val_commande' => $val_commande));
+
+
     }
 
+    
 }
