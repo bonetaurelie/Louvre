@@ -82,11 +82,15 @@ ps_pdf:
     markdown_document_template_filepath: ~
     document_parser_type: ~
 
-imports:
-    - { resource: @MopaBootstrapSandboxBundle/Resources/config/examples/example_menu.yml }
-    - { resource: @MopaBootstrapSandboxBundle/Resources/config/examples/example_navbar.yml }
-
-
+endroid_qr_code:
+    size: 100
+    padding: 10
+    extension: gif
+    error_correction_level: high
+    foreground_color: { r: 0, g: 0, b: 0, a: 0 }
+    background_color: { r: 255, g: 255, b: 255, a: 0 }
+    label: "Musée du Louvre"
+    label_font_size: 12
 
 
 
