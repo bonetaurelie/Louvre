@@ -286,7 +286,8 @@ p{
         margin-left: 400px;
         margin-right: 400px;
         margin-top: 40px;
-        padding-top: 2px;
+        padding-top: 5px;
+        padding-bottom: 5px;
         text-align: center;
 
     }
@@ -304,7 +305,8 @@ p{
         margin-left: 200px;
         margin-right: 200px;
         margin-top: 40px;
-        padding-top: 2px;
+        padding-top: 5px;
+        padding-bottom: 5px;
         text-align: center;
     }
 }
@@ -321,10 +323,12 @@ p{
         margin-left: 100px;
         margin-right: 100px;
         margin-top: 40px;
-        padding-top: 2px;
+        padding-top: 5px;
+        padding-bottom: 5px;
         text-align: center;
     }
 }
+
 
 .payment{
     margin-top: 250px;
