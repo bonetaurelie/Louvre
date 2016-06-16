@@ -18,8 +18,7 @@ class AppKernel extends Kernel
             new AB\CoreBundle\ABCoreBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Ps\PdfBundle\PsPdfBundle(),
-            new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
-            new Mopa\Bundle\BarcodeBundle\MopaBarcodeBundle(),
+            new Endroid\Bundle\QrCodeBundle\EndroidQrCodeBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

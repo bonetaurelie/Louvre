@@ -23,8 +23,7 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "stof/doctrine-extensions-bundle": "1.2.2 ",
         "psliwa/pdf-bundle": "~1.0",
-        "mopa/barcode-bundle": "dev-master",
-        "avalanche123/imagine-bundle": "dev-master",
+        "endroid/qrcode-bundle": "2.0.1",
         "stripe/stripe-php": "3.*"
     },
     "require-dev": {
