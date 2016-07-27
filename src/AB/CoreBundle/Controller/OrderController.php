@@ -94,37 +94,50 @@ class OrderController extends Controller
 
         $em->persist($val_commande);
         $em->flush();
-        return $this->render('ABCoreBundle:Default:paiement.html.twig',array('val_commande'=>$val_commande));
+        $stripe_montant= $val_commande->getTarif()*100;
+        return $this->render('ABCoreBundle:Default:paiement.html.twig',array(
+            'val_commande'=>$val_commande,
+            'stripe_montant'=>$stripe_montant));
     }
     
     public function stripeAction($id, Request $request)
     {
-        $val_commande= $this->getDoctrine()->getRepository('ABCoreBundle:Validation_commande')->find($id);
         $em = $this->getDoctrine()->getManager();
+        $val_commande= $em->getRepository('ABCoreBundle:Validation_commande')->find($id);
+
+        $stripe_montant=$val_commande->getTarif()*100;
 
         $request = $this->container->get('request');
 
-        if($request->get('Musée du Louvre'))
-        {
-            Stripe::setApiKey('sk_test_gUDd5mHdcXGQoxBmsBxgEXvN');
+        if($request->getMethod('POST')) {
+            try {
+                Stripe::setApiKey('sk_test_gUDd5mHdcXGQoxBmsBxgEXvN');
 
-            $token = $request->get('stripeToken');
+                $token = $request->get('stripeToken');
 
-            $customer = \Stripe\Customer::create(array(
-                'email' => 'customer@example.com',
-                'card'  => $token
-            ));
+                $customer = \Stripe\Customer::create(array(
+                    'email' => 'customer@example.com',
+                    'card' => $token
+                ));
 
-            \Stripe\Charge::create(array(
-                'customer' => $customer->id,
-                'amount'   => 5000,
-                'currency' => 'usd'
-            ));
+                \Stripe\Charge::create(array(
+                    'customer' => $customer->id,
+                    'amount' => $stripe_montant,
+                    'currency' => 'eur'
+                ));
 
-            $message = '<h1>Successfully charged $50.00!</h1>';
+                $val_commande->setStatut('stripe');
 
+                $em->persist($val_commande);
+                $em->flush();
+
+                return $this->render('ABCoreBundle:Default:partage.html.twig');
+            } catch (\Stripe\Error\Card $e) {
+                $this->get('session')->getFlashBag()->add('error', "Echec de paiement.");
+                return $this->redirect($this->generateUrl('ab_core_paiement',array('id'=>$val_commande->getId())));
+            }
         }
-        return $this->render('ABCoreBundle:Default:paiement.html.twig',array('val_commande' => $val_commande));
+
 
 
     }
