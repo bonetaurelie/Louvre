@@ -33,7 +33,7 @@ ab_core_paiement:
 
 
 ab_core_stripe:
-    path:    /paiement/{id}/{_locale}
+    path:    /stripe/{id}/{_locale}
     defaults: { _controller: ABCoreBundle:Order:stripe }
     requirements:
         id: \d+
