@@ -4,97 +4,100 @@
 {% endblock %}
 
 {% block body %}
+    <div class="container">
+        <div class="main">
+            <ul class="list">
+                <div class="form">
+                    <h1 class="text-center">{{ 'form' | trans }}</h1>
 
-    <ul class="list">
-<div class="form">
-    <h1 class="text-center">{{ 'form' | trans }}</h1>
-
-        {% for flash_message in app.session.flashBag.get('error') %}
-            <div class="flash-error">
-                {{ flash_message }}
-            </div>
-        {% endfor %}
+                    {% for flash_message in app.session.flashBag.get('error') %}
+                        <div class="flash-error">
+                            {{ flash_message }}
+                        </div>
+                    {% endfor %}
 
 
-    <div class="form2  col-xs-offset-3 col-sm-offset-2 col-md-offset-3">
-        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+                    <div class="form2  col-xs-offset-3 col-sm-offset-2 col-md-offset-3">
+                        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
-        {{ form_errors(form) }}
-        {% for visiteur in form.visiteurs %}
-        <li class="list">
-        <div class="form-group">
-            {{ form_label(visiteur.nom, "nom.visiteur", {'label_attr': {'class': 'col-xs-3 col-sm-3 control-label'}}) }}
+                        {{ form_errors(form) }}
+                        {% for visiteur in form.visiteurs %}
+                            <li class="list">
+                                <div class="form-group">
+                                    {{ form_label(visiteur.nom, "nom.visiteur", {'label_attr': {'class': 'col-xs-3 col-sm-3 control-label'}}) }}
 
-            {{ form_errors(visiteur.nom) }}
+                                    {{ form_errors(visiteur.nom) }}
 
-            <div class=" col-xs-4 col-sm-4 col-md-3">
-                {{ form_widget(visiteur.nom, {'attr': {'class': 'form-control'}}) }}
-            </div>
+                                    <div class=" col-xs-4 col-sm-4 col-md-3">
+                                        {{ form_widget(visiteur.nom, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    {{ form_label(visiteur.prenom, "prenom.visiteur", {'label_attr': {'class': 'col-xs-3 col-sm-3 control-label'}}) }}
+                                    {{ form_errors(visiteur.prenom) }}
+                                    <div class="col-xs-4 col-sm-4 col-md-2">
+                                        {{ form_widget(visiteur.prenom, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    {{ form_label(visiteur.dateNaissance, "naissance.visiteur", {'label_attr': {'class': 'col-xs-3 col-sm-3 control-label'}}) }}
+
+                                    {{ form_errors(visiteur.dateNaissance) }}
+
+                                    <div class="col-xs-7 col-sm-4 col-md-3">
+                                        {{ form_widget(visiteur.dateNaissance, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    {{ form_label(visiteur.pays, "pays.visiteur", {'label_attr': {'class': 'col-xs-3 col-sm-3 control-label'}}) }}
+
+                                    {{ form_errors(visiteur.pays) }}
+
+                                    <div class="col-xs-4 col-sm-4 col-md-4">
+                                        {{ form_widget(visiteur.pays, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+
+                                <div class="info">
+                                    <p>{{ 'tarifreduit' | trans }}</p>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="help hide col-md-10" id="help-{{ loop.index }}">
+                                        <p class="text-center">
+                                            {{ 'tarif.info' | trans }}
+                                        </p>
+                                    </div>
+
+                                    {{ form_label(visiteur.tarifReduit, "tarif.visiteur", {'label_attr': {'class': 'col-xs-3 col-sm-3 control-label'}}) }}
+
+                                    {{ form_errors(visiteur.tarifReduit) }}
+
+                                    <div class="col-xs-2 col-sm-1 col-md-1">
+                                        {{ form_widget(visiteur.tarifReduit, {'attr': {'class': 'form-control checkbox-help','data-help-number': loop.index}}) }}
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+
+                        <div class="valider col-xs-offset-5 col-sm-offset-5 col-md-offset-5">
+                            <input type="submit" value="{{ 'valider.form' | trans }}" class="btn btn-default" />
+                        </div>
+
+                        <div class="retour col-xs-offset-1 col-sm-offset-2 col-md-offset-2">
+                            <a class="btn btn-danger" href="{{ path('ab_core_update_reservation',{'id':billet.id})}}" role="button">{{ 'modifier' |trans }}</a>
+                        </div>
+
+                        {{ form_rest(form) }}
+
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </ul>
         </div>
-
-        <div class="form-group">
-            {{ form_label(visiteur.prenom, "prenom.visiteur", {'label_attr': {'class': 'col-xs-3 col-sm-3 control-label'}}) }}
-            {{ form_errors(visiteur.prenom) }}
-            <div class="col-xs-4 col-sm-4 col-md-2">
-                {{ form_widget(visiteur.prenom, {'attr': {'class': 'form-control'}}) }}
-            </div>
-        </div>
-
-        <div class="form-group">
-            {{ form_label(visiteur.dateNaissance, "naissance.visiteur", {'label_attr': {'class': 'col-xs-3 col-sm-3 control-label'}}) }}
-
-            {{ form_errors(visiteur.dateNaissance) }}
-
-            <div class="col-xs-7 col-sm-4 col-md-3">
-                {{ form_widget(visiteur.dateNaissance, {'attr': {'class': 'form-control'}}) }}
-            </div>
-        </div>
-
-        <div class="form-group">
-            {{ form_label(visiteur.pays, "pays.visiteur", {'label_attr': {'class': 'col-xs-3 col-sm-3 control-label'}}) }}
-
-            {{ form_errors(visiteur.pays) }}
-
-            <div class="col-xs-4 col-sm-4 col-md-4">
-                {{ form_widget(visiteur.pays, {'attr': {'class': 'form-control'}}) }}
-            </div>
-        </div>
-
-            <div class="info">
-                <p>{{ 'tarifreduit' | trans }}</p>
-            </div>
-
-        <div class="row form-group">
-            <div class="help hide col-md-10" id="help-{{ loop.index }}">
-                <p class="text-center">
-                    {{ 'tarif.info' | trans }}
-                </p>
-            </div>
-
-            {{ form_label(visiteur.tarifReduit, "tarif.visiteur", {'label_attr': {'class': 'col-xs-3 col-sm-3 control-label'}}) }}
-
-            {{ form_errors(visiteur.tarifReduit) }}
-
-            <div class="col-xs-2 col-sm-1 col-md-1">
-                {{ form_widget(visiteur.tarifReduit, {'attr': {'class': 'form-control checkbox-help','data-help-number': loop.index}}) }}
-            </div>
-        </div>
-         </li>
-        {% endfor %}
-
-        <div class="valider col-xs-offset-5 col-sm-offset-5 col-md-offset-5">
-            <input type="submit" value="{{ 'valider.form' | trans }}" class="btn btn-default" />
-        </div>
-
-        <div class="retour col-xs-offset-1 col-sm-offset-2 col-md-offset-2">
-            <a class="btn btn-danger" href="{{ path('ab_core_update_reservation',{'id':billet.id})}}" role="button">{{ 'modifier' |trans }}</a>
-        </div>
-
-        {{ form_rest(form) }}
-
-        {{ form_end(form) }}
     </div>
-</div>
-    </ul>
 
 {% endblock %}

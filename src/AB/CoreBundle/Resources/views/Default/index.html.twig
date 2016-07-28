@@ -2,9 +2,14 @@
 {% extends 'ABCoreBundle::layout.html.twig' %}
 
 {% block body %}
-    <div class="index">
-        <h1 class="text-center">{{ 'bienvenue.index' | trans }}</h1>
-        <p class="text-center col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2">{{ 'presentation.index' | trans }}<br/><br/>
-            {{ 'reserver.index' | trans }} <a href="{{ path('ab_core_reservation') }}">{{ 'cliquer.index' | trans }}</a></p>
+    <div class="container">
+        <div class="main">
+            <div class="index">
+                <h1 class="text-center">{{ 'bienvenue.index' | trans }}</h1>
+                <p class="text-center col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2">{{ 'presentation.index' | trans }}<br/><br/>
+                    {{ 'reserver.index' | trans }} <a href="{{ path('ab_core_reservation') }}">{{ 'cliquer.index' | trans }}</a></p>
+            </div>
+        </div>
     </div>
+
 {% endblock %}

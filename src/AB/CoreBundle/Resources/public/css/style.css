@@ -3,6 +3,27 @@ body{
     background-image: url("../images/le-musee-du-louvre BIS.png");
     background-attachment: fixed;
     background-size: cover;
+    height:100%;
+    margin: 0;
+    padding: 0;
+}
+
+html{
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#wrap{
+    height: auto;
+    margin: 0 auto;
+}
+
+.main{
+    width:100%;
+    min-height:500px;
+    margin:0 0 75px 0;
+    padding:0;
 }
 
 @font-face {
@@ -328,36 +349,50 @@ p{
         text-align: center;
     }
 }
-
-
-.payment{
-    margin-top: 250px;
-}
-
 .payment_block{
-    margin-bottom: 90px;
+    padding-top: 100px;
 }
 
-.annulation{
-    margin-top: -50px;
+.montant{
+    margin-top: 15px;
+    padding-bottom: 80px;
 }
+
+.alert{
+    color: #AA1111;
+    border-bottom: 10px;
+    border-top: 10px;
+    border-left: 70px;
+    border-right: 70px;
+    background-color: #EBEBEB;
+    border-radius: 5px 5px 5px 5px;
+    margin-right: -350px;
+    margin-top: -40px;
+}
+
 
 /* bouton stripe revoir positionnement*/
 .stripe{
     padding-top: 50px;
+
 }
 
 .paypal{
     margin-top:-30px;
 }
 
+.annulation{
+    margin-top: -50px;
+}
+
 /*partage*/
 .partage{
-    margin-top: 250px;
+    margin-top: 150px;
+    color: #0416f4;
 }
 
 .partage_block{
-    margin-bottom: 229px;
+    margin-bottom: 80px;
 }
 
 .fb-share-button{
@@ -370,7 +405,7 @@ p{
 
 .accueil{
     color: black;
-    margin-top: -320px;
+    margin-top: -350px;
 }
 
 /*page erreur*/
@@ -392,7 +427,7 @@ footer{
     width: 100%;
     height:auto;
     display: inline-block;
-    margin-bottom: -125px;
+    margin:-112px auto -30px;
 }
 
 .footer1{
