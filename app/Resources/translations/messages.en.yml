@@ -53,3 +53,5 @@ code.pdf: Your reservation code
 tarif.pdf: Price
 error.message: Please correct the fields with some errors
 validation.message: Your order has been registered
+montant.message: the amount is
+echec.message: Failure of payment.

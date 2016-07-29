@@ -133,7 +133,7 @@ class OrderController extends Controller
 
                 return $this->render('ABCoreBundle:Default:partage.html.twig');
             } catch (\Stripe\Error\Card $e) {
-                $this->get('session')->getFlashBag()->add('error', "Echec de paiement.");
+                $this->get('session')->getFlashBag()->add('error',$this->get('translator')->trans('echec.message'));
                 return $this->redirect($this->generateUrl('ab_core_paiement',array('id'=>$val_commande->getId())));
             }
         }

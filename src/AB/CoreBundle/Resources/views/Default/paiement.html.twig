@@ -10,11 +10,11 @@
         <div class="payment_block">
             <div class="payment">
                 <h1 class="text-center">{{ 'choix.paiement' | trans }}</h1>
-                <p class="montant col-lg-offset-5"><b>Le montant est de : {{ val_commande.tarif }}€</b></p>
+                <p class="montant col-lg-offset-5 col-md-offset-5 col-sm-5 col-xs-offset-4"><b>{{ 'montant.message' |trans }} : {{ val_commande.tarif }}€</b></p>
             </div>
 
             {% for message in app.session.flashbag.get('error') %}
-                <div class="alert square fade in alert-dismissable text-center col-lg-4">
+                <div class="alert square fade in alert-dismissable text-center col-lg-4 col-lg-push-4 col-md-4 col-md-push-4 col-sm-4 col-sm-push-4 col-xs-4 col-xs-push-4">
                     <i class="fa fa-check"></i>
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     {{ message }}
@@ -25,7 +25,7 @@
 
             <div class="bouton">
                 <div class="row">
-                    <div class="stripe col-xs-offset-2 col-sm-offset-3 col-md-offset-4">
+                    <div class="stripe col-xs-offset-2 col-sm-pull-1 col-sm-3 col-md-3 col-lg-push-1 col-lg-3">
                         <form action="{{ path('ab_core_stripe', {'id': val_commande.id}) }}" method="POST">
                             <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                                     data-key="pk_test_NHnOC4NL0JVZGhMuDumzLF0x"
@@ -40,7 +40,7 @@
                         </form>
                     </div>
 
-                    <div class="paypal col-xs-offset-5 col-sm-offset-5 col-md-offset-6">
+                        <div class="paypal col-xs-offset-5 col-sm-3 col-md-3 col-lg-3">
                         <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
                             <input type="hidden" name="cmd" value="_s-xclick">
                             <input type="hidden" name="hosted_button_id" value="AALNLW46AZ6XE">
@@ -52,7 +52,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="annulation col-xs-offset-8 col-sm-offset-7 col-md-offset-8">
+                <div class="annulation col-xs-offset-8 col-sm-push-1 col-sm-3 col-md-push-1 col-md-3 col-lg-offset-6 col-lg-3">
                     <a class="btn btn-danger" href="{{ path('ab_core_accueil')}}" role="button">{{ 'annulation' |trans }}</a>
                 </div>
             </div>
