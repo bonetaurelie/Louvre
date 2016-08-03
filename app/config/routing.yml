@@ -31,6 +31,13 @@ ab_core_paiement:
         id: \d+
         _locale: fr|en
 
+ab_core_paypal:
+    path:    /paypal/{id}/{_locale}
+    defaults: {_controller: ABCoreBundle:Order:paypal}
+    requirements:
+        id: \d+
+        _locale: fr|en
+
 
 ab_core_stripe:
     path:    /stripe/{id}/{_locale}
@@ -41,7 +48,7 @@ ab_core_stripe:
 
 
 ab_core_partage:
-    path:    /partage/{_locale}
+    path:    /partage/{id}/{_locale}
     defaults: { _controller: ABCoreBundle:Core:partage }
     requirements:
          _locale: fr|en
