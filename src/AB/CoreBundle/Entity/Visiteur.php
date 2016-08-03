@@ -40,7 +40,7 @@ class Visiteur
      * @Assert\Regex(
      *     pattern="/\d/",
      *     match= false,
-     *     message="nom.message")
+     *     message="prenom.message")
      */
     private $prenom;
 
@@ -60,7 +60,7 @@ class Visiteur
      * @ @Assert\Regex(
      *     pattern="/\d/",
      *     match= false,
-     *     message="nom.message")
+     *     message="pays.message")
      */
     private $pays;
 
