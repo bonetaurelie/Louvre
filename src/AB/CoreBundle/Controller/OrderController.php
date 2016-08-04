@@ -229,14 +229,14 @@ class OrderController extends Controller
             'PAYMENTREQUEST_0_CURRENCYCODE' => 'EUR',
             'METHOD' => 'DoExpressCheckoutPayment'
         );
-        
+
         $val_commande->setStatut('paypal');
         $em->flush();
 
         return $this->redirect($this->get('router')->generate('ab_core_partage'));
     }
 
-    private function sendPaypal($data)
+    private function sendPaypal($params)
     {
         $api_paypal = $this->container->getParameter('https://api-3t.sandbox.paypal.com/nvp');
         $version = $this->container->getParameter('204.0');
@@ -248,7 +248,7 @@ class OrderController extends Controller
             '&USER='.$user.
             '&PWD='.$pass.
             '&SIGNATURE='.$signature;
-        foreach($data as $k => $v)
+        foreach($params as $k => $v)
             $url .= '&'.$k."=".urlencode($v);
         $ch =curl_init($url);
 
