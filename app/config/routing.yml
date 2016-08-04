@@ -38,14 +38,6 @@ ab_core_paypal:
         id: \d+
         _locale: fr|en
 
-ab_core_complete:
-    path:    /complete/{id}/{_locale}
-    defaults: {_controller: ABCoreBundle:Order:complete}
-    requirements:
-        id: \d+
-        _locale: fr|en
-
-
 ab_core_stripe:
     path:    /stripe/{id}/{_locale}
     defaults: { _controller: ABCoreBundle:Order:stripe }
