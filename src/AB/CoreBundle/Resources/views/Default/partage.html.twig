@@ -19,7 +19,11 @@
 
                 <div class="row">
                     <div class="fb-share-button  col-md-offset-4 col-sm-offset-4 col-xs-offset-3" data-href="http://localhost/louvre/web/app_dev.php/fr/" data-layout="button" data-mobile-iframe="true"></div>
-                    <div id="fb-root"></div>
+                    <div id="fb-root"
+                         data-href="{{ path('ab_core_accueil') }}"
+                         data-layout="button">
+
+                    </div>
                     <script>(function(d, s, id) {
                             var js, fjs = d.getElementsByTagName(s)[0];
                             if (d.getElementById(id)) return;
