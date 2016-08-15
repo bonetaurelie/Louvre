@@ -197,6 +197,7 @@ class OrderController extends Controller
             curl_close($curl);
         }
 
+
         return $this->render('ABCoreBundle:Default:paiement.html.twig', array('id' => $val_commande->getId()));
     }
 
@@ -269,7 +270,9 @@ class OrderController extends Controller
 
         if($params){
             $val_commande->setStatut('paypal');
+            $em->persist($val_commande);
             $em->flush();
+
         }
         else{
             $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('echec.message'));
