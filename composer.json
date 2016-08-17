@@ -24,7 +24,7 @@
         "stof/doctrine-extensions-bundle": "1.2.2 ",
         "psliwa/pdf-bundle": "~1.0",
         "endroid/qrcode-bundle": "2.0.1",
-        "stripe/stripe-php": "3.*"
+        "stripe/stripe-php": "2.*"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",
