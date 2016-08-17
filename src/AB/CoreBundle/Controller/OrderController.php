@@ -144,7 +144,7 @@ class OrderController extends Controller
         $em = $this->getDoctrine()->getManager();
         $val_commande = $em->getRepository('ABCoreBundle:Validation_commande')->find($id);
 
-        if ($request->getMethod('POST')) {
+        if ($request->isMethod('GET')) {
             $user = 'bonetaurelie-facilitator_api1.gmail.com';
             $pwd = '3VTNTX4M4PDAXA9P';
             $signature = 'AFydXqgoC9ryJcgfJfQdpyqb9ioWAZYr6xGoUo-Jtcv0YluatYz.z17B';
