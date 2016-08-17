@@ -44,7 +44,6 @@ ab_core_stripe:
     requirements:
         id: \d+
         _locale: fr|en
-    schemes:  [http]
 
 ab_core_partage:
     path:    /partage/{id}/{_locale}

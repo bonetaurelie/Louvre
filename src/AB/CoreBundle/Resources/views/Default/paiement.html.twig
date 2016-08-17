@@ -28,7 +28,7 @@
                     <div class="stripe col-xs-offset-2 col-sm-pull-1 col-sm-3 col-md-3 col-lg-push-1 col-lg-3">
                         <form action="{{ path('ab_core_stripe', {'id': val_commande.id}) }}" method="POST">
                             <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                    data-key="{{ stripe_public_key }}"
+                                    data-key="pk_test_NHnOC4NL0JVZGhMuDumzLF0x"
                                     data-image="{{ asset('bundles/abcore/images/le-musee-du-louvre.jpg') }}"
                                     data-amount="{{ stripe_montant }}"
                                     data-address='true'

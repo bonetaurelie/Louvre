@@ -4,10 +4,6 @@ parameters:
 #    parameter_name: value
 
 services:
-    #Service Stripe
-    ab.stripe_client:
-        class: AB\CoreBundle\Services\StripeClientService
-        arguments: ['%stripe_secret_key%', "@doctrine.orm.entity_manager"]
-    ab.val_commande:
-        class: AB\CoreBundle\Services\ValidationCommandeService
-        arguments: ["@doctrine.orm.entity_manager"]
+#    service_name:
+#        class: AppBundle\Directory\ClassName
+#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]

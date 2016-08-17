@@ -96,36 +96,18 @@ class OrderController extends Controller
         $em->flush();
         $stripe_montant = $val_commande->getTarif() * 100;
         return $this->render('ABCoreBundle:Default:paiement.html.twig', array(
-            'val_commande'      => $val_commande,
-            'stripe_montant'    => $stripe_montant,
-            'stripe_public_key' => $this->getParameter('stripe_public_key')
-        ));
+            'val_commande' => $val_commande,
+            'stripe_montant' => $stripe_montant));
     }
 
     public function stripeAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $val_commande = $this->get("ab.val_commande")->getCommande($id);
+        $val_commande = $em->getRepository('ABCoreBundle:Validation_commande')->find($id);
 
         $stripe_montant = $val_commande->getTarif() * 100;
 
-        $error = false;
-        if($request->isMethod('POST')){
-
-            $token = $request->get('stripeToken');
-
-            try{
-                $this->chargeCustomer($token, $val_commande);
-            }catch(\Stripe\Error\Card $e){
-                $error = "Votre paiement n'a pas aboutit. Voici la raison : " . $e->getMessage();
-            }
-
-            if(!$error){
-                //Référence au service pour créer une ligne de commande dans l'historique du membre
-                $this->get('ab.val_commande')->updateValCommande($val_commande);
-                return $this->redirect($this->generateUrl('transactions_list'));
-            }
-        }
+        $request = $this->container->get('request');
 
         if ($request->getMethod('POST')) {
             try {
@@ -156,31 +138,8 @@ class OrderController extends Controller
             }
         }
     }
-
-    /**
-     * StripeAction ONLY
-     * @param $token
-     * @param $valCommande
-     * throws \Stripe\Error\Card
-     */
-    private function chargeCustomer($token, Validation_commande $valCommande)
-    {
-        $user = $this->getUser();
-        //Call to Stripe Service Client
-        $stripeClient = $this->get('ab.stripe_client');
-
-        //TODO : A mettre dans une boucle pour l'utilisation d'un panier
-        $stripeClient->createInvoiceItem($valCommande->getTarif(),"Achat d'un billet pour le Louvre");
-
-        $stripeClient->createInvoice(true);
-    }
-
-    /**
-     * Paypal Action
-     * @param $id
-     * @param Request $request
-     * @return RedirectResponse|Response
-     */
+    
+    
     public function paypalAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();

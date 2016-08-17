@@ -26,9 +26,9 @@ class CoreController extends Controller
         return $this->render('ABCoreBundle:Default:partage.html.twig');
     }
 
-    //Cette fonction ne sert à rien
-/*    public function onKernelRequest(GestResponseEvent $event){
+    
+  public function onKernelRequest(GestResponseEvent $event){
         $request=$event->getRequest();
         $request->getSession()->set('_locale', $locale);
-    }*/
+    }
 }
