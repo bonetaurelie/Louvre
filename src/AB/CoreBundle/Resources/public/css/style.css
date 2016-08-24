@@ -226,12 +226,15 @@ p{
 
 /*footer*/
 footer{
+    position: fixed;
+    bottom: 0;
+
     background-color: black;
     color: white;
     width: 100%;
     height:auto;
     display: inline-block;
-    margin:-112px auto -30px;
+    margin:0px;
 }
 
 .footer1{

@@ -41,13 +41,13 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="{{ path('ab_core_accueil') }}">
-                    <img src="{{ asset('bundles/abcore/images/logo-louvre bis.jpg') }}">
+                    <img src="{{ asset('bundles/abcore/images/logo-louvre bis.jpg') }}" alt="logo de la billetterie du louvre" title="logo de la billetterie du louvre">
                 </a>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <a href="{{ path('ab_core_accueil', {'_locale':'fr'}) }}" class="fr"><img src="{{ asset('bundles/abcore/images/drapeau_france bis.jpg') }}"/></a>
-                    <a href="{{ path('ab_core_accueil', {'_locale':'en'}) }}" class="en"><img src="{{ asset('bundles/abcore/images/drapeau-anglais.jpg') }}"></a>
+                    <a href="{{ path('ab_core_accueil', {'_locale':'fr'}) }}" class="fr"><img src="{{ asset('bundles/abcore/images/drapeau_france bis.jpg') }}" alt="drapeau français pour la traduction du site en français" title="traduction du site en français"/></a>
+                    <a href="{{ path('ab_core_accueil', {'_locale':'en'}) }}" class="en"><img src="{{ asset('bundles/abcore/images/drapeau-anglais.jpg') }}"alt="drapeau anglais pour la traduction du site en anglais" title="traduction du site en anglais"></a>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
@@ -59,14 +59,12 @@
 </div>
 
     <footer>
-        <div class="container fixed-bottom">
-            <div class="footer1 col-md-4 col-sm-5 col-xs-5 col-xs-offset-2 ">
-                <p>&copy; 2016 Aurélie BONET</p>
-            </div>
+        <div class="footer1 col-md-4 col-sm-5 col-xs-5 col-xs-offset-2 ">
+            <p>&copy; 2016 Aurélie BONET</p>
+        </div>
 
-            <div class="footer3 col-md-5 col-md-offset-1 col-sm-5 col-xs-5">
-                <p><a href="http://www.louvre.fr/" target="_blank">{{ 'site'|trans }}</a></p>
-            </div>
+        <div class="footer3 col-md-5 col-md-offset-1 col-sm-5 col-xs-5">
+            <p><a href="http://www.louvre.fr/" target="_blank">{{ 'site'|trans }}</a></p>
         </div>
     </footer>
 
