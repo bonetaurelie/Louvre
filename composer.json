@@ -22,7 +22,7 @@
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "~2.0",
         "stof/doctrine-extensions-bundle": "1.2.2 ",
-        "psliwa/pdf-bundle": "~1.0",
+        "ensepar/html2pdf-bundle" : "~2.0",
         "endroid/qrcode-bundle": "2.0.1",
         "stripe/stripe-php": "3.*"
     },

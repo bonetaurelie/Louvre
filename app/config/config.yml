@@ -68,20 +68,6 @@ swiftmailer:
     password:  "%mailer_password%"
     spool:     { type: memory }
 
-
-ps_pdf:
-    nodes_file: ~
-    fonts_file: ~
-    complex_attributes_file: ~
-    colors_file: ~
-    use_cache_in_stylesheet: ~
-    cache:
-      type: ~
-      options: ~
-    markdown_stylesheet_filepath: ~
-    markdown_document_template_filepath: ~
-    document_parser_type: ~
-
 endroid_qr_code:
     size: 100
     padding: 10
@@ -91,6 +77,14 @@ endroid_qr_code:
     background_color: { r: 255, g: 255, b: 255, a: 0 }
     label: "Musée du Louvre"
     label_font_size: 10
+
+ensepar_html2pdf:
+    orientation: P
+    format: A4
+    lang: fr
+    unicode: true
+    encoding: UTF-8
+    margin: [10,15,10,15]
 
 
 
