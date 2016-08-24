@@ -182,7 +182,7 @@ p{
 }
 
 .annulation{
-    margin-top: -50px;
+    margin-top: 0px;
 }
 
 .bouton{
@@ -347,7 +347,7 @@ footer{
     }
 
     .annulation{
-        margin-top: -5px;
+        margin-top: -35px;
         margin-right:-90px;
     }
 }
@@ -375,7 +375,7 @@ footer{
     }
 
     .annulation{
-        margin-top: -50px;
+        margin-top: -40px;
     }
 
     .bouton{
@@ -484,7 +484,7 @@ footer{
     }
 
     .annulation{
-        margin-top: -50px;
+        margin-top: -40px;
         margin-left:620px;
     }
 
@@ -542,7 +542,7 @@ footer{
 
 @media all and (min-width:1200px) {
     .stripe{
-        margin-top: -30px;
+        margin-top: 0px;
     }
 
     .paypal{
@@ -550,7 +550,7 @@ footer{
     }
 
     .annulation{
-        margin-top: -50px;
+        margin-top: -35px;
     }
 
     .bouton{
