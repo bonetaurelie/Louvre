@@ -1,0 +1,49 @@
+{% extends 'ABCoreBundle::layout.html.twig' %}
+
+{% block title %}
+    {{ parent() }} - Partager
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="main">
+        <div class="partage_block">
+            <div class="row">
+                <p class="well partage text-center col-lg-6 col-lg-offset-3">
+                    Votre transaction s'est effectuée avec succès.<br/>
+                    Merci d'avoir réservé en ligne votre ou vos billets pour visiter le Musée du Louvre.<br/>
+                    Vous allez recevoir sous peu un e-mail avec votre ou vos billet(s) de réservation.<br/>
+                    Pour partager sur les réseaux sociaux vous pouvez cliquer sur Twitter ou Facebook.
+                </p>
+            </div>
+
+            <div class="row">
+                <div class="fb-share-button  col-md-offset-4 col-sm-offset-4 col-xs-offset-3" data-href="http://localhost/louvre/web/app_dev.php/fr/" data-layout="button" data-mobile-iframe="true"></div>
+                <div id="fb-root"
+                     data-href="{{ path('ab_core_accueil') }}"
+                     data-layout="button">
+
+                </div>
+                <script>(function(d, s, id) {
+                        var js, fjs = d.getElementsByTagName(s)[0];
+                        if (d.getElementById(id)) return;
+                        js = d.createElement(s); js.id = id;
+                        js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.6";
+                        fjs.parentNode.insertBefore(js, fjs);
+                    }(document, 'script', 'facebook-jssdk'));</script>
+
+                <div class="tweeter col-md-offset-7 col-sm-offset-7 col-xs-offset-7">
+                    <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://localhost/louvre/web/app_dev.php/fr/" data-text="{{'tweet.partage' |trans }}">Tweet</a>
+                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                </div>
+
+                <div class="accueil col-xs-offset-10 col-sm-offset-10 col-md-offset-10">
+                    <a class="btn btn-default" href="{{ path('ab_core_accueil')}}" role="button">{{ 'accueil' |trans }}</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
