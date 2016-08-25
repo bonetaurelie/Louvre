@@ -138,150 +138,33 @@ class OrderController extends Controller
             }
         }
     }
-    
-    
-    public function paypalAction($id, Request $request)
-    {
+
+    public function partagePaypalAction(){
+        $em = $this->getDoctrine()->getManager();
+        $val_commande = $em->getRepository('ABCoreBundle:Validation_commande');
+
+        return $this->render('ABCoreBundle:Default:partagePaypal.html.twig');
+    }
+
+    public function partageAction($id){
         $em = $this->getDoctrine()->getManager();
         $val_commande = $em->getRepository('ABCoreBundle:Validation_commande')->find($id);
 
-        if ($request->isMethod('GET')) {
-            $user = 'bonetaurelie-facilitator_api1.gmail.com';
-            $pwd = '3VTNTX4M4PDAXA9P';
-            $signature = 'AFydXqgoC9ryJcgfJfQdpyqb9ioWAZYr6xGoUo-Jtcv0YluatYz.z17B';
-
-            $params = [
-                'METHOD' => 'SetExpressCheckout',
-                'VERSION' => '204.0',
-                'USER' => $user,
-                'PWD' => $pwd,
-                'SIGNATURE' => $signature,
-                'RETURNURL' => $this->get('router')->generate('ab_core_partage',array('id'=>$val_commande->getId()),true),
-                'CANCELURL' => $this->get('router')->generate('ab_core_accueil',array(),true),
-
-                'PAYMENTREQUEST_0_AMT' => $val_commande->getTarif(),
-                'PAYMENTREQUEST_0_CURRENCYCODE' => 'EUR',
-                'PAYMENTREQUEST_0_ITEAMT' => $val_commande->getTarif(),
-
-            ];
-
-            $params = http_build_query($params);
-            $endpoint = 'https://api-3t.sandbox.paypal.com/nvp';
-            $curl = curl_init();
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => $endpoint,
-                CURLOPT_POST => 1,
-                CURLOPT_POSTFIELDS => $params,
-                CURLOPT_RETURNTRANSFER => 1,
-                CURLOPT_SSL_VERIFYPEER => false,
-                CURLOPT_SSL_VERIFYHOST => false,
-                CURLOPT_VERBOSE => 1
-            ));
-
-            $response = curl_exec($curl);
-            $responseArray = array();
-            parse_str($response, $responseArray);
-            if (curl_errno($curl)) {
-                $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('echec.message'));
-                return $this->redirect($this->generateUrl('ab_core_paiement', array('id' => $val_commande->getId())));
-                curl_close($curl);
-            } else {
-                if ($responseArray['ACK'] == 'Success') {
-                    return $this->redirect('https://www.sandbox.paypal.com/webscr?cmd=_express-checkout&useraction=commit&token=' . $responseArray['TOKEN']);
-                } else {
-                    $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('echec.message'));
-                    return $this->redirect($this->generateUrl('ab_core_paiement', array('id' => $val_commande->getId())));
-
-                }
-                curl_close($curl);
-            }
-            curl_close($curl);
-        }
-
-
-        return $this->render('ABCoreBundle:Default:paiement.html.twig', array('id' => $val_commande->getId()));
+        return $this->render('ABCoreBundle:Default:partage.html.twig', array(
+            'id' => $id,
+        ));
     }
 
-    public function partageAction($id, Request $request){
+    public function createPdfAction($id){
+        $commandes = new Commande();
         $em = $this->getDoctrine()->getManager();
-        $val_commande = $em->getRepository('ABCoreBundle:Validation_commande')->find($id);
-
-        if ($request->getMethod('POST')) {
-            $user = 'bonetaurelie-facilitator_api1.gmail.com';
-            $pwd = '3VTNTX4M4PDAXA9P';
-            $signature = 'AFydXqgoC9ryJcgfJfQdpyqb9ioWAZYr6xGoUo-Jtcv0YluatYz.z17B';
-
-            $params = array(
-                'TOKEN' => urldecode($request->get('token')),
-                'METHOD' => 'GetExpressCheckoutDetails',
-                'VERSION' => '204.0',
-                'USER' => $user,
-                'PWD' => $pwd,
-                'SIGNATURE' => $signature
-            );
-
-            $params = http_build_query($params);
-            $endpoint = 'https://api-3t.sandbox.paypal.com/nvp';
-            $curl = curl_init();
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => $endpoint,
-                CURLOPT_POST => 1,
-                CURLOPT_POSTFIELDS => $params,
-                CURLOPT_RETURNTRANSFER => 1,
-                CURLOPT_SSL_VERIFYPEER => false,
-                CURLOPT_SSL_VERIFYHOST => false,
-                CURLOPT_VERBOSE => 1
-            ));
-
-            $response = curl_exec($curl);
-            $responseArray = array();
-            parse_str($response, $responseArray);
-            if (curl_errno($curl)) {
-                $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('echec.message'));
-                return $this->redirect($this->generateUrl('ab_core_paiement', array('id' => $val_commande->getId())));
-                curl_close($curl);
-            } else {
-                if ($responseArray['ACK'] == 'Success') {
-                    return $this->redirect('https://www.sandbox.paypal.com/webscr?cmd=_express-checkout&useraction=commit&token=' . $responseArray['TOKEN']);
-                } else {
-                    $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('echec.message'));
-                    return $this->redirect($this->generateUrl('ab_core_paiement', array('id' => $val_commande->getId())));
-
-                }
-                curl_close($curl);
-            }
-            curl_close($curl);
-        }
-
-
-        if (!$request->get('token')) {
-            $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('echec.message'));
-            return $this->redirect($this->generateUrl('ab_core_paiement', array('id' => $val_commande->getId())));
-        }
-
-
-        $params = array(
-            'METHOD'    => 'DoExpressCheckouptPayment',
-            'TOKEN'     => urldecode($request->get('token')),
-            'PAYERID'     => urldecode($request->get('PayerID')),
-            'PAYMENTACTION'=>'Sale',
-            'PAYMENTREQUEST_0_AMT'=>$val_commande->getTarif(),
-            'PAYMENTCURRENCYCODE'=>'EUR'
-        );
-
-        if($params){
-            $val_commande->setStatut('paypal');
-            $em->persist($val_commande);
-            $em->flush();
-
-        }
-        else{
-            $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('echec.message'));
-            return $this->redirect($this->generateUrl('ab_core_paiement', array('id' => $val_commande->getId())));
-        }
-
-
-
-        return $this->redirect($this->get('router')->generate('ab_core_partage'));
+        $commandes = $em->getRepository('ABCoreBundle:Commande')->findByBillet(array('id'=>$id));
+                $html = $this->renderView('ABCoreBundle:Default:pdf.html.twig', array('commandes' => $commandes));
+                $html2pdf = $this->get('html2pdf_factory')->create('P', 'A4', 'fr', true, 'UTF-8', array(10, 15, 10, 15));
+                $html2pdf->pdf->SetDisplayMode('real');
+                $html2pdf->writeHTML($html);
+        
+        return new Response($html2pdf->Output('test.pdf'),200,array('Content-Type'=>'application/pdf'));
     }
+    
 }
