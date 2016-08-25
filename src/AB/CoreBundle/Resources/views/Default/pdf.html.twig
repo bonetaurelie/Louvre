@@ -1,23 +1,15 @@
 <page>
-    <style type="text/css">
-        #hello{
-            color: #002549;
-            font-family: Helvetica, sans-serif;
-            text-align:center;
-            font-size: 40px;
-        }
-    </style>
 
-    {% for value in commande %}
+    {% for commande in commandes %}
 
-    <img src="{{ asset('bundles/abcore/images/logo-louvre bis.jpg') }}"/>
+        <img src="C:/wamp/www/louvre/web/bundles/abcore/images/logo-louvre bis.jpg">
         <p><b>{{ 'musee.pdf'|trans }}</b></p>
 
-    <p><b>{{ 'date.pdf'|trans }}:</b> {{ value.dateResa|date("d/m/Y") }}</p>
-    <p><b>{{ 'nom.pdf'|trans }}:</b> {{ value.nom }}</p>
-    <p><b>{{ 'tarif.pdf'|trans }}:</b> {{ value.tarif }} €</p>
-    <p><b>{{ 'code.pdf'|trans }}:</b> {{ value.codeResa }}</p>
-        <img src="{{ qrcode_data_uri(value.qrCode, { size: 100, padding: 10 }) }}" />
+        <p><b>{{ 'date.pdf'|trans }}:</b> {{ commande.dateResa|date("d/m/Y") }}</p>
+        <p><b>{{ 'nom.pdf'|trans }}:</b> {{commande.nom }}</p>
+        <p><b>{{ 'tarif.pdf'|trans }}:</b> {{ commande.tarif }} €</p>
+        <p><b>{{ 'code.pdf'|trans }}:</b> {{ commande.codeResa }}</p>
+        <img src="{{ qrcode_data_uri(commande.qrCode, { size: 100, padding: 10 }) }}" />
 
         <hr>
     {% endfor %}
