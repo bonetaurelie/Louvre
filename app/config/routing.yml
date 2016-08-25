@@ -77,5 +77,7 @@ EndroidQrCodeBundle:
     prefix:   /qrcode
 
 ab_core_pdfbis:
-    path:    /pdf/create
+    path:    /pdf/create/{id}
     defaults: {_controller: ABCoreBundle:Order:CreatePdf}
+    requirements:
+            id: \d+
