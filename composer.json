@@ -24,7 +24,8 @@
         "stof/doctrine-extensions-bundle": "1.2.2 ",
         "ensepar/html2pdf-bundle" : "~2.0",
         "endroid/qrcode-bundle": "2.0.1",
-        "stripe/stripe-php": "3.*"
+        "stripe/stripe-php": "3.*",
+        "phpunit/phpunit": "5.5.*"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",
@@ -52,7 +53,7 @@
     "config": {
         "bin-dir": "bin",
         "platform": {
-            "php": "5.5.0"
+            "php": "5.6.0"
         }
     },
     "extra": {
