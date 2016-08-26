@@ -35,10 +35,7 @@ class VisiteurType extends AbstractType
                 ))
             ))
             ->add('dateNaissance','date', array(
-                'widget'=>'single_text',
-                'required'=>false,
-                'constraints'=>new NotBlank(array(
-                    'message'=>'date.message'))
+                'widget'=>'single_text','input' => 'datetime', 'format' => 'dd/MM/y',
             ))
             ->add('pays','text',array(
                 'constraints'=> new Regex(array(
