@@ -1,4 +1,8 @@
 {% extends 'ABCoreBundle::layout.html.twig' %}
+{% block stylesheet %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/abcore/css/bootstrap-datepicker3.min.css') }}">
+{% endblock %}
 {% block title %}
     {{ parent() }} - {{ 'visiteur.titre'|trans }}
 {% endblock %}
@@ -21,7 +25,10 @@
                         {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
                         {{ form_errors(form) }}
+                        {% set nbVisiteur=0 %}
+
                         {% for visiteur in form.visiteurs %}
+                            {% set nbVisiteur = nbVisiteur +1 %}
                             <li class="list">
                                 <div class="form-group">
                                     {{ form_label(visiteur.nom, "nom.visiteur", {'label_attr': {'class': 'col-xs-3 col-sm-3 control-label'}}) }}
@@ -82,6 +89,7 @@
                                 </div>
                             </li>
                         {% endfor %}
+                        <input id="nbVisiteur" type="hidden" value="{{ nbVisiteur }}">
 
                         <div class="valider col-xs-offset-5 col-sm-offset-5 col-md-offset-5">
                             <input type="submit" value="{{ 'valider.form' | trans }}" class="btn btn-default" />
@@ -100,4 +108,24 @@
         </div>
     </div>
 
+{% endblock %}
+
+{% block jquery %}
+    {{ parent() }}
+    <script src="{{ asset ('bundles/abcore/js/bootstrap-datepicker.min.js') }}"></script>
+    <script>
+
+        $(document).ready(function () {
+            var nbVisiteur=$('#nbVisiteur').val();
+            for (i=0; i<nbVisiteur; i++){
+                $('#billet_visiteur_visiteurs_'+i+'_dateNaissance').datepicker({
+                    format: "dd/mm/yyyy",
+                    todayBtn: "linked",
+                    language: "fr",
+                    autoclose: true
+                });
+            }
+
+        });
+    </script>
 {% endblock %}
