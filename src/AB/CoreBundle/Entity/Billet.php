@@ -38,6 +38,7 @@ class Billet implements Translatable
      * @var int
      *
      * @ORM\Column(name="quantite", type="integer")
+     * @Assert\NotBlank(message="Ce champ est requis")
      * @Assert\Range(min=1,
      *      minMessage ="quantite.valide")
      */
