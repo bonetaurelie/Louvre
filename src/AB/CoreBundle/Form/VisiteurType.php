@@ -34,7 +34,7 @@ class VisiteurType extends AbstractType
                     'minMessage'=>'nom.message'
                 ))
             ))
-            ->add('dateNaissance','date', array(
+            ->add('dateNaissance','date',array(
                 'required'=>false,
                 'widget'=>'single_text','input' => 'datetime', 'format' => 'dd/MM/y',
             ))
