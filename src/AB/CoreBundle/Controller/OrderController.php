@@ -54,15 +54,7 @@ class OrderController extends Controller
         /*if($request->get('submit')){
             if($request->isValid()){
             $val_commande->setStatut('P');
-        $message = \Swift_Message::newInstance()
-                ->setSubject('Votre réservation au musée du Louvre')
-                ->setFrom('bonetaurelie@gmail.com')
-                ->setTo($billet->getEmail())
-                ->setContentType('text/html')
-                ->setBody(
-                    $this->renderView('ABCoreBundle:Default:email.html.twig'))
-                ->attach(Swift_Attachment::fromPath('/path/to/a/file.zip'));   //--->> PJ VOIR
-            $this->get('mailer')->send($message);
+       
         }
             $this->get('session')->getFlashBag()->add('notice','Votre transaction d\'un montant de .... a bien été efectuée');
             return $this->redirect($this->generateUrl('ab_core_partage'));
@@ -150,6 +142,16 @@ class OrderController extends Controller
     public function partageAction($id){
         $em = $this->getDoctrine()->getManager();
         $val_commande = $em->getRepository('ABCoreBundle:Validation_commande')->find($id);
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Votre réservation au musée du Louvre')
+            ->setFrom('bonetaurelie@gmail.com')
+            ->setTo('c.lablancherie@live.fr')
+            ->setContentType('text/html')
+            ->setBody(
+                $this->renderView('ABCoreBundle:Default:email.html.twig'));
+            
+        $this->get('mailer')->send($message);
 
         return $this->render('ABCoreBundle:Default:partage.html.twig', array(
             'id' => $id,
