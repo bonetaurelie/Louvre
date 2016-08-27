@@ -21,17 +21,29 @@ class VisiteurType extends AbstractType
     {
         $builder
             ->add('nom','text',array(
-                'required'=>false
+                'required'=>false,
+                'constraints'=>new Length(array(
+                    'min'=> 2,
+                    'minMessage'=>'nom.message'
+                ))
             ))
             ->add('prenom','text',array(
-                'required'=>false
+                'required'=>false,
+                'constraints'=>new Length(array(
+                    'min'=> 2,
+                    'minMessage'=>'nom.message'
+                ))
             ))
             ->add('dateNaissance','date', array(
                 'required'=>false,
                 'widget'=>'single_text','input' => 'datetime', 'format' => 'dd/MM/y',
             ))
             ->add('pays','text',array(
-                'required'=>false
+                'required'=>false,
+                'constraints'=>new Length(array(
+                    'min'=> 2,
+                    'minMessage'=>'nom.message'
+                ))
             ))
             ->add('tarifReduit','checkbox',array('required'=>false))
         ;
