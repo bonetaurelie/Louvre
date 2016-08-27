@@ -26,10 +26,10 @@ class Visiteur
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=255)
-     * @Assert\Regex(
-     *     pattern="/\d/",
-     *     match= false,
-     *     message="nom.message")
+     * @Assert\NotBLank()
+     * @Assert\Length(
+     *     min = 2,
+     *     minMessage="nom.message")
      */
     private $nom;
 
@@ -37,10 +37,10 @@ class Visiteur
      * @var string
      *
      * @ORM\Column(name="prenom", type="string", length=255)
-     * @Assert\Regex(
-     *     pattern="/\d/",
-     *     match= false,
-     *     message="prenom.message")
+     * @Assert\NotBLank()
+     * @Assert\Length(
+     *     min = 2,
+     *     minMessage="prenom.message")
      */
     private $prenom;
 
@@ -48,6 +48,7 @@ class Visiteur
      * @var \DateTime
      *
      * @ORM\Column(name="date_naissance", type="date")
+     * @Assert\NotBLank()
      * @Assert\Date(
      *     message="date.message")
      */
@@ -57,10 +58,10 @@ class Visiteur
      * @var string
      *
      * @ORM\Column(name="pays", type="string", length=255)
-     * @ @Assert\Regex(
-     *     pattern="/\d/",
-     *     match= false,
-     *     message="pays.message")
+     * @Assert\NotBLank()
+     * @Assert\Length(
+     *     min = 2,
+     *     minMessage="pays.message")
      */
     private $pays;
 
