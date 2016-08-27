@@ -146,10 +146,11 @@ class OrderController extends Controller
         $message = \Swift_Message::newInstance()
             ->setSubject('Votre réservation au musée du Louvre')
             ->setFrom('bonetaurelie@gmail.com')
-            ->setTo('c.lablancherie@live.fr')
+            ->setTo('bonetaurelie@gmail.com')
             ->setContentType('text/html')
             ->setBody(
-                $this->renderView('ABCoreBundle:Default:email.html.twig'));
+                $this->renderView('ABCoreBundle:Default:email.html.twig'))
+                ->attach(\Swift_Attachment::fromPath('/path/to/a/file.zip'));
             
         $this->get('mailer')->send($message);
 
@@ -167,7 +168,7 @@ class OrderController extends Controller
                 $html2pdf->pdf->SetDisplayMode('real');
                 $html2pdf->writeHTML($html);
         
-        return new Response($html2pdf->Output('test.pdf'),200,array('Content-Type'=>'application/pdf'));
+        return new Response($html2pdf->Output( '.pdf'),200,array('Content-Type'=>'application/pdf'));
     }
     
 }
