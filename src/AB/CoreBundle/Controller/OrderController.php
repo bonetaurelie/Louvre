@@ -149,8 +149,8 @@ class OrderController extends Controller
             ->setTo('bonetaurelie@gmail.com')
             ->setContentType('text/html')
             ->setBody(
-                $this->renderView('ABCoreBundle:Default:email.html.twig'))
-                ->attach(\Swift_Attachment::fromPath('/path/to/a/file.zip'));
+                $this->renderView('ABCoreBundle:Default:email.html.twig'));
+                //->attach(\Swift_Attachment::fromPath('/path/to/a/file.zip'));
             
         $this->get('mailer')->send($message);
 
