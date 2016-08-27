@@ -146,7 +146,7 @@ class OrderController extends Controller
         $message = \Swift_Message::newInstance()
             ->setSubject('Votre réservation au musée du Louvre')
             ->setFrom('bonetaurelie@gmail.com')
-            ->setTo('bonetaurelie@gmail.com')
+            ->setTo('bonetaurelie@yahoo.fr')
             ->setContentType('text/html')
             ->setBody(
                 $this->renderView('ABCoreBundle:Default:email.html.twig'));
