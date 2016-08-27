@@ -150,6 +150,7 @@ class OrderController extends Controller
             ->setContentType('text/html')
             ->setBody(
                 $this->renderView('ABCoreBundle:Default:email.html.twig'));
+        
                 //->attach(\Swift_Attachment::fromPath('/path/to/a/file.zip'));
             
         $this->get('mailer')->send($message);
