@@ -120,8 +120,6 @@ class ReservationController extends Controller
         for($a = 0;$a < $billet->getQuantite();$a++){
             $visiteur= new Visiteur();
             $form->get('visiteurs')->add($a, new VisiteurType());
-            //$visiteurform = $form->get('visiteurs')->get($a);
-
         }
 
         //Si le formulaire est soumis en rentre dans la boucle
