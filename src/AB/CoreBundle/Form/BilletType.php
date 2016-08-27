@@ -17,7 +17,9 @@ class BilletType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('quantite')
+            ->add('quantite','integer',array(
+                'required'=>false
+            ))
             ->add('type',ChoiceType::class,[
                     'choices' => [
                         'choix.type' => [
