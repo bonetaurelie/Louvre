@@ -541,6 +541,18 @@ footer{
 }
 
 @media all and (min-width:1200px) {
+    .form3 li{
+        color: #AA1111;
+        border-bottom: 100px;
+        border-top: 100px;
+        border-left: 70px;
+        border-right: 70px;
+        background-color: #EBEBEB;
+        border-radius: 5px 5px 5px 5px;
+        margin-left: 200px;
+        margin-right: 300px;
+    }
+
     .stripe{
         margin-top: 0px;
     }
