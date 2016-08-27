@@ -11,23 +11,12 @@ use Symfony\Component\HttpFoundation\Response;
 class CoreController extends Controller
 {
 
-    public function indexAction(Request $request)
+    public function indexAction()
     {
         return $this->render('ABCoreBundle:Default:index.html.twig');
     }
-   
-    public function errorAction($id){
-        $commande= $this->getDoctrine()->getManager()->getRepository('ABCoreBundle:Commande')->find($id);
-        return $this->render('ABCoreBundle:Default:error.html.twig',array('commande'=>$commande));
-    }
 
-    public function partageAction(){
-       
-        return $this->render('ABCoreBundle:Default:partage.html.twig');
-    }
-
-    
-  public function onKernelRequest(GestResponseEvent $event){
+    public function onKernelRequest(GestResponseEvent $event){
         $request=$event->getRequest();
         $request->getSession()->set('_locale', $locale);
     }
