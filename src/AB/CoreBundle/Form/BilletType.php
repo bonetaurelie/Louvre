@@ -30,7 +30,9 @@ class BilletType extends AbstractType
             ->add('date', 'date', array(
                 'widget'=>'single_text','input' => 'datetime', 'format' => 'dd/MM/y',
                 ))
-            ->add('email')
+            ->add('email','email',array(
+                'required'=>false
+            ))
         ;
     }
     

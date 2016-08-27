@@ -95,6 +95,7 @@ class OrderController extends Controller
         $em->persist($val_commande);
         $em->flush();
         $stripe_montant = $val_commande->getTarif() * 100;
+                
         return $this->render('ABCoreBundle:Default:paiement.html.twig', array(
             'val_commande' => $val_commande,
             'stripe_montant' => $stripe_montant));

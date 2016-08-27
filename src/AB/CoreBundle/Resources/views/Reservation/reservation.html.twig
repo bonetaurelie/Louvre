@@ -8,6 +8,9 @@
 {% endblock %}
 
 {% block body %}
+    {% if error %}
+    {{ error.message }}
+        {% endif %}
     <div class="container">
         <div class="main">
             <div class="form">

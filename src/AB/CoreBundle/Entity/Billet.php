@@ -98,6 +98,7 @@ class Billet implements Translatable
      *
      * @Gedmo\Translatable
      * @ORM\Column(name="email", type="string", length=255)
+     * @Assert\NotBlank(message="coucou")
      * @Assert\Email(checkMX=true,
      *      message ="email.valide")
      */
