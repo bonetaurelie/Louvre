@@ -69,6 +69,7 @@ swiftmailer:
   password:  308abec85b0129
   auth_mode: cram-md5
   port: 2525
+  
 
 endroid_qr_code:
     size: 100
