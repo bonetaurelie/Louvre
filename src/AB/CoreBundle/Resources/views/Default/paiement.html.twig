@@ -21,8 +21,6 @@
                 </div>
             {% endfor %}
 
-
-
             <div class="bouton">
                 <div class="row">
                     <div class="stripe col-xs-offset-2 col-sm-pull-1 col-sm-3 col-md-3 col-lg-push-1 col-lg-3">
@@ -40,34 +38,33 @@
                         </form>
                     </div>
 
-                        <div class="paypal col-xs-offset-5 col-sm-3 col-md-3 col-lg-3 col-lg-push-1">
-                            <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+                    <div class="paypal col-xs-offset-5 col-sm-3 col-md-3 col-lg-3 col-lg-push-1">
+                        <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
 
-                                <!-- Identify your business so that you can collect the payments. -->
-                                <input type="hidden" name="business" value="LGLLE9WX9ER32">
+                            <!-- Identify your business so that you can collect the payments. -->
+                            <input type="hidden" name="business" value="LGLLE9WX9ER32">
 
-                                <!-- Specify a Buy Now button. -->
-                                <input type="hidden" name="cmd" value="_xclick">
+                            <!-- Specify a Buy Now button. -->
+                            <input type="hidden" name="cmd" value="_xclick">
 
-                                <!-- Specify details about the item that buyers will purchase. -->
-                                <input type="hidden" name="item_name" value="Réservation billetterie Musée du Louvre">
-                                <input type="hidden" name="amount" value="{{ val_commande.tarif }}">
-                                <input type="hidden" name="currency_code" value="EUR">
+                            <!-- Specify details about the item that buyers will purchase. -->
+                            <input type="hidden" name="item_name" value="Réservation billetterie Musée du Louvre">
+                            <input type="hidden" name="amount" value="{{ val_commande.tarif }}">
+                            <input type="hidden" name="currency_code" value="EUR">
 
-                                <!-- Display the payment button. -->
-                                <input type="image" name="submit" border="0"
-                                       src="https://www.paypalobjects.com/fr_FR/i/btn/btn_buynow_LG.gif"
-                                       alt="PayPal - The safer, easier way to pay online">
-                                <img alt="" border="0" width="1" height="1"
-                                     src="https://www.paypalobjects.com/fr_FR/i/scr/pixel.gif" >
-                            </form>
-                        </div>
+                            <!-- Display the payment button. -->
+                            <input type="image" name="submit" border="0"
+                                   src="https://www.paypalobjects.com/fr_FR/i/btn/btn_buynow_LG.gif"
+                                   alt="PayPal - The safer, easier way to pay online">
+                            <img alt="" border="0" width="1" height="1"
+                                 src="https://www.paypalobjects.com/fr_FR/i/scr/pixel.gif" >
+                        </form>
+                    </div>
 
                     <div class="annulation col-xs-offset-8 col-sm-push-1 col-sm-3 col-md-push-1 col-md-3 col-lg-push-2 col-lg-3">
                         <a class="btn btn-danger" href="{{ path('ab_core_accueil')}}" role="button">{{ 'annulation' |trans }}</a>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

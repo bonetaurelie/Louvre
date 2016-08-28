@@ -18,11 +18,10 @@
                 </div>
 
                 <div class="row">
-                    <div class="fb-share-button  col-md-offset-4 col-sm-offset-4 col-xs-offset-3" data-href="https://projet-louvre.herokuapp.com/" data-layout="button" data-mobile-iframe="true"></div>
+                    <div class="fb-share-button  col-md-offset-4 col-sm-offset-4 col-xs-offset-3" data-href="http://localhost/louvre/web/app_dev.php/fr/" data-layout="button" data-mobile-iframe="true"></div>
                     <div id="fb-root"
                          data-href="{{ path('ab_core_accueil') }}"
                          data-layout="button">
-
                     </div>
                     <script>(function(d, s, id) {
                             var js, fjs = d.getElementsByTagName(s)[0];
@@ -30,10 +29,11 @@
                             js = d.createElement(s); js.id = id;
                             js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.6";
                             fjs.parentNode.insertBefore(js, fjs);
-                        }(document, 'script', 'facebook-jssdk'));</script>
+                        }(document, 'script', 'facebook-jssdk'));
+                    </script>
 
                     <div class="tweeter col-md-offset-7 col-sm-offset-7 col-xs-offset-7">
-                        <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://projet-louvre.herokuapp.com/" data-text="{{'tweet.partage' |trans }}">Tweet</a>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://localhost/louvre/web/app_dev.php/fr/" data-text="{{'tweet.partage' |trans }}">Tweet</a>
                         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
                     </div>
 
@@ -41,10 +41,7 @@
                         <a class="btn btn-default" href="{{ path('ab_core_accueil')}}" role="button">{{ 'accueil' |trans }}</a>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
-
-
 {% endblock %}
