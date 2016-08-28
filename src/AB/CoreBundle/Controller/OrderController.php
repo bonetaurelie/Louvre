@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class OrderController extends Controller
 {
+    //Enregistrement du montant de la commande
     public function paiementAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -50,40 +51,7 @@ class OrderController extends Controller
                 $val_commande->setTarif(array_sum($tarifCommande));
             }
         }
-        //l'email qui se trouve dans l'entité billet
-        /*if($request->get('submit')){
-            if($request->isValid()){
-            $val_commande->setStatut('P');
-       
-        }
-            $this->get('session')->getFlashBag()->add('notice','Votre transaction d\'un montant de .... a bien été efectuée');
-            return $this->redirect($this->generateUrl('ab_core_partage'));
-        }
-        elseIf($request->get('Musée du Louvre')){
-            if($request->isValid()){
-        $val_commande->setStatut('S');
-        $message = \Swift_Message::newInstance()
-                ->setSubject('Votre réservation au musée du Louvre')
-                ->setFrom('bonetaurelie@gmail.com')
-                ->setTo($billet->getEmail())
-                ->setContentType('text/html')
-                ->setBody(
-                    $this->renderView('ABCoreBundle:Default:email.html.twig'))
-                ->attach(Swift_Attachment::fromPath('/path/to/a/file.zip'));  // ->->->path?????
-            $this->get('mailer')->send($message);
-       }
-            $this->get('session')->getFlashBag()->add('notice','Votre transaction d\'un montant de .... a bien été efectuée');
-            return $this->redirect($this->generateUrl('ab_core_partage'));
-       }
-        elseIf($request->get('annulation')){
-            $val_commande->setStatut('A');
-        }
-        else{
-            $val_commande->setStatut('E');
-            return $this->redirect($this->generateurl('ab_core_error',array('id'=>$id)));
-        }*/
-
-
+      
         $em->persist($val_commande);
         $em->flush();
         $stripe_montant = $val_commande->getTarif() * 100;
@@ -93,6 +61,7 @@ class OrderController extends Controller
             'stripe_montant' => $stripe_montant));
     }
 
+    //Paiement par stripe
     public function stripeAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -132,6 +101,7 @@ class OrderController extends Controller
         }
     }
 
+    //Accès à la page partage après un paiement par PayPal
     public function partagePaypalAction(){
         $em = $this->getDoctrine()->getManager();
         $val_commande = $em->getRepository('ABCoreBundle:Validation_commande');
@@ -139,6 +109,7 @@ class OrderController extends Controller
         return $this->render('ABCoreBundle:Default:partagePaypal.html.twig');
     }
 
+    //Accès à la page partage après un paiement par Stripe
     public function partageAction($id){
         $em = $this->getDoctrine()->getManager();
         $val_commande = $em->getRepository('ABCoreBundle:Validation_commande')->find($id);
@@ -160,6 +131,7 @@ class OrderController extends Controller
         ));
     }
 
+    //Création d'un pdf
     public function createPdfAction($id){
         $commandes = new Commande();
         $em = $this->getDoctrine()->getManager();

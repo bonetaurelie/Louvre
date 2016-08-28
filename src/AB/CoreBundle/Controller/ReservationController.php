@@ -30,6 +30,8 @@ class ReservationController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
+    
+    //Mise en place du premier formulaire 
     public function reservationAction( Request $request){
 
         $error="";
@@ -87,7 +89,6 @@ class ReservationController extends Controller
                     )));
                 }
             }
-
         }
 
         return $this->render('ABCoreBundle:Reservation:reservation.html.twig',array(
@@ -106,6 +107,7 @@ class ReservationController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
+    //Mise en place de la seconde étape de la réservation avec le second formulaire
     public function reservationSecondeEtapeAction($id, Request $request){
 
         $em = $this->getDoctrine()->getManager();
@@ -208,6 +210,7 @@ class ReservationController extends Controller
 
                             $dateanniv = $visiteur->getDateNaissance();
                             $date = new \DateTime();
+                            
                             //tarif réduit coché 10€
                             if ($visiteur->getTarifReduit() == 1) {
                                 $commande->setTarif(10.00);
@@ -230,7 +233,6 @@ class ReservationController extends Controller
                             $commande->setBillet($billet);
                             $em->persist($commande);
                         }
-
                     }
                     $em->persist($visiteur);
                     $em->flush();
@@ -284,14 +286,12 @@ class ReservationController extends Controller
                         'id' =>$billet->getId()
                     )));
                 }
-
             }else{
                 $this->get('session')->getFlashBag()->add('error',$this->get('translator')->trans('error.message'));
                 return $this->redirect($this->generateUrl('ab_core_reservation_seconde_etape',array(
                     'id' => $id
                 )));
             }
-
         }
 
         return $this->render('ABCoreBundle:Reservation:seconde-etape.html.twig',array(
@@ -324,6 +324,7 @@ class ReservationController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
+    //Modification du premier formulaire 
     public function updateReservationAction($id, Request $request){
         $error="";
         $error1="";
@@ -357,5 +358,4 @@ class ReservationController extends Controller
         }
         return $this->render('ABCoreBundle:Reservation:updateresa.html.twig',array('billet'=>$billet,'form'=>$form->createView(),'error'=>$error,'error1'=>$error1));
     }
-
 }
