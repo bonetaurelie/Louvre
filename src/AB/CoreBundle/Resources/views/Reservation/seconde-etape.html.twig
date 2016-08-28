@@ -14,12 +14,11 @@
                 <div class="form">
                     <h1 class="text-center">{{ 'form' | trans }}</h1>
 
-                    {% for flash_message in app.session.flashBag.get('error') %}
-                        <div class="flash-error">
-                            {{ flash_message }}
-                        </div>
-                    {% endfor %}
-
+                        {% for flash_message in app.session.flashBag.get('error') %}
+                            <div class="flash-error">
+                                {{ flash_message }}
+                            </div>
+                        {% endfor %}
 
                     <div class="form2  col-xs-offset-3 col-sm-offset-2 col-md-offset-3">
                         {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
@@ -89,6 +88,7 @@
                                 </div>
                             </li>
                         {% endfor %}
+
                         <input id="nbVisiteur" type="hidden" value="{{ nbVisiteur }}">
 
                         <div class="valider col-xs-offset-5 col-sm-offset-5 col-md-offset-5">
@@ -125,7 +125,6 @@
                     autoclose: true
                 });
             }
-
         });
     </script>
 {% endblock %}
