@@ -26,7 +26,7 @@ class Visiteur
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=255)
-     * @Assert\NotBLank(message="Ce champ est requis")
+     * @Assert\NotBLank(message="message.requis")
      * @Assert\Length(
      *     min = 2,
      *     minMessage="nom.message")
@@ -37,7 +37,7 @@ class Visiteur
      * @var string
      *
      * @ORM\Column(name="prenom", type="string", length=255)
-     * @Assert\NotBLank(message="Ce champ est requis")
+     * @Assert\NotBLank(message="message.requis")
      * @Assert\Length(
      *     min = 2,
      *     minMessage="prenom.message")
@@ -48,7 +48,7 @@ class Visiteur
      * @var \DateTime
      *
      * @ORM\Column(name="date_naissance", type="date")
-     * @Assert\NotBLank(message="Ce champ est requis")
+     * @Assert\NotBLank(message="message.requis")
      * @Assert\Date(
      *     message="date.message")
      */
@@ -58,7 +58,7 @@ class Visiteur
      * @var string
      *
      * @ORM\Column(name="pays", type="string", length=255)
-     * @Assert\NotBLank(message="Ce champ est requis")
+     * @Assert\NotBLank(message="message.requis")
      * @Assert\Length(
      *     min = 2,
      *     minMessage="pays.message")
