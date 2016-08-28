@@ -113,7 +113,7 @@ class OrderController extends Controller
     public function partageAction($id){
         $em = $this->getDoctrine()->getManager();
         $billet = $em->getRepository('ABCoreBundle:Billet')->find($id);
-
+        
         $message = \Swift_Message::newInstance()
             ->setSubject('Votre réservation au musée du Louvre')
             ->setFrom('bonetaurelie@gmail.com')
