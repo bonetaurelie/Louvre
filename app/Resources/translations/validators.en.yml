@@ -8,3 +8,4 @@ date.message: Please indicate your date of birth
 pays.message: Please enter only letters
 message.mardi: You cannot book Tuesday
 message.dimanche: You cannot book Sunday
+message.requis: This field is required
