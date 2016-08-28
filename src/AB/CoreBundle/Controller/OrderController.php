@@ -112,19 +112,40 @@ class OrderController extends Controller
     //Accès à la page partage après un paiement par Stripe
     public function partageAction($id){
         $em = $this->getDoctrine()->getManager();
-        $val_commande = $em->getRepository('ABCoreBundle:Validation_commande')->find($id);
+        $billet = $em->getRepository('ABCoreBundle:Billet')->find($id);
 
-        $message = \Swift_Message::newInstance()
-            ->setSubject('Votre réservation au musée du Louvre')
-            ->setFrom('bonetaurelie@gmail.com')
-            ->setTo('bonetaurelie@yahoo.fr')
-            ->setContentType('text/html')
-            ->setBody(
-                $this->renderView('ABCoreBundle:Default:email.html.twig'));
-        
-                //->attach(\Swift_Attachment::fromPath('/path/to/a/file.zip'));
-            
-        $this->get('mailer')->send($message);
+        $mail_to = "bonetaurelie@gmail.com"; //Destinataire
+        $from_mail = $billet->getEmail(); //Expediteur
+        $from_name = "Billetterie du Musée du Louvre"; //Votre nom, ou nom du site
+        $reply_to = "bonetaurelie@gmail.com"; //Adresse de réponse
+        $subject = "Votre réservation";
+        $file_name = "billet.pdf";
+        $path = "../views/Default/pdf.html.twig";
+        $typepiecejointe = filetype($path.$file_name);
+        $data = chunk_split( base64_encode(file_get_contents($path.$file_name)) );
+//Génération du séparateur
+        $boundary = md5(uniqid(time()));
+        $entete = "From: $from_mail \n";
+        $entete .= "Reply-to: $from_mail \n";
+        $entete .= "X-Priority: 1 \n";
+        $entete .= "MIME-Version: 1.0 \n";
+        $entete .= "Content-Type: multipart/mixed; boundary=\"$boundary\" \n";
+        $entete .= " \n";
+        $message  = "--$boundary \n";
+        $message .= "Content-Type: text/html; charset=\"iso-8859-1\" \n";
+        $message .= "Content-Transfer-Encoding:8bit \n";
+        $message .= "\n";
+        $message .= "Bonjour,<br />Veuillez trouver ci-joint le bon de commande<br/>Cordialement";
+        $message .= "\n";
+        $message .= "--$boundary \n";
+        $message .= "Content-Type: $typepiecejointe; name=\"$file_name\" \n";
+        $message .= "Content-Transfer-Encoding: base64 \n";
+        $message .= "Content-Disposition: attachment; filename=\"$file_name\" \n";
+        $message .= "\n";
+        $message .= $data."\n";
+        $message .= "\n";
+        $message .= "--".$boundary."--";
+        mail($mail_to, $subject, $message, $entete);
 
         return $this->render('ABCoreBundle:Default:partage.html.twig', array(
             'id' => $id,
@@ -141,7 +162,7 @@ class OrderController extends Controller
                 $html2pdf->pdf->SetDisplayMode('real');
                 $html2pdf->writeHTML($html);
         
-        return new Response($html2pdf->Output( '.pdf'),200,array('Content-Type'=>'application/pdf'));
+        return new Response($html2pdf->Output( 'billet.pdf'),200,array('Content-Type'=>'application/pdf'));
     }
     
 }
