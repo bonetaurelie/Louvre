@@ -5,6 +5,7 @@ use AB\CoreBundle\Entity\Visiteur;
 
 class VisiteurTest extends \PHPUnit_Framework_TestCase{
 
+    //Test que le champ nom ne soit pas vide et au bon format
     public function testsetNom(){
         $visiteur= new Visiteur();
         $visiteur->setNom('bonet');
@@ -12,6 +13,7 @@ class VisiteurTest extends \PHPUnit_Framework_TestCase{
         $this->assertStringMatchesFormat('%s',$visiteur->getNom());
     }
 
+    //Test que le champ prénom ne soit pas vide et au bon format
     public function testsetPrenom(){
         $visiteur= new Visiteur();
         $visiteur->setPrenom('Aurélie');
@@ -19,6 +21,7 @@ class VisiteurTest extends \PHPUnit_Framework_TestCase{
         $this->assertStringMatchesFormat('%s',$visiteur->getPrenom());
     }
 
+    //Test que le champ pays ne soit pas vide et au bon format
     public function testsetPays(){
         $visiteur= new Visiteur();
         $visiteur->setPays('FR');
@@ -26,6 +29,7 @@ class VisiteurTest extends \PHPUnit_Framework_TestCase{
         $this->assertStringMatchesFormat('%s',$visiteur->getPays());
     }
 
+    //Test que le champ date de naissance ne soit pas vide
     public function testsetDateNaissance(){
         $visiteur= new Visiteur();
         $visiteur->setDateNaissance('10/04/1983');

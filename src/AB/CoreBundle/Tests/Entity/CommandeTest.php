@@ -5,6 +5,7 @@ use AB\CoreBundle\Entity\Commande;
 
 class CommandeTest extends \PHPUnit_Framework_TestCase{
 
+    //Test pour vérifier le tarif de 8€, de 10€ et gratuit pour les moins de 4ans
     public function testsetTarif(){
 
         $commande = new Commande();
