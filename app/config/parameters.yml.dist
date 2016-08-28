@@ -10,10 +10,9 @@ parameters:
     # You should uncomment this if you want use pdo_sqlite
     # database_path: "%kernel.root_dir%/data.db3"
 
-    mailer_transport:  smtp
-    mailer_host:       mailtrap.io
-    mailer_user:       abf0ec66a5c73b
-    mailer_password:   308abec85b0129
+    mailer_user:     bonetaurelie@gmail.com
+    mailer_password: LOUANE300507
+
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt

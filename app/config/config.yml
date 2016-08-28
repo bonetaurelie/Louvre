@@ -62,12 +62,9 @@ doctrine:
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport:  smtp
-    host:       email-smtp.us-west-2.amazonaws.com
-    port:       587 # different ports are available, see SES console
-    encryption: tls # TLS encryption is required
-    username:   AKIAIB55B3KYYIPZ2W4Q  # to be created in the SES console
-    password:   AsvdL6Sv2AiHX226EbLgxE3ui2O9BmtByFzPmvl9lftY  # to be created in the SES console
+    transport: gmail
+    username:  '%mailer_user%'
+    password:  '%mailer_password%'
 
 endroid_qr_code:
     size: 100
