@@ -62,9 +62,13 @@ doctrine:
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: gmail
-    username:  bonetaurelie
-    password:  LOUANE300507
+  spool:     { type: memory }
+  transport: smtp
+  host:      mailtrap.io
+  username:  abf0ec66a5c73b
+  password:  308abec85b0129
+  auth_mode: cram-md5
+  port: 2525
 
 endroid_qr_code:
     size: 100
