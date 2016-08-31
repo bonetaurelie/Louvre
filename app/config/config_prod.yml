@@ -26,7 +26,6 @@ monolog:
         console:
             type:  console
 
-
 swiftmailer:
     spool:     { type: memory }
     transport: smtp
