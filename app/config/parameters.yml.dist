@@ -11,13 +11,12 @@ parameters:
     # database_path: "%kernel.root_dir%/data.db3"
 
     mailer_transport:  smtp
-    mailer_host:       mailtrap.io
-    mailer_user:       abf0ec66a5c73b
-    mailer_password:   308abec85b0129
-    mailer_port:       2525
-    mailer_auth_mode:
+        mailer_host:       127.0.0.1
+        mailer_user:       ~
+        mailer_password:   ~
 
-
+    #email to use for send from site to users
+    robot_email:  app55728018@heroku.com
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
     stripe_secret_key: sk_test_gUDd5mHdcXGQoxBmsBxgEXvN
