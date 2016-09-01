@@ -256,7 +256,7 @@ footer{
     margin-top: 40px;
 }
 
-/*XS*/
+/*Extra-small*/
 @media all and (max-width:768px) {
     .flash-notice {
         color: rgb(4,22,244);
